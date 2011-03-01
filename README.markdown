@@ -1,4 +1,4 @@
-== MARKET LIST
+MARKET LIST
 
 This application is for the Burlington, NC Food Co-op to allow the market manager to source as much produce as possible from local farmers and producers with as little friction as possible.  
 
