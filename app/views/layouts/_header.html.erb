@@ -5,6 +5,7 @@
       <li><%= link_to "Home", root_path %></li>
       <% if signed_in? %>
         <li><%= link_to "My Account", current_user %></li>
+        <li><%= link_to "All Accounts", users_path %></li>
       <% end %>
       <li><%= link_to "Help", contact_path %></li>
       <% if signed_in? %>

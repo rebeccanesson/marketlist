@@ -2,3 +2,7 @@
   <%= gravatar_for @user %>
   <%= @user.name %>
 </h1>
+<% if signed_in? and current_user?(@user) %>
+  <p><%= link_to "Settings", edit_user_path(current_user) %></p>
+<% end %>
+
