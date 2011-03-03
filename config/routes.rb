@@ -1,4 +1,6 @@
 Marketlist::Application.routes.draw do
+  resources :order_lists
+
   get "sessions/new"
 
   resources :users
@@ -8,7 +10,7 @@ Marketlist::Application.routes.draw do
 
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
-  match '/help',    :to => 'pages#help'
+  match '/admin',   :to => 'pages#admin'
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
@@ -65,7 +67,7 @@ Marketlist::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "pages#home"
+  root :to => "sessions#new"
 
   # See how all your routes lay out with "rake routes"
 

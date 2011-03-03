@@ -2,12 +2,13 @@
   <%= image_tag("logo.jpg", :alt => "Market List Logo", :class => "round", :height => "100px") %>
   <nav class="round">
     <ul>
-      <li><%= link_to "Home", root_path %></li>
       <% if signed_in? %>
         <li><%= link_to "My Account", current_user %></li>
-        <li><%= link_to "All Accounts", users_path %></li>
       <% end %>
       <li><%= link_to "Help", contact_path %></li>
+      <% if admin? %>
+        <li><%= link_to "Administer Site", admin_path %></li>
+      <% end %>
       <% if signed_in? %>
         <li><%= link_to "Sign out", signout_path, :method => :delete %></li>
       <% else %>

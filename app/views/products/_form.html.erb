@@ -20,12 +20,16 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :organic_price %><br />
-    <%= f.text_field :organic_price %>
+    <%= f.label :organic_status %><br />
+    <%= select("product", "organic_status", Product::ORGANIC_STATUSES, {}) %>
   </div>
   <div class="field">
-    <%= f.label :conventional_price %><br />
-    <%= f.text_field :conventional_price %>
+    <%= f.label :base_conventional_price %><br />
+    $<%= f.text_field :base_conventional_price %>
+  </div>
+  <div class="field">
+    <%= f.label :base_organic_price %><br />
+    $<%= f.text_field :base_organic_price %>
   </div>
   <div class="actions">
     <%= f.submit %>

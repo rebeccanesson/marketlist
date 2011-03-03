@@ -1,0 +1,13 @@
+<li>
+  <%= link_to product.name, product %><br />
+  <%= product.organic_status%>, organic price: <%= number_to_currency(product.base_organic_price) %>, conventional price: <%= number_to_currency(product.base_conventional_price) %><br />
+  <%= product.description %>
+  <div style="float:right;">
+  <% if current_user.admin? %>
+    <%= link_to "delete", product, :method => :delete, :confirm => "You sure?",
+                                  :title => "Delete #{product.name}" %>
+    | <%= link_to "edit", edit_product_path(product) %>
+  <% end %> 
+  </div>
+  
+</li>

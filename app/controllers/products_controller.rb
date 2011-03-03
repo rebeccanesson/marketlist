@@ -1,72 +1,58 @@
 class ProductsController < ApplicationController
+  before_filter :authenticate
+  before_filter :admin_user,  :except => :show
+  
   # GET /products
   # GET /products.xml
   def index
-    @products = Product.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @products }
-    end
+    @products = Product.paginate(:page => params[:page], :order => "name ASC")
+    @title = "All Products"
   end
 
   # GET /products/1
   # GET /products/1.xml
   def show
     @product = Product.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @product }
-    end
+    @title = @product.name
   end
 
   # GET /products/new
   # GET /products/new.xml
   def new
     @product = Product.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @product }
-    end
+    @title = "New Product"
   end
 
   # GET /products/1/edit
   def edit
     @product = Product.find(params[:id])
+    @title = "Edit Product"
   end
 
   # POST /products
   # POST /products.xml
   def create
     @product = Product.new(params[:product])
-
-    respond_to do |format|
       if @product.save
-        format.html { redirect_to(@product, :notice => 'Product was successfully created.') }
-        format.xml  { render :xml => @product, :status => :created, :location => @product }
+        flash[:success] = 'Product was successfully created.'
+        redirect_to(@product)
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
+        @title = "New Product"
+        render "new" 
       end
-    end
   end
 
   # PUT /products/1
   # PUT /products/1.xml
   def update
     @product = Product.find(params[:id])
-
-    respond_to do |format|
       if @product.update_attributes(params[:product])
-        format.html { redirect_to(@product, :notice => 'Product was successfully updated.') }
-        format.xml  { head :ok }
+        flash[:success] = 'Product was successfully updated.'
+        redirect_to(@product)
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
+        @title = "Edit Product"
+        render "edit" 
       end
-    end
   end
 
   # DELETE /products/1
@@ -74,10 +60,9 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(products_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(products_url) 
   end
+  
+  private
+  
 end

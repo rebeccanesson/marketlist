@@ -12,11 +12,21 @@ describe UsersController do
          flash[:notice].should =~ /sign in/i
        end
      end
-
-     describe "for signed-in users" do
+       
+    describe "for signed in non-admin users" do 
+         it "should deny access" do 
+           @user = test_sign_in(Factory(:user))
+           get :index
+           response.should redirect_to(root_path)
+         end
+    end
+       
+     describe "for admin users" do
 
        before(:each) do
-         @user = test_sign_in(Factory(:user))
+         @user = Factory(:user)
+         @user.toggle!(:admin)
+         @user = test_sign_in(@user)
          second = Factory(:user, :name => "Bob", :email => "another@example.com")
          third  = Factory(:user, :name => "Ben", :email => "another@example.net")
 
@@ -44,7 +54,7 @@ describe UsersController do
            response.should have_selector("li", :content => user.name)
          end
        end
-       
+      
        it "should paginate users" do
           get :index
           response.should have_selector("div.pagination")
@@ -73,35 +83,65 @@ describe UsersController do
   end
   
   describe "GET 'show'" do
+    describe "for admin users" do
+      before(:each) do
+        @user = Factory(:user)
+        @admin_user = Factory(:user, :name => "Admin User", :email => "admin@admin.org", :admin => true)
+        @admin_user = test_sign_in(@admin_user)
+      end
 
-     before(:each) do
-       @user = Factory(:user)
-     end
+      it "should be successful" do
+        get :show, :id => @user
+        response.should be_success
+      end
 
-     it "should be successful" do
-       get :show, :id => @user
-       response.should be_success
-     end
-
-     it "should find the right user" do
-       get :show, :id => @user
-       assigns(:user).should == @user
-     end
+      it "should find the right user" do
+        get :show, :id => @user
+        assigns(:user).should == @user
+      end
      
-     it "should have the right title" do
-       get :show, :id => @user
-       response.should have_selector("title", :content => @user.name)
-     end
+      it "should have the right title" do
+        get :show, :id => @user
+        response.should have_selector("title", :content => @user.name)
+      end
 
-     it "should include the user's name" do
-       get :show, :id => @user
-       response.should have_selector("h1", :content => @user.name)
-     end
+      it "should include the user's name" do
+        get :show, :id => @user
+        response.should have_selector("h1", :content => @user.name)
+      end
 
-     it "should have a profile image" do
-       get :show, :id => @user
-       response.should have_selector("h1>img", :class => 'gravatar')
-     end
+      it "should have a profile image" do
+        get :show, :id => @user
+        response.should have_selector("h1>img", :class => 'gravatar')
+      end
+    end
+    
+    describe "for the user herself" do 
+      it "should be successful" do
+        @user = Factory(:user)
+        @user = test_sign_in(@user)
+        get :show, :id => @user
+        response.should be_success
+      end
+    end
+    
+    describe "for signed in users" do 
+      it "should protect the page" do 
+        @user = Factory(:user)
+        @signed_in_user = Factory(:user, :name => "Other User", :email => "theother@guy.com")
+        @signed_in_user = test_sign_in(@signed_in_user)
+        get :show, :id => @user
+        response.should redirect_to(root_path)
+      end
+    end
+    
+    describe "for non-logged in users" do 
+      it "should protect the page" do 
+        @user = Factory(:user)
+        get :show, :id => @user
+        response.should redirect_to(signin_path)
+      end
+    end
      
   end
   

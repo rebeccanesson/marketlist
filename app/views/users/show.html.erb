@@ -1,8 +1,21 @@
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.name %>
-</h1>
-<% if signed_in? and current_user?(@user) %>
-  <p><%= link_to "Settings", edit_user_path(current_user) %></p>
-<% end %>
+<table class="profile" summary="Profile information">
+  <tr>
+    <td class="main">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+        <%= "(admin)" if @user.admin? %>
+      </h1>
+    </td>
+    <td class="sidebar round">
+      <% if signed_in? and (current_user?(@user) or current_user.admin?) %>
+        <strong><%= link_to "Edit Account", edit_user_path(current_user) %></strong><br />
+        <strong><%= link_to "Request Organic Status", contact_path %></strong>
+        <strong><%= link_to "View My Invoices", "#" %></strong>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<br />
+
 

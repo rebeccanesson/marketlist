@@ -7,3 +7,4 @@ doc/
 *.swp
 *~
 .DS_Store
+lib/tasks/sample_data.rake

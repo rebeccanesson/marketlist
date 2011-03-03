@@ -1,29 +1,14 @@
-<h1>Listing products</h1>
+<h1>All Products</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Organic price</th>
-    <th>Conventional price</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= link_to 'Add a new product', new_product_path %>
 
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.name %></td>
-    <td><%= product.description %></td>
-    <td><%= product.organic_price %></td>
-    <td><%= product.conventional_price %></td>
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<%= will_paginate %>
 
-<br />
+<ul class="products">
+  <% @products.each do |product| %>
+    <%= render product %>
+  <% end %>
+</ul>
 
-<%= link_to 'New Product', new_product_path %>
+<%= will_paginate %>
+

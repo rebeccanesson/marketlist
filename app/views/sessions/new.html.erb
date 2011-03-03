@@ -1,4 +1,9 @@
-<h1>Sign in</h1>
+<h1>The Market List</h1>
+<p>Welcome to the Market List. Please sign in.<p>
+
+<div style="margin-top:25px;">
+  <div style="float:left;">
+<h3>Sign in</h3>
 
 <%= form_for(:session, :url => sessions_path) do |f| %>
   <div class="field">
@@ -13,5 +18,10 @@
     <%= f.submit "Sign in" %>
   </div>
 <% end %>
-
-<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+</div>
+<div style="float:right;">
+  <h3>Sign Up</h3>
+  <%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
+</div>
+</div>
+<div style="clear:both;" />

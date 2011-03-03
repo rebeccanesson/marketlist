@@ -10,15 +10,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302182931) do
+ActiveRecord::Schema.define(:version => 20110303020451) do
+
+  create_table "order_lists", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "due_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "products", :force => true do |t|
     t.string   "name"
-    t.string   "description"
-    t.integer  "organic_price"
-    t.integer  "conventional_price"
+    t.text     "description",             :limit => 255
+    t.decimal  "base_organic_price"
+    t.decimal  "base_conventional_price"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "organic_status",                         :default => "both"
   end
 
   create_table "users", :force => true do |t|

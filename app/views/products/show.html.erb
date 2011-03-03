@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
+<h1>
   <%= @product.name %>
-</p>
+</h1>
 
 <p>
   <b>Description:</b>
@@ -11,13 +10,18 @@
 </p>
 
 <p>
+  <b>Organic status:</b>
+  <%= @product.organic_status %>
+</p>
+
+<p>
   <b>Organic price:</b>
-  <%= @product.organic_price %>
+  <%= number_to_currency(@product.base_organic_price) %>
 </p>
 
 <p>
   <b>Conventional price:</b>
-  <%= @product.conventional_price %>
+  <%= number_to_currency(@product.base_conventional_price) %>
 </p>
 
 
