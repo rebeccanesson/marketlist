@@ -1,10 +1,10 @@
-<h1>Listing order_lists</h1>
+<h1>All Order Lists</h1>
 
 <%= will_paginate %>
 
 <table>
   <tr>
-    <th>User</th>
+    <th>Creator</th>
     <th>Start date</th>
     <th>End date</th>
     <th>Due date</th>
@@ -15,7 +15,7 @@
 
 <% @order_lists.each do |order_list| %>
   <tr>
-    <td><%= order_list.user_id %></td>
+    <td><%= order_list.user.name %></td>
     <td><%= order_list.start_date %></td>
     <td><%= order_list.end_date %></td>
     <td><%= order_list.due_date %></td>

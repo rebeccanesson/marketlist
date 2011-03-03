@@ -33,12 +33,12 @@ describe OrderListsController do
         @user = Factory(:user)
         @user.toggle!(:admin)
         @user = test_sign_in(@user)
-        first = Factory(:order_list)
-        second = Factory(:order_list)
-        third  = Factory(:order_list)
+        first = Factory(:order_list, :user => @user)
+        second = Factory(:order_list, :user => @user)
+        third  = Factory(:order_list, :user => @user)
         @order_lists = [first, second, third]
         30.times do
-          @order_lists << Factory(:order_list)
+          @order_lists << Factory(:order_list, :user => @user)
         end
       end
 
@@ -179,7 +179,7 @@ describe OrderListsController do
           @user.toggle!(:admin)
           @user = test_sign_in(@user)
           @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
-                    :user_id => @user }
+                    :user => @user }
         end
 
         it "should create an order list" do
@@ -201,7 +201,7 @@ describe OrderListsController do
         @user = Factory(:user)
         @user = test_sign_in(@user)
         @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
-                  :user_id => @user }
+                  :user => @user }
       end
       
       it "should protect the page" do 
@@ -213,7 +213,7 @@ describe OrderListsController do
    describe "for non-logged in users" do 
      before(:each) do 
        @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
-                 :user_id => @user }
+                 :user => @user }
      end
       
       it "should protect the page" do 
@@ -284,7 +284,7 @@ describe OrderListsController do
 
         before(:each) do
           @attr = { :start_date => nil, :end_date => nil, :due_date => nil, 
-                    :user_id => nil }
+                    :user => nil }
           @order_list = Factory(:order_list)
         end
 
@@ -304,7 +304,7 @@ describe OrderListsController do
 
         before(:each) do
           @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
-                    :user_id => @user }
+                    :user => @user }
           @order_list = Factory(:order_list)
         end
 
@@ -335,7 +335,7 @@ describe OrderListsController do
         test_sign_in(@user)
         @order_list = Factory(:order_list)
         @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
-                  :user_id => @user }
+                  :user => @user }
       end
       
       it "should protect the page" do 
@@ -348,7 +348,7 @@ describe OrderListsController do
       before(:each) do
         @order_list = Factory(:order_list)
         @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
-                  :user_id => @user }     
+                  :user => @user }     
       end
       
       it "should protect the page" do 

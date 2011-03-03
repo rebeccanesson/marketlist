@@ -20,6 +20,7 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new.xml
   def new
     @order_list = OrderList.new
+    @order_list.user = current_user
     @title = "New Order List"
   end
 
@@ -33,6 +34,7 @@ class OrderListsController < ApplicationController
   # POST /order_lists.xml
   def create
     @order_list = OrderList.new(params[:order_list])
+    @order_list.user = current_user
     
       if @order_list.save
         flash[:success] = 'Order list was successfully created.'
@@ -65,4 +67,5 @@ class OrderListsController < ApplicationController
 
     redirect_to(order_lists_url)
   end
+  
 end

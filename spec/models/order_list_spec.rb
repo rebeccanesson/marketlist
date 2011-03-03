@@ -27,6 +27,11 @@ describe OrderList do
     no_due_ol = OrderList.new(@attr.merge(:due_date => nil))
     no_due_ol.should_not be_valid
   end
+   
+   it "should require a user" do 
+     no_user_ol = OrderList.new(@attr.merge(:user => nil))
+     no_user_ol.should_not be_valid
+  end
   
   it "should reject start dates that are in the past" do
     ol = OrderList.new(@attr.merge(:start_date => Time.now - 1.day))
