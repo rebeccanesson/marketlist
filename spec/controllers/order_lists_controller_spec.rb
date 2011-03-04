@@ -52,6 +52,13 @@ describe OrderListsController do
         response.should have_selector("title", :content => "All Order Lists")
       end
       
+      it "should have an element for each order list" do
+        get :index
+        @order_lists[0..2].each do |ol|
+          response.should have_selector("li", :content => "Delivery period")
+        end
+      end
+      
       it "should paginate order_lists" do
          get :index
          response.should have_selector("div.pagination")

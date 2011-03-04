@@ -5,22 +5,22 @@
 
 <p>
   <b>Ordering begins:</b>
-  <%= @order_list.order_start.strftime("%A, %b %e") %>
+  <%= @order_list.order_start.strftime("%A, %b %e at %l:%M%p") %>
 </p>
 
 <p>
   <b>Ordering ends:</b>
-  <%= (@order_list.order_end - 1.day).strftime("%A, %b %e") %>
+  <%= (@order_list.order_end - 1.day).strftime("%A, %b %e at %l:%M%p") %>
 </p>
 
 <p>
   <b>Delivery begins:</b>
-  <%= @order_list.delivery_start.strftime("%A, %b %e at %h") %>
+  <%= @order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %>
 </p>
 
 <p>
   <b>Delivery ends:</b>
-  <%= @order_list.delivery_end.strftime("%A, %b %e at %h") %>
+  <%= @order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %>
 </p>
 
 <%= link_to 'Edit', edit_order_list_path(@order_list) %> |

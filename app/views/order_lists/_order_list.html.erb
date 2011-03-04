@@ -1,0 +1,22 @@
+<li>
+  <% if order_list.order_end - order_list.order_start <= 1.day %>
+    Ordering day: <%= order_list.order_start.strftime("%A, %b %e") %>
+  <% else %>
+    Ordering period: <%= order_list.order_start.strftime("%A, %b %e") %> at 12:00AM - <%= (order_list.order_end - 1.day).strftime("%A, %b %e") %> at midnight
+  <% end %><br />
+  <% if order_list.delivery_start.beginning_of_day == order_list.delivery_end.beginning_of_day %>
+    Delivery period: <%= order_list.delivery_start.strftime("%A, %b %e %l:%M%p") %> - 
+                     <%= order_list.delivery_end.strftime("%l:%M%p") %>
+  <% else %>
+    Delivery period: <%= order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %> - 
+                     <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %>
+  <% end %>
+  <div style="float:right;">
+  <% if current_user.admin? %>
+    <%= link_to "delete", order_list, :method => :delete, :confirm => "You sure?",
+                                  :title => "Delete order list" %>
+    | <%= link_to "edit", edit_order_list_path(order_list) %>
+  <% end %> 
+  </div>
+  
+</li>
