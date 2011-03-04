@@ -20,7 +20,11 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
-    if @user.save
+    if params[:user][:admin] and !admin?
+      flash[:error] = "Only admins can create admins"
+      @title = "Sign up"
+      render 'new'
+    elsif @user.save
       sign_in @user
       flash[:success] = "Welcome to the Market List!"
       redirect_to @user
@@ -35,7 +39,11 @@ class UsersController < ApplicationController
   end
   
   def update
-    if @user.update_attributes(params[:user])
+    if params[:user][:admin] and !admin?
+      flash[:error] = "Only admins can create admins"
+      @title = "Edit user"
+      render 'edit'
+    elsif @user.update_attributes(params[:user])
       flash[:success] = "Account updated."
       redirect_to @user
     else

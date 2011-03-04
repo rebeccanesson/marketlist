@@ -279,10 +279,12 @@ describe UsersController do
     end
   end
   
-  describe "authentication of edit/update pages" do
+  describe "authentication of create/edit/update pages" do
 
     before(:each) do
       @user = Factory(:user)
+      @attr = { :name => "New User", :email => "user@example.com",
+                :password => "foobar", :password_confirmation => "foobar", :admin => true }
     end
 
     describe "for non-signed-in users" do
@@ -301,8 +303,8 @@ describe UsersController do
     describe "for signed-in users" do
 
       before(:each) do
-        wrong_user = Factory(:user, :email => "user@example.net")
-        test_sign_in(wrong_user)
+        @wrong_user = Factory(:user, :email => "user@example.net")
+        @wrong_user = test_sign_in(@wrong_user)
       end
 
       it "should require matching users for 'edit'" do
@@ -313,6 +315,34 @@ describe UsersController do
       it "should require matching users for 'update'" do
         put :update, :id => @user, :user => {}
         response.should redirect_to(root_path)
+      end
+      
+      it "should require admin users for 'update' including admin" do 
+        put :update, :id => @wrong_user, :user => {:admin => true}
+        response.should render_template('edit')
+      end
+      
+      it "should require admin users to create admin users" do 
+        post :create, :user => @attr
+        response.should render_template('new')
+      end
+    end
+    
+    describe "for admin users" do 
+      before(:each) do 
+        @admin_user = Factory(:user, :email => "admin@admin.foo")
+        @admin_user.toggle!(:admin)
+        @admin_user = test_sign_in(@admin_user)
+      end
+      
+      it "should allow update of admin attribute" do 
+        put :update, :id => @user, :user => {:admin => true}
+        assigns(:user).admin.should == true
+      end
+      
+      it "should allow admin to create an admin user" do 
+        post :create, :user => @attr
+        response.should redirect_to(user_path(assigns(:user)))
       end
     end
     

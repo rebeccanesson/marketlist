@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
                     
   validates :password, :presence     => true,
                        :confirmation => true,
-                       :length       => { :within => 6..40 }
+                       :length       => { :within => 6..40 },
+                       :unless       => Proc.new { |u| !u.encrypted_password.blank? }
   
   before_save :encrypt_password
   
