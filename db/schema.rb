@@ -10,11 +10,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110304010743) do
+ActiveRecord::Schema.define(:version => 20110304023520) do
 
   create_table "markets", :force => true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description",          :limit => 255
     t.string   "contact_email"
     t.string   "logo_url"
     t.integer  "start_day_of_week"

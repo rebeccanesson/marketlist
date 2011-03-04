@@ -87,5 +87,10 @@ describe OrderList do
     @market.due_date_hour = 7        # 7 am
     @market.due_date_period = 5      # 12pm
     ol = OrderList.new_for_market(@market)
+    ol.order_start.wday.should == @market.start_day_of_week
+    ol.order_start.should == ol.order_start.at_beginning_of_day
+    ol.order_end.should == ol.order_start + 1.day
+    ol.delivery_start.wday.should == @market.due_date_day_of_week
+    ol.delivery_end.should == ol.delivery_start + 5.hours
   end
 end

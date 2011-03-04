@@ -30,7 +30,21 @@ class OrderList < ActiveRecord::Base
   validates_is_after :delivery_end, :after => :delivery_start
   
   def self.new_for_market(market)
-    OrderList.new
+    ol = OrderList.new
+    if (market.start_day_of_week and market.ordering_period and market.due_date_day_of_week and 
+        market.due_date_hour and market.due_date_period)
+      ol.order_start = (Time.now + 1.day).beginning_of_day
+      while ol.order_start.wday != market.start_day_of_week
+        ol.order_start += 1.day
+      end 
+      ol.order_end = ol.order_start + market.ordering_period.days
+      ol.delivery_start = ol.order_end + market.due_date_hour.hours
+      while ol.delivery_start.wday != market.due_date_day_of_week
+        ol.delivery_start += 1.day
+      end
+      ol.delivery_end = ol.delivery_start + market.due_date_period.hours
+    end 
+    ol
   end
   
 end

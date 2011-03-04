@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20110303174929
+# Schema version: 20110304023520
 #
 # Table name: markets
 #
 #  id                   :integer         not null, primary key
 #  name                 :string(255)
-#  description          :string(255)
+#  description          :text(255)
 #  contact_email        :string(255)
 #  logo_url             :string(255)
 #  start_day_of_week    :integer

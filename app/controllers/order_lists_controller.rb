@@ -19,7 +19,8 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new
   # GET /order_lists/new.xml
   def new
-    @order_list = OrderList.new
+    @market = Market.the_market
+    @order_list = OrderList.new_for_market(@market)
     @order_list.user = current_user
     @title = "New Order List"
   end

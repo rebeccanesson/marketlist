@@ -83,6 +83,11 @@ describe OrderListsController do
         get 'new'
         response.should have_selector("title", :content => "New Order List")
       end 
+      
+      it "should have a non-nil market available" do 
+        get 'new'
+        assigns(:market).should == Market.the_market
+      end
     end
     
     describe "for non-logged in users" do 
