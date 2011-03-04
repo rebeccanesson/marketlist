@@ -12,16 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :start_date %><br />
-    <%= f.datetime_select :start_date %>
+    <%= f.label :order_start %><br />
+    <%= f.date_select :order_start %>
   </div>
   <div class="field">
-    <%= f.label :end_date %><br />
-    <%= f.datetime_select :end_date %>
+    <%= f.label :order_end %><br />
+    <%= f.date_select :order_end %>
   </div>
   <div class="field">
-    <%= f.label :due_date %><br />
-    <%= f.datetime_select :due_date %>
+    <%= f.label :delivery_start %><br />
+    <%= f.datetime_select :delivery_start %>
+  </div>
+  <div class="field">
+    <%= f.label :delivery_end %><br />
+    <%= f.datetime_select :delivery_end %>
   </div>
   <div class="actions">
     <%= f.submit %>

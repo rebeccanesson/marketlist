@@ -5,9 +5,10 @@
 <table>
   <tr>
     <th>Creator</th>
-    <th>Start date</th>
-    <th>End date</th>
-    <th>Due date</th>
+    <th>Ordering Begins</th>
+    <th>Ordering Ends</th>
+    <th>Delivery Begins</th>
+    <th>Delivery Ends</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,9 +17,10 @@
 <% @order_lists.each do |order_list| %>
   <tr>
     <td><%= order_list.user.name %></td>
-    <td><%= order_list.start_date %></td>
-    <td><%= order_list.end_date %></td>
-    <td><%= order_list.due_date %></td>
+    <td><%= order_list.order_start.strftime("%A, %b %e") %></td>
+    <td><%= (order_list.order_end - 1.day).strftime("%A, %b %e") %></td>
+    <td><%= order_list.delivery_start.strftime("%A, %b %e at %h") %></td>
+    <td><%= order_list.delivery_end.strftime("%A, %b %e at %h") %></td>
     <td><%= link_to 'Show', order_list %></td>
     <td><%= link_to 'Edit', edit_order_list_path(order_list) %></td>
     <td><%= link_to 'Destroy', order_list, :confirm => 'Are you sure?', :method => :delete %></td>

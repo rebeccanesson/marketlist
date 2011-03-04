@@ -164,8 +164,8 @@ describe ProductsController do
           @user = Factory(:user)
           @user.toggle!(:admin)
           @user = test_sign_in(@user)
-          @attr = { :name => "", :description => "", :organic_status => "",
-                  :base_organic_price => -1, :base_conventional_price => -1 }
+          @attr = { :name => "", :description => "", :organic => false,
+                  :base_price => -1}
         end
 
         it "should not create a product" do
@@ -192,7 +192,7 @@ describe ProductsController do
           @user.toggle!(:admin)
           @user = test_sign_in(@user)
           @attr = { :name => "Slicing Tomatoes", :description => "red tomatoes",
-                  :organic_status => "organic and conventional", :base_organic_price => 2000, :base_conventional_price => 1500 }
+                  :organic => false, :base_price => 20.00 }
         end
 
         it "should create a product" do
@@ -214,7 +214,7 @@ describe ProductsController do
         @user = Factory(:user)
         @user = test_sign_in(@user)
        @attr = { :name => "Slicing Tomatoes", :description => "red tomatoes",
-                :organic_status => "organic and conventional", :base_organic_price => 2000, :base_conventional_price => 1500 }
+                :organic => false, :base_price => 20.00 }
       end
       
       it "should protect the page" do 
@@ -226,7 +226,7 @@ describe ProductsController do
    describe "for non-logged in users" do 
      before(:each) do 
        @attr = { :name => "Slicing Tomatoes", :description => "red tomatoes",
-                :organic_status => "organic and conventional", :base_organic_price => 2000, :base_conventional_price => 1500 }
+                :organic_status => false, :base_price => 20.00 }
       end
       
       it "should protect the page" do 
@@ -296,8 +296,8 @@ describe ProductsController do
       describe "failure" do
 
         before(:each) do
-          @attr = { :name => "", :description => "", :organic_status => "",
-                  :base_organic_price => -1, :base_conventional_price => -1 }
+          @attr = { :name => "", :description => "", :organic => false,
+                  :base_price => -1 }
           @product = Factory(:product)
         end
 
@@ -317,7 +317,7 @@ describe ProductsController do
 
         before(:each) do
           @attr = { :name => "New Product Name", :description => "edited description",
-                  :organic_status => "conventional only", :base_organic_price => 0, :base_conventional_price => 1000 }
+                  :organic => false, :base_price => 0 }
           @product = Factory(:product)
         end
 
@@ -326,9 +326,8 @@ describe ProductsController do
           @product.reload
           @product.name.should  == @attr[:name]
           @product.description.should == @attr[:description]
-          @product.organic_status.should == @attr[:organic_status]
-          @product.base_organic_price.should == @attr[:base_organic_price]
-          @product.base_conventional_price.should == @attr[:base_conventional_price]
+          @product.organic.should == @attr[:organic]
+          @product.base_price.should == @attr[:base_price]
         end
 
         it "should redirect to the product show page" do
@@ -349,7 +348,7 @@ describe ProductsController do
         test_sign_in(@user)
         @product = Factory(:product)
          @attr = { :name => "New Product Name", :description => "edited description",
-                  :organic_status => "conventional only", :base_organic_price => 0, :base_conventional_price => 1000 }     
+                  :organic => false, :base_price => 0 }     
       end
       
       it "should protect the page" do 
@@ -362,7 +361,7 @@ describe ProductsController do
       before(:each) do
         @product = Factory(:product)
          @attr = { :name => "New Product Name", :description => "edited description",
-                  :organic_status => "conventional only", :base_organic_price => 0, :base_conventional_price => 1000 }     
+                  :organic => false, :base_price => 0 }     
       end
       
       it "should protect the page" do 

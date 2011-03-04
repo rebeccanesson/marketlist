@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def contact
     @title = "Contact"
+    @market = Market.the_market
   end
   
   def about
@@ -12,6 +13,7 @@ class PagesController < ApplicationController
   
   def admin
     @title = "Site Management"
+    @market = Market.the_market
   end
   
   private

@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def new
     @title = "Sign in"
+    @market = Market.the_market
   end
 
   def create
@@ -9,6 +10,7 @@ class SessionsController < ApplicationController
     if user.nil?
       flash.now[:error] = "Invalid email/password combination."
       @title = "Sign in"
+      @market = Market.the_market
       render 'new'
     else
       sign_in user

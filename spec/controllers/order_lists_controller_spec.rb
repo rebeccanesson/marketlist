@@ -152,7 +152,8 @@ describe OrderListsController do
           @user = Factory(:user)
           @user.toggle!(:admin)
           @user = test_sign_in(@user)
-          @attr = { :start_date => Time.now - 2.days, :end_date => nil, :due_date => nil, :user => nil }
+          @attr = { :order_start => Time.now - 2.days, :order_end => nil, 
+                    :delivery_start => nil, :delivery_end => nil, :user => nil }
         end
 
         it "should not create an order list" do
@@ -178,7 +179,8 @@ describe OrderListsController do
           @user = Factory(:user)
           @user.toggle!(:admin)
           @user = test_sign_in(@user)
-          @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
+          @attr = { :order_start => Time.now + 2.days, :order_end => Time.now + 4.days, 
+                    :delivery_start => Time.now + 6.days, :delivery_end => Time.now + 6.days + 6.hours, 
                     :user => @user }
         end
 
@@ -200,7 +202,8 @@ describe OrderListsController do
       before(:each) do 
         @user = Factory(:user)
         @user = test_sign_in(@user)
-        @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
+        @attr = { :order_start => Time.now + 2.days, :order_end => Time.now + 4.days, 
+                  :delivery_start => Time.now + 6.days, :delivery_end => Time.now + 6.days + 6.hours, 
                   :user => @user }
       end
       
@@ -212,7 +215,8 @@ describe OrderListsController do
    
    describe "for non-logged in users" do 
      before(:each) do 
-       @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
+       @attr = { :order_start => Time.now + 2.days, :order_end => Time.now + 4.days, 
+                 :delivery_start => Time.now + 6.days, :delivery_end => Time.now + 6.days + 6.hours, 
                  :user => @user }
      end
       
@@ -283,7 +287,7 @@ describe OrderListsController do
       describe "failure" do
 
         before(:each) do
-          @attr = { :start_date => nil, :end_date => nil, :due_date => nil, 
+          @attr = { :order_start => nil, :order_end => nil, :delivery_start => nil, :delivery_end => nil, 
                     :user => nil }
           @order_list = Factory(:order_list)
         end
@@ -303,7 +307,8 @@ describe OrderListsController do
       describe "success" do
 
         before(:each) do
-          @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
+          @attr = { :order_start => Time.now + 2.days, :order_end => Time.now + 4.days, 
+                    :delivery_start => Time.now + 6.days, :delivery_end => Time.now + 6.days + 7.hours, 
                     :user => @user }
           @order_list = Factory(:order_list)
         end
@@ -311,9 +316,10 @@ describe OrderListsController do
         it "should change the order list's attributes" do
           put :update, :id => @order_list, :order_list => @attr
           @order_list.reload
-          @order_list.start_date.should  == @attr[:start_date]
-          @order_list.end_date.should == @attr[:end_date]
-          @order_list.due_date.should == @attr[:due_date]
+          @order_list.order_start.should  == @attr[:order_start]
+          @order_list.order_end.should == @attr[:order_end]
+          @order_list.delivery_start.should == @attr[:delivery_start]
+          @order_list.delivery_end.should == @attr[:delivery_end]
           @order_list.user.should == @attr[:user]
         end
 
@@ -334,7 +340,8 @@ describe OrderListsController do
         @user = Factory(:user)
         test_sign_in(@user)
         @order_list = Factory(:order_list)
-        @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
+        @attr = { :order_start => Time.now + 2.days, :order_end => Time.now + 4.days, 
+                  :delivery_start => Time.now + 6.days, :delivery_end => Time.now + 6.days + 4.hours, 
                   :user => @user }
       end
       
@@ -347,7 +354,8 @@ describe OrderListsController do
     describe "for non-logged in users" do 
       before(:each) do
         @order_list = Factory(:order_list)
-        @attr = { :start_date => Time.now + 2.days, :end_date => Time.now + 4.days, :due_date => Time.now + 6.days, 
+        @attr = { :order_start => Time.now + 2.days, :order_end => Time.now + 4.days, 
+                  :delivery_start => Time.now + 6.days, :delivery_end => Time.now + 6.days + 4.hours, 
                   :user => @user }     
       end
       

@@ -1,4 +1,6 @@
 Marketlist::Application.routes.draw do
+  resources :markets
+
   resources :order_lists
 
   get "sessions/new"

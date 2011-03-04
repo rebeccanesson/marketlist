@@ -34,6 +34,11 @@ describe PagesController do
         response.should have_selector("title",
                         :content => "| Site Management")
       end
+      
+      it "should have a non-nil market available" do 
+        get 'admin'
+        assigns(:market).should == Market.the_market
+      end
     end
   
   end
@@ -48,6 +53,11 @@ describe PagesController do
       get 'contact'
       response.should have_selector("title",
                         :content => "| Contact")
+    end
+    
+    it "should have a non-nil market available" do 
+      get 'contact'
+      assigns(:market).should == Market.the_market
     end
   end
   

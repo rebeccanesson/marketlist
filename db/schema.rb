@@ -10,25 +10,39 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110303020451) do
+ActiveRecord::Schema.define(:version => 20110304010743) do
 
-  create_table "order_lists", :force => true do |t|
-    t.integer  "user_id"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "due_date"
+  create_table "markets", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "contact_email"
+    t.string   "logo_url"
+    t.integer  "start_day_of_week"
+    t.integer  "ordering_period"
+    t.integer  "due_date_day_of_week"
+    t.integer  "due_date_hour"
+    t.integer  "due_date_period"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "products", :force => true do |t|
-    t.string   "name"
-    t.text     "description",             :limit => 255
-    t.decimal  "base_organic_price"
-    t.decimal  "base_conventional_price"
+  create_table "order_lists", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "order_start"
+    t.datetime "order_end"
+    t.datetime "delivery_start"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "organic_status",                         :default => "both"
+    t.datetime "delivery_end"
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.text     "description", :limit => 255
+    t.decimal  "base_price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "organic",                    :default => false
   end
 
   create_table "users", :force => true do |t|

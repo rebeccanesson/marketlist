@@ -10,15 +10,15 @@ end
 Factory.define :product do |product|
   product.name                    "Slicing Tomatoes"
   product.description             "A case of really good stuff"
-  product.organic_status          "organic and conventional"
-  product.base_organic_price      2000
-  product.base_conventional_price 1500
+  product.organic                 false
+  product.base_price              20.00
 end 
 
 Factory.define :order_list do |order_list|
-  order_list.start_date   Time.now + 3.days
-  order_list.end_date     Time.now + 5.days
-  order_list.due_date     Time.now + 7.days
+  order_list.order_start    Time.now + 3.days
+  order_list.order_end      Time.now + 5.days
+  order_list.delivery_start Time.now + 7.days
+  order_list.delivery_end   Time.now + 7.days + 5.hours
   order_list.association :user, {:email => Faker::Internet.email}
 end
 

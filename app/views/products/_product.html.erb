@@ -1,6 +1,6 @@
 <li>
-  <%= link_to product.name, product %><br />
-  <%= product.organic_status%>, organic price: <%= number_to_currency(product.base_organic_price) %>, conventional price: <%= number_to_currency(product.base_conventional_price) %><br />
+  <%= link_to (product.organic ? "Organic #{product.name}" : product.name), product %><br />
+  price: <%= number_to_currency(product.base_price) %><br />
   <%= product.description %>
   <div style="float:right;">
   <% if current_user.admin? %>

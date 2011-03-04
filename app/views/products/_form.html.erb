@@ -20,16 +20,12 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :organic_status %><br />
-    <%= select("product", "organic_status", Product::ORGANIC_STATUSES, {}) %>
+    <%= f.label :organic %><br />
+    <%= f.check_box(:organic) %>
   </div>
   <div class="field">
-    <%= f.label :base_conventional_price %><br />
-    $<%= f.text_field :base_conventional_price %>
-  </div>
-  <div class="field">
-    <%= f.label :base_organic_price %><br />
-    $<%= f.text_field :base_organic_price %>
+    <%= f.label :base_price %><br />
+    $<%= f.text_field :base_price %>
   </div>
   <div class="actions">
     <%= f.submit %>

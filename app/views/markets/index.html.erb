@@ -1,0 +1,39 @@
+<h1>Listing markets</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Contact email</th>
+    <th>Logo url</th>
+    <th>Start day of week</th>
+    <th>Ordering period</th>
+    <th>Due date day of week</th>
+    <th>Due date hour</th>
+    <th>Due date period</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @markets.each do |market| %>
+  <tr>
+    <td><%= market.name %></td>
+    <td><%= market.description %></td>
+    <td><%= market.contact_email %></td>
+    <td><%= market.logo_url %></td>
+    <td><%= market.start_day_of_week %></td>
+    <td><%= market.ordering_period %></td>
+    <td><%= market.due_date_day_of_week %></td>
+    <td><%= market.due_date_hour %></td>
+    <td><%= market.due_date_period %></td>
+    <td><%= link_to 'Show', market %></td>
+    <td><%= link_to 'Edit', edit_market_path(market) %></td>
+    <td><%= link_to 'Destroy', market, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Market', new_market_path %>

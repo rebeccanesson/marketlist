@@ -14,6 +14,11 @@ describe SessionsController do
       get :new
       response.should have_selector("title", :content => "Sign in")
     end
+    
+    it "should have a non-nil market available" do 
+      get :new
+      assigns(:market).should == Market.the_market
+    end
   end
   
   describe "POST 'create'" do
@@ -27,6 +32,11 @@ describe SessionsController do
       it "should re-render the new page" do
         post :create, :session => @attr
         response.should render_template('new')
+      end
+      
+      it "should have a non-nil market available" do 
+         post :create, :session => @attr
+        assigns(:market).should == Market.the_market
       end
 
       it "should have the right title" do

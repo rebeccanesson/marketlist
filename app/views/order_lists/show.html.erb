@@ -4,20 +4,24 @@
 </p>
 
 <p>
-  <b>Start date:</b>
-  <%= @order_list.start_date %>
+  <b>Ordering begins:</b>
+  <%= @order_list.order_start.strftime("%A, %b %e") %>
 </p>
 
 <p>
-  <b>End date:</b>
-  <%= @order_list.end_date %>
+  <b>Ordering ends:</b>
+  <%= (@order_list.order_end - 1.day).strftime("%A, %b %e") %>
 </p>
 
 <p>
-  <b>Due date:</b>
-  <%= @order_list.due_date %>
+  <b>Delivery begins:</b>
+  <%= @order_list.delivery_start.strftime("%A, %b %e at %h") %>
 </p>
 
+<p>
+  <b>Delivery ends:</b>
+  <%= @order_list.delivery_end.strftime("%A, %b %e at %h") %>
+</p>
 
 <%= link_to 'Edit', edit_order_list_path(@order_list) %> |
 <%= link_to 'Back', order_lists_path %>

@@ -1,0 +1,53 @@
+<%= form_for(@market) do |f| %>
+  <% if @market.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@market.errors.count, "error") %> prohibited this market from being saved:</h2>
+
+      <ul>
+      <% @market.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_email %><br />
+    <%= f.text_field :contact_email %>
+  </div>
+  <div class="field">
+    <%= f.label :logo_url %><br />
+    <%= f.text_field :logo_url %>
+  </div>
+  <div class="field">
+    <%= f.label :start_day_of_week %> (this will set a default value when you create a new order list)<br />
+    <%= select(:market, :start_day_of_week, [['',nil],['Sunday', 0], ['Monday', 1], ['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]]) %>
+  </div>
+  <div class="field">
+    <%= f.label :ordering_period %> (the number of days to keep ordering open)<br />
+    <%= f.text_field :ordering_period, :size => 3 %>
+  </div>
+  <div class="field">
+    <%= f.label :due_date_day_of_week %> (this will set a default value when you create a new order list)<br />
+    <%= select(:market, :due_date_day_of_week, [['',nil],['Sunday', 0], ['Monday', 1], ['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]]) %>
+  </div>
+  <div class="field">
+    <%= f.label :due_date_hour %> (hour of the day that delivery opens -- use a 24 hour clock)<br />
+    <%= f.text_field :due_date_hour, :size => 3 %>
+  </div>
+  <div class="field">
+    <%= f.label :due_date_period %> (the number of hours that the delivery window is open)<br />
+    <%= f.text_field :due_date_period, :size => 3 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,7 +1,5 @@
-<p id="notice"><%= notice %></p>
-
 <h1>
-  <%= @product.name %>
+  <%= "Organic" if @product.organic %> <%= @product.name %>
 </h1>
 
 <p>
@@ -10,18 +8,8 @@
 </p>
 
 <p>
-  <b>Organic status:</b>
-  <%= @product.organic_status %>
-</p>
-
-<p>
-  <b>Organic price:</b>
-  <%= number_to_currency(@product.base_organic_price) %>
-</p>
-
-<p>
-  <b>Conventional price:</b>
-  <%= number_to_currency(@product.base_conventional_price) %>
+  <b>Default Price:</b>
+  <%= number_to_currency(@product.base_price) %>
 </p>
 
 

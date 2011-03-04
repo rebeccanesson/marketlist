@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @market.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @market.description %>
+</p>
+
+<p>
+  <b>Contact email:</b>
+  <%= @market.contact_email %>
+</p>
+
+<p>
+  <b>Logo url:</b>
+  <%= @market.logo_url %>
+</p>
+
+<p>
+  <b>Start day of week:</b>
+  <%= @market.start_day_of_week %>
+</p>
+
+<p>
+  <b>Ordering period:</b>
+  <%= @market.ordering_period %>
+</p>
+
+<p>
+  <b>Due date day of week:</b>
+  <%= @market.due_date_day_of_week %>
+</p>
+
+<p>
+  <b>Due date hour:</b>
+  <%= @market.due_date_hour %>
+</p>
+
+<p>
+  <b>Due date period:</b>
+  <%= @market.due_date_period %>
+</p>
+
+
+<%= link_to 'Edit', edit_market_path(@market) %> |
+<%= link_to 'Back', markets_path %>
