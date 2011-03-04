@@ -15,10 +15,10 @@ Factory.define :product do |product|
 end 
 
 Factory.define :order_list do |order_list|
-  order_list.order_start    Time.now + 3.days
-  order_list.order_end      Time.now + 5.days
-  order_list.delivery_start Time.now + 7.days
-  order_list.delivery_end   Time.now + 7.days + 5.hours
+  order_list.order_start    Time.zone.now + 3.days
+  order_list.order_end      Time.zone.now + 5.days
+  order_list.delivery_start Time.zone.now + 7.days
+  order_list.delivery_end   Time.zone.now + 7.days + 5.hours
   order_list.association :user, {:email => Faker::Internet.email}
 end
 

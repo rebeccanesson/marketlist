@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe OrderList do
   before(:each) do
-    @attr = { :order_start => Time.now + 3.days, 
-              :order_end   => Time.now + 5.days, 
-              :delivery_start => Time.now + 8.days, 
-              :delivery_end   => Time.now + 8.days + 5.hours, 
+    @attr = { :order_start => Time.zone.now + 3.days, 
+              :order_end   => Time.zone.now + 5.days, 
+              :delivery_start => Time.zone.now + 8.days, 
+              :delivery_end   => Time.zone.now + 8.days + 5.hours, 
               :user => Factory(:user)
             }
   end
@@ -40,7 +40,7 @@ describe OrderList do
   end
   
   it "should reject start dates that are in the past" do
-    ol = OrderList.new(@attr.merge(:order_start => Time.now - 1.day))
+    ol = OrderList.new(@attr.merge(:order_start => Time.zone.now - 1.day))
     ol.should_not be_valid
   end
   

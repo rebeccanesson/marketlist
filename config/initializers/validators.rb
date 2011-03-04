@@ -1,7 +1,7 @@
 ActiveRecord::Base.class_eval do
   def self.validates_is_after(*attr_names)
     # Set the default configuration
-    configuration = { :after => Time.now }
+    configuration = { :after => Time.zone.now }
 
     # Update defaults with any supplied configuration values
     configuration.update(attr_names.extract_options!)

@@ -33,7 +33,7 @@ class OrderList < ActiveRecord::Base
     ol = OrderList.new
     if (market.start_day_of_week and market.ordering_period and market.due_date_day_of_week and 
         market.due_date_hour and market.due_date_period)
-      ol.order_start = (Time.now + 1.day).beginning_of_day
+      ol.order_start = (Time.zone.now + 1.day).beginning_of_day
       while ol.order_start.wday != market.start_day_of_week
         ol.order_start += 1.day
       end 
