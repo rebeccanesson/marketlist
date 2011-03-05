@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :product_family %><br />
-    <%= f.collection_select :product_family_id, @product_families, :id, :name %>
+    <%= f.collection_select :product_family_id, @product_families, :id, :name %> or <%= link_to 'add a new product family', new_product_family_path %>
   </div>
   <div class="field">
     <%= f.label :name %><br />
