@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.xml
   def index
-    @products = Product.paginate(:page => params[:page], :order => "name ASC")
+    @products = Product.paginate(:page => params[:page], :include => :product_family, :order => "product_families.name ASC, products.name ASC")
     @title = "All Products"
   end
 
@@ -21,12 +21,14 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @title = "New Product"
+    @product_families = ProductFamily.find(:all, :order => "name ASC")
   end
 
   # GET /products/1/edit
   def edit
     @product = Product.find(params[:id])
     @title = "Edit Product"
+    @product_families = ProductFamily.find(:all, :order => "name ASC")
   end
 
   # POST /products
@@ -37,6 +39,7 @@ class ProductsController < ApplicationController
         flash[:success] = 'Product was successfully created.'
         redirect_to(@product)
       else
+        @product_families = ProductFamily.find(:all, :order => "name ASC")
         @title = "New Product"
         render "new" 
       end
@@ -50,6 +53,7 @@ class ProductsController < ApplicationController
         flash[:success] = 'Product was successfully updated.'
         redirect_to(@product)
       else
+        @product_families = ProductFamily.find(:all, :order => "name ASC")
         @title = "Edit Product"
         render "edit" 
       end

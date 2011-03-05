@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110304023520) do
+ActiveRecord::Schema.define(:version => 20110304210140) do
 
   create_table "markets", :force => true do |t|
     t.string   "name"
@@ -36,13 +36,20 @@ ActiveRecord::Schema.define(:version => 20110304023520) do
     t.datetime "delivery_end"
   end
 
+  create_table "product_families", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", :force => true do |t|
     t.string   "name"
-    t.text     "description", :limit => 255
+    t.text     "description",       :limit => 255
     t.decimal  "base_price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "organic",                    :default => false
+    t.boolean  "organic",                          :default => false
+    t.integer  "product_family_id"
   end
 
   create_table "users", :force => true do |t|

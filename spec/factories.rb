@@ -7,11 +7,16 @@ Factory.define :user do |user|
   user.password_confirmation "foobar"
 end
 
+Factory.define :product_family do |product_family|
+  product_family.name       Faker::Name.name
+end
+
 Factory.define :product do |product|
   product.name                    "Slicing Tomatoes"
   product.description             "A case of really good stuff"
   product.organic                 false
   product.base_price              20.00
+  product.product_family          Factory(:product_family, {:name => Faker::Name.name})
 end 
 
 Factory.define :order_list do |order_list|

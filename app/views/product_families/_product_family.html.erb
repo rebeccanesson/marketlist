@@ -1,0 +1,10 @@
+<li>
+  <%= product_family.name %>
+  <div style="float:right;">
+  <% if current_user.admin? %>
+    <%= link_to "delete", product_family, :method => :delete, :confirm => "You sure?",
+                                  :title => "Delete #{product_family.name}" %>
+    | <%= link_to "edit", edit_product_family_path(product_family) %>
+  <% end %> 
+  </div> 
+</li>

@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :product_family %><br />
+    <%= f.collection_select :product_family_id, @product_families, :id, :name %>
+  </div>
+  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>

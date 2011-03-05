@@ -1,4 +1,6 @@
 Marketlist::Application.routes.draw do
+  resources :product_families
+
   resources :markets
 
   resources :order_lists

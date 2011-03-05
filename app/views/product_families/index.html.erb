@@ -1,0 +1,13 @@
+<h1>All Product Families</h1>
+
+<%= link_to 'Add a new product family', new_product_family_path %>
+
+<%= will_paginate %>
+
+<ul class="product_families">
+  <% @product_families.each do |product_family| %>
+    <%= render product_family %>
+  <% end %>
+</ul>
+
+<%= will_paginate %>

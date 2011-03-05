@@ -4,11 +4,22 @@
 
 <%= will_paginate %>
 
-<ul class="products">
-  <% @products.each do |product| %>
-    <%= render product %>
+<% last_family = "" %>
+<% first = true %>
+<% @products.each do |product| %>
+  <% if last_family != product.product_family.name %>
+    <% if !first %>
+      </ul>
+    <% end %>
+    <h4 class="product_family"><%= product.product_family.name %></h4>
+    <ul class="products">
   <% end %>
-</ul>
+  <%= render product %>
+  
+  <% last_family = product.product_family.name %>
+  <% first = false %>
+<% end %>
+
 
 <%= will_paginate %>
 

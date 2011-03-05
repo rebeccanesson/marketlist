@@ -1,6 +1,6 @@
-<h1>
-  <%= "Organic" if @product.organic %> <%= @product.name %>
-</h1>
+<h2>
+  <%= @product.product_family.name %>: <%= "Organic" if @product.organic %> <%= @product.name %>
+</h2>
 
 <p>
   <b>Description:</b>
