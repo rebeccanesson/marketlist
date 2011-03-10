@@ -3,7 +3,9 @@ Marketlist::Application.routes.draw do
 
   resources :markets
 
-  resources :order_lists
+  resources :order_lists do
+    resources :orderables
+  end
 
   get "sessions/new"
 

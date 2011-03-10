@@ -395,6 +395,15 @@ describe ProductFamiliesController do
         delete :destroy, :id => @product_family
         response.should redirect_to(product_families_path)
       end
+      
+      it "should not destroy the product family when it has products in it" do 
+        product = Factory(:product)
+        product.product_family = @product_family
+        product.save!
+        delete :destroy, :id => @product_family
+        response.should redirect_to(product_family_path(@product_family))
+        flash[:error].should =~ /contain products/
+      end
     end
   end
 

@@ -1,15 +1,10 @@
 <h2>
-  <%= @product.product_family.name %>: <%= "Organic" if @product.organic %> <%= @product.name %>
+  <%= @product.product_family.name %>: <%= @product.name %>
 </h2>
 
 <p>
   <b>Description:</b>
   <%= @product.description %>
-</p>
-
-<p>
-  <b>Default Price:</b>
-  <%= number_to_currency(@product.base_price) %>
 </p>
 
 

@@ -31,10 +31,9 @@ describe UsersController do
          third  = Factory(:user, :name => "Ben", :email => "another@example.net")
 
          @users = [@user, second, third]
-         @users = [@user, second, third]
-                 30.times do
-                   @users << Factory(:user, :email => Factory.next(:email))
-                 end
+         30.times do
+           @users << Factory(:user, :email => Factory.next(:email))
+         end
        end
 
        it "should be successful" do
@@ -48,7 +47,6 @@ describe UsersController do
        end
 
        it "should have an element for each user" do
-         get :index
          get :index
          @users[0..2].each do |user|
            response.should have_selector("li", :content => user.name)

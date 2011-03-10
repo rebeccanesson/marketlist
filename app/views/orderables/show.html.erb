@@ -1,0 +1,20 @@
+<h2><%= link_to @orderable.product.name, @orderable.product %></h2>
+
+<p>
+  <b>Product:</b>
+  <%= @orderable.product_id %>
+</p>
+
+<p>
+  <b>Organic price:</b>
+  <%= @orderable.organic_price %>
+</p>
+
+<p>
+  <b>Conventional price:</b>
+  <%= @orderable.conventional_price %>
+</p>
+
+
+<%= link_to 'Edit', edit_order_list_orderable_path(@order_list,@orderable) %> |
+<%= link_to 'Back', order_list_orderables_path(@order_list) %>

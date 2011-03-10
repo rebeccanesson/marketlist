@@ -61,9 +61,13 @@ class ProductFamiliesController < ApplicationController
   # DELETE /product_families/1.xml
   def destroy
     @product_family = ProductFamily.find(params[:id])
-    @product_family.destroy
-
-    redirect_to(product_families_url)
+    if (@product_family.products.count > 0)
+      flash[:error] = 'Product families cannot be deleted when they contain products.'
+      redirect_to(product_family_url(@product_family))
+    else 
+      @product_family.destroy
+      redirect_to(product_families_url)
+    end
   end
   
 end

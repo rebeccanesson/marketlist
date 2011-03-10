@@ -4,9 +4,7 @@ describe Product do
   before(:each) do
     @product_family = Factory(:product_family)
     @attr = { :name => "Slicing Tomatoes", 
-              :description => "1 case of slicing tomatoes", 
-              :base_price => 20.00, 
-              :organic => false, 
+              :description => "1 case of slicing tomatoes",  
               :product_family => @product_family }
   end
   
@@ -34,15 +32,5 @@ describe Product do
     long_name_prod = Product.new(@attr.merge(:name => long_name))
     long_name_prod.should_not be_valid
   end 
-  
-  it "should reject nil base_price" do 
-    prod = Product.new(@attr.merge(:base_price => nil))
-    prod.should_not be_valid
-  end
-  
-  it "should reject negative base_price" do 
-    prod = Product.new(@attr.merge(:base_price => -1))
-    prod.should_not be_valid
-  end
   
 end

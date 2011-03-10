@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110304210140) do
+ActiveRecord::Schema.define(:version => 20110310014142) do
 
   create_table "markets", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(:version => 20110304210140) do
     t.datetime "delivery_end"
   end
 
+  create_table "orderables", :force => true do |t|
+    t.integer  "product_id"
+    t.decimal  "organic_price",      :precision => 8, :scale => 2
+    t.decimal  "conventional_price", :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_list_id"
+  end
+
   create_table "product_families", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -45,10 +54,8 @@ ActiveRecord::Schema.define(:version => 20110304210140) do
   create_table "products", :force => true do |t|
     t.string   "name"
     t.text     "description",       :limit => 255
-    t.decimal  "base_price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "organic",                          :default => false
     t.integer  "product_family_id"
   end
 

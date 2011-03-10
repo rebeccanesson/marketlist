@@ -29,6 +29,8 @@ class OrderList < ActiveRecord::Base
   validates_is_after :delivery_start, :after => :order_end
   validates_is_after :delivery_end, :after => :delivery_start
   
+  has_many :orderables
+  
   def self.new_for_market(market)
     ol = OrderList.new
     if (market.start_day_of_week and market.ordering_period and market.due_date_day_of_week and 

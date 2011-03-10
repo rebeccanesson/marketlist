@@ -123,7 +123,7 @@ describe OrderListsController do
       before(:each) do
         @user = Factory(:user)
         @user = test_sign_in(@user)
-        @order_list = Factory(:order_list)
+        @order_list = Factory(:order_list, :user => @user)
       end
 
       it "should be successful" do
@@ -146,7 +146,7 @@ describe OrderListsController do
     describe "for non-logged in users" do 
       it "should protect the page" do 
         @user = Factory(:user)
-        @order_list = Factory(:order_list)
+        @order_list = Factory(:order_list, :user => @user)
         get :show, :id => @order_list
         response.should redirect_to(signin_path)
       end
@@ -248,7 +248,7 @@ describe OrderListsController do
         @user = Factory(:user)
         @user.toggle!(:admin)
         test_sign_in(@user)
-        @order_list = Factory(:order_list)
+        @order_list = Factory(:order_list, :user => @user)
       end
 
       it "should be successful" do
@@ -266,7 +266,7 @@ describe OrderListsController do
       before(:each) do
         @user = Factory(:user)
         test_sign_in(@user)
-        @order_list = Factory(:order_list)
+        @order_list = Factory(:order_list, :user => @user)
       end
       
       it "should protect the page" do 
@@ -277,7 +277,8 @@ describe OrderListsController do
     
     describe "for non-logged in users" do 
       before(:each) do
-        @order_list = Factory(:order_list)
+        @user = Factory(:user)
+        @order_list = Factory(:order_list, :user => @user)
       end
       
       it "should protect the page" do 
@@ -301,7 +302,7 @@ describe OrderListsController do
         before(:each) do
           @attr = { :order_start => nil, :order_end => nil, :delivery_start => nil, :delivery_end => nil, 
                     :user => nil }
-          @order_list = Factory(:order_list)
+          @order_list = Factory(:order_list, :user => @user)
         end
 
         it "should render the 'edit' page" do
@@ -322,7 +323,7 @@ describe OrderListsController do
           @attr = { :order_start => Time.zone.now + 2.days, :order_end => Time.zone.now + 4.days, 
                     :delivery_start => Time.zone.now + 6.days, :delivery_end => Time.zone.now + 6.days + 7.hours, 
                     :user => @user }
-          @order_list = Factory(:order_list)
+          @order_list = Factory(:order_list, :user => @user)
         end
 
         it "should change the order list's attributes" do
@@ -351,7 +352,7 @@ describe OrderListsController do
       before(:each) do
         @user = Factory(:user)
         test_sign_in(@user)
-        @order_list = Factory(:order_list)
+        @order_list = Factory(:order_list, :user => @user)
         @attr = { :order_start => Time.zone.now + 2.days, :order_end => Time.zone.now + 4.days, 
                   :delivery_start => Time.zone.now + 6.days, :delivery_end => Time.zone.now + 6.days + 4.hours, 
                   :user => @user }
@@ -365,7 +366,8 @@ describe OrderListsController do
     
     describe "for non-logged in users" do 
       before(:each) do
-        @order_list = Factory(:order_list)
+        @user = Factory(:user)
+        @order_list = Factory(:order_list, :user => @user)
         @attr = { :order_start => Time.zone.now + 2.days, :order_end => Time.zone.now + 4.days, 
                   :delivery_start => Time.zone.now + 6.days, :delivery_end => Time.zone.now + 6.days + 4.hours, 
                   :user => @user }     
@@ -382,7 +384,7 @@ describe OrderListsController do
 
     before(:each) do
       @user = Factory(:user)
-      @order_list = Factory(:order_list)
+      @order_list = Factory(:order_list, :user => @user)
     end
 
     describe "as a non-signed-in user" do
