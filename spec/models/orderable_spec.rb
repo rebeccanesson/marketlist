@@ -5,8 +5,9 @@ describe Orderable do
     @user = Factory(:user)
     @product = Factory(:product)
     @order_list = Factory(:order_list, :user => @user)
+    @order_listing = Factory(:order_listing, :order_list => @order_list)
     @attr = { :product => @product, 
-              :order_list => @order_list,  
+              :order_listing => @order_listing,  
               :organic_price => 10.00, 
               :conventional_price => 8.00 }
   end
@@ -20,8 +21,8 @@ describe Orderable do
     no_prod.should_not be_valid
   end
   
-  it "should require an order list" do 
-    no_ol = Orderable.new(@attr.merge(:order_list => nil))
+  it "should require an order listing" do 
+    no_ol = Orderable.new(@attr.merge(:order_listing => nil))
     no_ol.should_not be_valid
   end
   

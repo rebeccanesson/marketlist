@@ -1,0 +1,19 @@
+
+<p>
+  <b>Order list:</b>
+  <%= @order_listing.order_list_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @order_listing.quantity %>
+</p>
+
+<p>
+  <b>Product family:</b>
+  <%= @order_listing.product_family_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_order_list_order_listing_path(@order_list,@order_listing) %> |
+<%= link_to 'Back', order_list_order_listings_path(@order_list) %>

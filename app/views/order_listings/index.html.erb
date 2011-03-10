@@ -1,0 +1,30 @@
+<h1>Listing Order Listings</h1>
+
+<%= will_paginate %>
+<table>
+  <tr>
+    <th>Order list</th>
+    <th>Quantity</th>
+    <th>Product family</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @order_listings.each do |order_listing| %>
+  <tr>
+    <td><%= (!order_listing.orderables.empty? ? order_listing.orderables.first.product.name : 'No Products') %></td>
+    <td><%= order_listing.quantity %></td>
+    <td><%= order_listing.product_family_id %></td>
+    <td><%= link_to 'Show', order_list_order_listing_path(@order_list,order_listing) %></td>
+    <td><%= link_to 'Edit', edit_order_list_order_listing_path(@order_list,order_listing) %></td>
+    <td><%= link_to 'Destroy', [@order_list,order_listing], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate %>
+
+<%= link_to 'New Order listing', new_order_list_order_listing_path(@order_list) %>

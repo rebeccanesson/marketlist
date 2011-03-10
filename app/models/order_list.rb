@@ -15,6 +15,7 @@
 
 class OrderList < ActiveRecord::Base
   belongs_to :user
+  has_many :order_listings
   
   attr_accessible :user, :order_start, :order_end, :delivery_start, :delivery_end
   

@@ -1,25 +1,26 @@
 # == Schema Information
-# Schema version: 20110310014142
+# Schema version: 20110310141355
 #
 # Table name: orderables
 #
 #  id                 :integer         not null, primary key
 #  product_id         :integer
-#  organic_price      :decimal(8, 2)
-#  conventional_price :decimal(8, 2)
+#  organic_price      :decimal(, )
+#  conventional_price :decimal(, )
 #  created_at         :datetime
 #  updated_at         :datetime
-#  order_list_id      :integer
+#  order_listing_id   :integer
 #
 
 class Orderable < ActiveRecord::Base
-  attr_accessible :product, :product_id, :organic_price, :conventional_price, :order_list_id, :order_list
+  attr_accessible :product, :product_id, :organic_price, :conventional_price, :order_listing_id, :order_listing
   
   belongs_to :product
-  belongs_to :order_list
+  belongs_to :order_listing
+  has_one :order_list, :through => :order_listing
   
   validates :product, :presence => true
-  validates :order_list, :presence => true
+  validates :order_listing, :presence => true
   
   validates :organic_price, :presence => true,
                             :if => Proc.new { |o| o.conventional_price == nil }

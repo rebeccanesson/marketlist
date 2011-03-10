@@ -25,13 +25,19 @@ Factory.define :order_list do |order_list|
   order_list.association :user, {:email => Faker::Internet.email}
 end
 
+Factory.define :order_listing do |order_listing|
+  order_listing.order_list      Factory(:order_list)
+  order_listing.product_family  Factory(:product_family)
+  order_listing.quantity        3
+end
+
  Factory.sequence :email do |n|
    "person-#{n}@example.com"
  end
 
 Factory.define :orderable do |orderable|
   orderable.product            Factory(:product)
-  orderable.order_list         Factory(:order_list)
+  orderable.order_listing      Factory(:order_listing)
   orderable.organic_price      10.00
   orderable.conventional_price 8.00
 end

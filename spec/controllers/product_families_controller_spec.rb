@@ -119,7 +119,7 @@ describe ProductFamiliesController do
       before(:each) do
         @user = Factory(:user)
         @user = test_sign_in(@user)
-        @product_family = Factory(:product_family)
+        @product_family = Factory(:product_family, :name => "Peppers")
       end
 
       it "should be successful" do
@@ -142,7 +142,7 @@ describe ProductFamiliesController do
     describe "for non-logged in users" do 
       it "should protect the page" do 
         @user = Factory(:user)
-        @product_family = Factory(:product_family)
+        @product_family = Factory(:product_family, :name => "Peppers")
         get :show, :id => @product_family
         response.should redirect_to(signin_path)
       end
@@ -237,7 +237,7 @@ describe ProductFamiliesController do
         @user = Factory(:user)
         @user.toggle!(:admin)
         test_sign_in(@user)
-        @product_family = Factory(:product_family)
+        @product_family = Factory(:product_family, :name => "Peppers")
       end
 
       it "should be successful" do
@@ -255,7 +255,7 @@ describe ProductFamiliesController do
       before(:each) do
         @user = Factory(:user)
         test_sign_in(@user)
-        @product_family = Factory(:product_family)
+        @product_family = Factory(:product_family, :name => "Peppers")
       end
       
       it "should protect the page" do 
@@ -266,7 +266,7 @@ describe ProductFamiliesController do
     
     describe "for non-logged in users" do 
       before(:each) do
-        @product_family = Factory(:product_family)
+        @product_family = Factory(:product_family, :name => "Peppers")
       end
       
       it "should protect the page" do 
@@ -289,7 +289,7 @@ describe ProductFamiliesController do
 
         before(:each) do
           @attr = { :name => "" }
-          @product_family = Factory(:product_family)
+          @product_family = Factory(:product_family, :name => "Peppers")
         end
 
         it "should render the 'edit' page" do
@@ -308,7 +308,7 @@ describe ProductFamiliesController do
 
         before(:each) do
           @attr = { :name => "Tomatoes" }
-          @product_family = Factory(:product_family)
+          @product_family = Factory(:product_family, :name => "Peppers")
         end
 
         it "should change the product family's attributes" do
@@ -333,7 +333,7 @@ describe ProductFamiliesController do
       before(:each) do
         @user = Factory(:user)
         test_sign_in(@user)
-        @product_family = Factory(:product_family)
+        @product_family = Factory(:product_family, :name => "Peppers")
         @attr = { :name => "Tomatoes" }
       end
       
@@ -345,7 +345,7 @@ describe ProductFamiliesController do
     
     describe "for non-logged in users" do 
       before(:each) do
-        @product_family = Factory(:product_family)
+        @product_family = Factory(:product_family, :name => "Peppers")
         @attr = { :name => "Tomatoes" }     
       end
       
@@ -360,7 +360,7 @@ describe ProductFamiliesController do
 
     before(:each) do
       @user = Factory(:user)
-      @product_family = Factory(:product_family)
+      @product_family = Factory(:product_family, :name => "Peppers")
     end
 
     describe "as a non-signed-in user" do

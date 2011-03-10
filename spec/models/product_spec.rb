@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Product do
   before(:each) do
-    @product_family = Factory(:product_family)
+    @product_family = Factory(:product_family, :name => "Tomatoes")
     @attr = { :name => "Slicing Tomatoes", 
               :description => "1 case of slicing tomatoes",  
               :product_family => @product_family }
