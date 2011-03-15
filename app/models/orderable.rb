@@ -20,7 +20,7 @@ class Orderable < ActiveRecord::Base
   has_one :order_list, :through => :order_listing
   
   validates :product, :presence => true
-  validates :order_listing, :presence => true
+  # validates :order_listing, :presence => true
   
   validates :organic_price, :presence => true,
                             :if => Proc.new { |o| o.conventional_price == nil }

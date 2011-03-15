@@ -7,7 +7,7 @@ class OrderListingsController < ApplicationController
   # GET /order_listings
   # GET /order_listings.xml
   def index
-    @order_listings = OrderListing.paginate(:page => params[:page])
+    @order_listings = OrderListing.paginate(:page => params[:page], :conditions => ["product_family_id = ?",@product_family.id])
     @title = "Order Listings"
 
     respond_to do |format|

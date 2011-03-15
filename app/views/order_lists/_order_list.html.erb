@@ -10,7 +10,8 @@
   <% else %>
     Delivery period: <%= order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %> - 
                      <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %>
-  <% end %>
+  <% end %><br />
+  <%= pluralize(order_list.order_listings.size, "order listing")%>
   <div style="float:right;">
   <% if current_user.admin? %>
     <%= link_to "delete", order_list, :method => :delete, :confirm => "You sure?",
