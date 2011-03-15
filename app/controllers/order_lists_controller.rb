@@ -29,6 +29,7 @@ class OrderListsController < ApplicationController
   def edit
     @title = "Edit Order List"
     @order_list = OrderList.find(params[:id])
+    @product_families = ProductFamily.find(:all, :order => "name ASC")
   end
 
   # POST /order_lists
@@ -55,6 +56,7 @@ class OrderListsController < ApplicationController
         flash[:success] = 'Order list was successfully updated.'
         redirect_to(@order_list) 
       else
+        @product_families = ProductFamily.find(:all, :order => "name ASC")
         @title = "Edit Order List"
         render :action => "edit"
       end

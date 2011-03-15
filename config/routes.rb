@@ -5,8 +5,10 @@ Marketlist::Application.routes.draw do
   resources :markets
 
   resources :order_lists do
-    resources :order_listings do 
-      resources :orderables
+    resources :product_families do 
+      resources :order_listings do
+        resources :orderables
+      end
     end
   end
 

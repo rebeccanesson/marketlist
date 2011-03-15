@@ -12,11 +12,13 @@
 #
 
 class OrderListing < ActiveRecord::Base
-  attr_accessible :order_list_id, :order_list, :product_family_id, :product_family, :quantity
+  attr_accessible :order_list_id, :order_list, :product_family_id, :product_family, :quantity, :orderables_attributes, :orderables
   
   belongs_to :order_list
   belongs_to :product_family
   has_many   :orderables
+  accepts_nested_attributes_for :orderables, :allow_destroy => true, :reject_if => :all_blank
+  
   
   validates :order_list, :presence => true
   validates :product_family, :presence => true

@@ -17,9 +17,9 @@
     <td><%= orderable.product.name %></td>
     <td><%= orderable.organic_price %></td>
     <td><%= orderable.conventional_price %></td>
-    <td><%= link_to 'Show', order_list_order_listing_orderable_path(@order_list,@order_listing,orderable) %></td>
-    <td><%= link_to 'Edit', edit_order_list_order_listing_orderable_path(@order_list,@order_listing,orderable) %></td>
-    <td><%= link_to 'Destroy', [@order_list,@order_listing,orderable], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', order_list_product_family_order_listing_orderable_path(@order_list,@product_family,@order_listing,orderable) %></td>
+    <td><%= link_to 'Edit', edit_order_list_product_family_order_listing_orderable_path(@order_list,@product_family,@order_listing,orderable) %></td>
+    <td><%= link_to 'Destroy', [@order_list,@product_family,@order_listing,orderable], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -28,4 +28,4 @@
 
 <br />
 
-<%= link_to 'New Orderable', new_order_list_order_listing_orderable_path(@order_list,@order_listing) %>
+<%= link_to 'New Orderable', new_order_list_product_family_order_listing_orderable_path(@order_list,@product_family,@order_listing) %>

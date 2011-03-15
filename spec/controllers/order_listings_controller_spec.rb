@@ -13,11 +13,12 @@ describe OrderListingsController do
        before(:each) do
          @user = Factory(:user)
          @order_list = Factory(:order_list, :user => @user)
+         @product_family = Factory(:product_family, :name => "Tomatoes")
        end
 
        it "should protect the page" do
          test_sign_in(@user)
-         get 'index', :order_list_id => @order_list.id
+         get 'index', :order_list_id => @order_list.id, :product_family_id => @product_family.id
          response.should redirect_to(root_path)
        end
     end
@@ -26,7 +27,8 @@ describe OrderListingsController do
       it "should protect the page" do 
         @user = Factory(:user)
         @order_list = Factory(:order_list, :user => @user)
-        get 'index', :order_list_id => @order_list.id
+        @product_family = Factory(:product_family, :name => "Tomatoes")
+        get 'index', :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(signin_path)
       end
     end
@@ -37,23 +39,24 @@ describe OrderListingsController do
         @user.toggle!(:admin)
         @user = test_sign_in(@user)
         @order_list = Factory(:order_list, :user => @user)
-        first = Factory(:order_listing, :order_list => @order_list)
-        second = Factory(:order_listing, :order_list => @order_list)
-        third  = Factory(:order_listing, :order_list => @order_list)
+        @product_family = Factory(:product_family, :name => "Tomatoes")
+        first = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
+        second = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
+        third  = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
         @order_listings = [first, second, third]
         30.times do
-          @order_listings << Factory(:order_listing, :order_list => @order_list)
+          @order_listings << Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
         end
         # @order_listings.each { |ol| orderable = Factory(:orderable, :order_listing => ol); orderable.save; ol.orderables << orderable; ol.save }
       end
 
       it "should be successful" do
-        get :index, :order_list_id => @order_list.id
+        get :index, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should be_success
       end
 
       it "should have the right title" do
-        get :index, :order_list_id => @order_list.id
+        get :index, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should have_selector("title", :content => "Order Listings")
       end
 
@@ -64,14 +67,19 @@ describe OrderListingsController do
       #   end
       # end
       
-      it "should paginate orderables" do
-         get :index, :order_list_id => @order_list.id
+      it "should paginate order listings" do
+         get :index, :order_list_id => @order_list.id, :product_family_id => @product_family.id
          response.should have_selector("div.pagination")
          response.should have_selector("span.disabled", :content => "Previous")
-         response.should have_selector("a", :href => "/order_lists/#{@order_list.id}/order_listings?page=2",
+         response.should have_selector("a", :href => "/order_lists/#{@order_list.id}/product_families/#{@product_family.id}/order_listings?page=2",
                                             :content => "2")
-         response.should have_selector("a", :href => "/order_lists/#{@order_list.id}/order_listings?page=2",
+         response.should have_selector("a", :href => "/order_lists/#{@order_list.id}/product_families/#{@product_family.id}/order_listings?page=2",
                                             :content => "Next")
+      end
+      
+      it "should set the product families" do 
+        get :index, :order_list_id => @order_list.id, :product_family_id => @product_family.id
+        assigns(:product_families).should_not be_nil
       end
       
     end
@@ -85,24 +93,31 @@ describe OrderListingsController do
         @user.toggle!(:admin)
         @user = test_sign_in(@user)
         @order_list = Factory(:order_list, :user => @user)
+        @product_family = Factory(:product_family, :name => "Tomatoes")
       end
       
       it "should be successful" do
-        get 'new', :order_list_id => @order_list.id
+        get 'new', :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should be_success
       end
   
       it "should have the right title" do
-        get 'new', :order_list_id => @order_list.id
+        get 'new', :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should have_selector("title", :content => "New Order Listing")
       end 
+      
+      it "should set the product families" do 
+        get :new, :order_list_id => @order_list.id, :product_family_id => @product_family.id
+        assigns(:product_families).should_not be_nil
+      end
     end
     
     describe "for non-logged in users" do 
       it "should protect the page" do 
         @user = Factory(:user)
         @order_list = Factory(:order_list, :user => @user)
-        get 'new', :order_list_id => @order_list.id
+        @product_family = Factory(:product_family, :name => "Tomatoes")
+        get 'new', :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(signin_path)
       end
     end
@@ -112,10 +127,11 @@ describe OrderListingsController do
         @user = Factory(:user)
         @user = test_sign_in(@user)
         @order_list = Factory(:order_list, :user => @user)
+        @product_family = Factory(:product_family, :name => "Tomatoes")
       end
       
       it "should protect the page" do 
-        get 'new', :order_list_id => @order_list.id
+        get 'new', :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(root_path)
       end
     end
@@ -129,20 +145,21 @@ describe OrderListingsController do
         @user = test_sign_in(@user)
         @order_list = Factory(:order_list, :user => @user)
         @order_listing = Factory(:order_listing, :order_list => @order_list)
+        @product_family = Factory(:product_family, :name => "Tomatoes")
       end
     
       it "should be successful" do
-        get :show, :id => @order_listing, :order_list_id => @order_list.id
+        get :show, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should be_success
       end
           
       it "should find the right orderable" do
-        get :show, :id => @order_listing, :order_list_id => @order_list.id
+        get :show, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         assigns(:order_listing).should == @order_listing
       end
            
       it "should have the right title" do
-        get :show, :id => @order_listing, :order_list_id => @order_list.id
+        get :show, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should have_selector("title", :content => "Order Listing")
       end
     
@@ -153,7 +170,8 @@ describe OrderListingsController do
         @user = Factory(:user)
         @order_list = Factory(:order_list, :user => @user)
         @order_listing = Factory(:order_listing, :order_list => @order_list)
-        get :show, :id => @order_listing, :order_list_id => @order_list.id
+        @product_family = Factory(:product_family, :name => "Tomatoes")
+        get :show, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(signin_path)
       end
     end
@@ -172,22 +190,23 @@ describe OrderListingsController do
           @user = test_sign_in(@user)
           @order_list = Factory(:order_list, :user => @user)
           @order_listing = Factory(:order_listing, :order_list => @order_list)
-          @attr = { :quantity => nil, :order_list => @order_list, :product_family => nil}
+          @product_family = Factory(:product_family, :name => "Tomatoes")
+          @attr = { :quantity => nil, :order_list => @order_list, :product_family => @product_family}
         end
   
         it "should not create an order listing" do
           lambda do
-            post :create, :order_listing => @attr, :order_list_id => @order_list.id
+            post :create, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
           end.should_not change(OrderList, :count)
         end
   
         it "should have the right title" do
-          post :create, :order_listing => @attr, :order_list_id => @order_list.id
+          post :create, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
           response.should have_selector("title", :content => "New Order Listing")
         end
   
         it "should render the 'new' page" do
-          post :create, :order_listing => @attr, :order_list_id => @order_list.id
+          post :create, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
           response.should render_template('new')
         end
       end
@@ -205,13 +224,13 @@ describe OrderListingsController do
   
         it "should create an order listing" do
           lambda do
-            post :create, :order_listing => @attr, :order_list_id => @order_list.id
+            post :create, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
           end.should change(OrderListing, :count).by(1)
         end
   
         it "should redirect to the order listing show page" do
-          post :create, :order_listing => @attr, :order_list_id => @order_list.id
-          response.should redirect_to(order_list_order_listing_path(@order_list,assigns(:order_listing)))
+          post :create, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
+          response.should redirect_to(order_list_product_family_order_listing_path(@order_list,@product_family,assigns(:order_listing)))
         end  
      end
     end
@@ -227,7 +246,7 @@ describe OrderListingsController do
       end
       
       it "should protect the page" do 
-        post :create, :order_listing => @attr, :order_list_id => @order_list.id
+        post :create, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(root_path)
       end
    end
@@ -241,7 +260,7 @@ describe OrderListingsController do
       end
       
       it "should protect the page" do 
-        post :create, :order_listing => @attr, :order_list_id => @order_list.id
+        post :create, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(signin_path)
       end
     
@@ -258,17 +277,23 @@ describe OrderListingsController do
         test_sign_in(@user)
         @product = Factory(:product)
         @order_list = Factory(:order_list, :user => @user)
-        @order_listing = Factory(:order_listing, :order_list => @order_list)
+        @product_family = Factory(:product_family, :name => "Peppers")
+        @order_listing = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
       end
   
       it "should be successful" do
-        get :edit, :id => @order_listing, :order_list_id => @order_list.id
+        get :edit, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should be_success
       end
   
       it "should have the right title" do
-        get :edit, :id => @order_listing, :order_list_id => @order_list.id
+        get :edit, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should have_selector("title", :content => "Edit Order Listing")
+      end
+      
+      it "should set the product families" do 
+        get :edit, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
+        assigns(:product_families).should_not be_nil
       end
     end 
     
@@ -278,11 +303,12 @@ describe OrderListingsController do
         test_sign_in(@user)
         @product = Factory(:product)
         @order_list = Factory(:order_list, :user => @user)
-        @order_listing = Factory(:order_listing, :order_list => @order_list)
+        @product_family = Factory(:product_family, :name => "Peppers")
+        @order_listing = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
       end
       
       it "should protect the page" do 
-        get :edit, :id => @order_listing, :order_list_id => @order_list.id
+        get :edit, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(root_path)
       end
     end
@@ -292,11 +318,12 @@ describe OrderListingsController do
         @user = Factory(:user)
         @product = Factory(:product)
         @order_list = Factory(:order_list, :user => @user)
-        @order_listing = Factory(:order_listing, :order_list => @order_list)
+        @product_family = Factory(:product_family, :name => "Peppers")
+        @order_listing = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
       end
       
       it "should protect the page" do 
-        get :edit, :id => @order_listing, :order_list_id => @order_list.id
+        get :edit, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(signin_path)
       end
     end
@@ -316,17 +343,17 @@ describe OrderListingsController do
         before(:each) do
           @product_family = Factory(:product_family, :name => "Peppers")
           @order_list = Factory(:order_list, :user => @user)
-          @order_listing = Factory(:order_listing, :order_list => @order_list)
+          @order_listing = Factory(:order_listing, :order_list => @order_list,:product_family => @product_family)
           @attr = {:product_family => @product_family, :order_list => @order_list, :quantity => nil}
         end
   
         it "should render the 'edit' page" do
-          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id
+          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
           response.should render_template('edit')
         end
   
         it "should have the right title" do
-          put :update, :id => @order_listing, :order_list_id => @order_list.id, :order_listing => @attr
+          put :update, :id => @order_listing, :order_list_id => @order_list.id, :order_listing => @attr, :product_family_id => @product_family.id
           response.should have_selector("title", :content => "Edit Order Listing")
         end
   
@@ -337,12 +364,12 @@ describe OrderListingsController do
         before(:each) do
           @product_family = Factory(:product_family, :name => "Peppers")
           @order_list = Factory(:order_list, :user => @user)
-          @order_listing = Factory(:order_listing, :order_list => @order_list)
+          @order_listing = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
           @attr = {:product_family => @product_family, :order_list => @order_list, :quantity => 5}
         end
   
         it "should change the order listing's attributes" do
-          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id
+          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
           @order_listing.reload
           @order_listing.product_family.should  == @attr[:product_family]
           @order_listing.order_list.should == @attr[:order_list]
@@ -350,12 +377,12 @@ describe OrderListingsController do
         end
   
         it "should redirect to the order listing show page" do
-          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id
-          response.should redirect_to(order_list_order_listing_path(@order_list, @order_listing))
+          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
+          response.should redirect_to(order_list_product_family_order_listing_path(@order_list, @product_family, @order_listing))
         end
   
         it "should have a flash message" do
-          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id
+          put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
           flash[:success].should =~ /updated/
         end
       end
@@ -367,12 +394,12 @@ describe OrderListingsController do
         test_sign_in(@user)
         @product_family = Factory(:product_family, :name => "Peppers")
         @order_list = Factory(:order_list, :user => @user)
-        @order_listing = Factory(:order_listing, :order_list => @order_list)
+        @order_listing = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
         @attr = { :product_family => @product_family, :order_list => @order_list, :quantity => 5 }     
       end
       
       it "should protect the page" do 
-        put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id
+        put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(root_path)
       end
     end
@@ -382,12 +409,12 @@ describe OrderListingsController do
         @user = Factory(:user)
         @product_family = Factory(:product_family, :name => "Peppers")
         @order_list = Factory(:order_list, :user => @user)
-        @order_listing = Factory(:order_listing, :order_list => @order_list)
+        @order_listing = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
         @attr = { :product_family => @product_family, :order_list => @order_list, :quantity => 5 }     
       end
       
       it "should protect the page" do 
-        put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id
+        put :update, :id => @order_listing, :order_listing => @attr, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(signin_path)
       end
     end
@@ -399,11 +426,12 @@ describe OrderListingsController do
       @user = Factory(:user)
       @order_list = Factory(:order_list, :user => @user)
       @order_listing = Factory(:order_listing, :order_list => @order_list)
+      @product_family = Factory(:product_family, :name => "Peppers")
     end
   
     describe "as a non-signed-in user" do
       it "should deny access" do
-        delete :destroy, :id => @order_listing, :order_list_id => @order_list.id
+        delete :destroy, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(signin_path)
       end
     end
@@ -411,7 +439,7 @@ describe OrderListingsController do
     describe "as a non-admin user" do
       it "should protect the page" do
         test_sign_in(@user)
-        delete :destroy, :id => @order_listing, :order_list_id => @order_list.id
+        delete :destroy, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         response.should redirect_to(root_path)
       end
     end
@@ -425,13 +453,13 @@ describe OrderListingsController do
   
       it "should destroy the order listing" do
         lambda do
-          delete :destroy, :id => @order_listing, :order_list_id => @order_list.id
+          delete :destroy, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
         end.should change(OrderListing, :count).by(-1)
       end
   
       it "should redirect to the order listing page" do
-        delete :destroy, :id => @order_listing, :order_list_id => @order_list.id
-        response.should redirect_to(order_list_order_listings_path(@order_list))
+        delete :destroy, :id => @order_listing, :order_list_id => @order_list.id, :product_family_id => @product_family.id
+        response.should redirect_to(order_list_product_family_order_listings_path(@order_list,@product_family))
       end
     end
   end

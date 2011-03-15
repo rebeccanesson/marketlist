@@ -2,6 +2,7 @@ class OrderListingsController < ApplicationController
   before_filter :authenticate
   before_filter :admin_user,  :except => :show
   before_filter :load_order_list
+  before_filter :load_product_families_and_products
   
   # GET /order_listings
   # GET /order_listings.xml
@@ -30,7 +31,7 @@ class OrderListingsController < ApplicationController
   # GET /order_listings/new
   # GET /order_listings/new.xml
   def new
-    @order_listing = OrderListing.new
+    @order_listing = @order_list.order_listings.build
     @title = "New Order Listing"
 
     respond_to do |format|
@@ -48,12 +49,12 @@ class OrderListingsController < ApplicationController
   # POST /order_listings
   # POST /order_listings.xml
   def create
-    @order_listing = OrderListing.new(params[:order_listing])
+    @order_listing = OrderListing.new(params[:order_listing].merge(:order_list_id => @order_list.id,:product_family_id => @product_family.id))
 
     respond_to do |format|
       if @order_listing.save
         flash[:success] = 'Order listing was successfully created.'
-        format.html { redirect_to([@order_list,@order_listing]) }
+        format.html { redirect_to([@order_list,@product_family,@order_listing]) }
         format.xml  { render :xml => @order_listing, :status => :created, :location => @order_listing }
       else
         @title = "New Order Listing"
@@ -71,7 +72,7 @@ class OrderListingsController < ApplicationController
     respond_to do |format|
       if @order_listing.update_attributes(params[:order_listing])
         flash[:success] = 'Order listing was successfully updated.'
-        format.html { redirect_to([@order_list,@order_listing]) }
+        format.html { redirect_to([@order_list,@product_family,@order_listing]) }
         format.xml  { head :ok }
       else
         @title = "Edit Order Listing"
@@ -88,7 +89,7 @@ class OrderListingsController < ApplicationController
     @order_listing.destroy
 
     respond_to do |format|
-      format.html { redirect_to(order_list_order_listings_url(@order_list)) }
+      format.html { redirect_to(order_list_product_family_order_listings_url(@order_list,@product_family)) }
       format.xml  { head :ok }
     end
   end
@@ -96,5 +97,11 @@ class OrderListingsController < ApplicationController
   private
   def load_order_list
     @order_list = OrderList.find(params[:order_list_id])
+    @product_family = ProductFamily.find(params[:product_family_id])
+  end
+  
+  def load_product_families_and_products
+    @product_families = ProductFamily.find(:all, :order => "name ASC")
+    @products = @product_family.products
   end
 end

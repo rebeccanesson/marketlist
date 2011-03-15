@@ -2,5 +2,13 @@
 
 <%= render 'form' %>
 
+<h2>Add or Edit Order Listings by Product Family</h2>
+
+<ul>
+  <% @product_families.each do |product_family| %>
+    <li><%= link_to product_family.name, order_list_product_family_order_listings_path(@order_list,product_family) %></li>
+  <% end %>
+</ul>
+
 <%= link_to 'Show', @order_list %> |
 <%= link_to 'Back', order_lists_path %>

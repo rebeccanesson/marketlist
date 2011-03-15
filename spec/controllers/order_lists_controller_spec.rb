@@ -260,6 +260,11 @@ describe OrderListsController do
         get :edit, :id => @order_list
         response.should have_selector("title", :content => "Edit Order List")
       end
+      
+      it "should set the product families" do 
+        get :edit, :id => @order_list
+        assigns(:product_families).should_not be_nil
+      end
     end 
     
     describe "for logged in users" do 

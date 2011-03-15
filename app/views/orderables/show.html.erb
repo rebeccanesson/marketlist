@@ -2,7 +2,7 @@
 
 <p>
   <b>Product:</b>
-  <%= @orderable.product_id %>
+  <%= @orderable.product.name %>
 </p>
 
 <p>
@@ -16,5 +16,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_order_list_order_listing_orderable_path(@order_list,@order_listing,@orderable) %> |
-<%= link_to 'Back', order_list_order_listing_orderables_path(@order_list,@order_listing) %>
+<%= link_to 'Edit', edit_order_list_product_family_order_listing_orderable_path(@order_list,@product_family,@order_listing,@orderable) %> |
+<%= link_to 'Back', order_list_product_family_order_listing_orderables_path(@order_list,@product_family,@order_listing) %>

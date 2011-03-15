@@ -52,7 +52,8 @@ class OrderablesController < ApplicationController
 
     respond_to do |format|
       if @orderable.save
-        format.html { redirect_to([@order_list,@order_listing,@orderable], :notice => 'Orderable was successfully created.') }
+        flash[:success] = 'Orderable was successfully created.'
+        format.html { redirect_to([@order_list,@product_family,@order_listing,@orderable]) }
         format.xml  { render :xml => @orderable, :status => :created, :location => @orderable }
       else
         @title = "New Orderable"
@@ -70,7 +71,7 @@ class OrderablesController < ApplicationController
     respond_to do |format|
       if @orderable.update_attributes(params[:orderable])
         flash[:success] = 'Orderable was successfully updated.'
-        format.html { redirect_to(order_list_order_listing_orderable_path(@order_list,@order_listing,@orderable)) }
+        format.html { redirect_to(order_list_product_family_order_listing_orderable_path(@order_list,@product_family,@order_listing,@orderable)) }
         format.xml  { head :ok }
       else
         @title = "Edit Orderable"
@@ -87,7 +88,7 @@ class OrderablesController < ApplicationController
     @orderable.destroy
 
     respond_to do |format|
-      format.html { redirect_to(order_list_order_listing_orderables_url(@order_list,@order_listing)) }
+      format.html { redirect_to(order_list_product_family_order_listing_orderables_url(@order_list,@product_family,@order_listing)) }
       format.xml  { head :ok }
     end
   end
@@ -96,5 +97,6 @@ class OrderablesController < ApplicationController
   def load_order_list_and_listing
     @order_listing = OrderListing.find(params[:order_listing_id])
     @order_list = OrderList.find(params[:order_list_id])
+    @product_family = ProductFamily.find(params[:product_family_id])
   end
 end

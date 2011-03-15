@@ -1,7 +1,10 @@
 
+<p>Order listing fro the <%= link_to "order list", @order_listing.order_list %> opening on <%= @order_list.order_start %> and for delivery on <%= @order_list.delivery_start %></b>
+</p>
+
 <p>
-  <b>Order list:</b>
-  <%= @order_listing.order_list_id %>
+  <b>Product family:</b>
+  <%= @order_listing.product_family.name %>
 </p>
 
 <p>
@@ -9,11 +12,12 @@
   <%= @order_listing.quantity %>
 </p>
 
-<p>
-  <b>Product family:</b>
-  <%= @order_listing.product_family_id %>
-</p>
+<ul>
+<% @order_listing.orderables.each do |ord| %>
+  <li><%= ord.product.name %> (organic: <%= ord.organic_price %>, conventional: <%= ord.conventional_price %>)</li> 
+  <%= "OR" unless ord == @order_listing.orderables.last %>
+<% end %>
+</ul>
 
-
-<%= link_to 'Edit', edit_order_list_order_listing_path(@order_list,@order_listing) %> |
-<%= link_to 'Back', order_list_order_listings_path(@order_list) %>
+<%= link_to 'Edit', edit_order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) %> |
+<%= link_to 'Back', order_list_product_family_order_listings_path(@order_list,@product_family) %>

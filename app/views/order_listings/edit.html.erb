@@ -1,6 +1,6 @@
-<h1>Editing order_listing</h1>
+<h1>Editing Order Listing for family <%= @product_family.name %> %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', order_list_order_listing_path(@order_list,@order_listing) %> |
-<%= link_to 'Back', order_list_order_listings_path(@order_list) %>
+<%= link_to 'Show', order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) %> |
+<%= link_to 'Back', order_list_product_family_order_listings_path(@order_list,@product_family) %>

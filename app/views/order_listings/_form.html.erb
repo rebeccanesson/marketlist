@@ -1,4 +1,4 @@
-<%= form_for([@order_list,@order_listing]) do |f| %>
+<%= form_for([@order_list,@product_family,setup_orderable(@order_listing)]) do |f| %>
   <% if @order_listing.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@order_listing.errors.count, "error") %> prohibited this order_listing from being saved:</h2>
@@ -12,17 +12,36 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :order_list_id %><br />
-    <%= f.text_field :order_list_id %>
-  </div>
-  <div class="field">
     <%= f.label :quantity %><br />
     <%= f.text_field :quantity %>
   </div>
-  <div class="field">
-    <%= f.label :product_family_id %><br />
-    <%= f.text_field :product_family_id %>
-  </div>
+  
+  <h4>Orderables</h4>
+  <table>
+    <thead>
+      <th>Product</th>
+      <th>Organic Price</th>
+      <th>Conventional Price</th>
+      <th>Remove?</th>
+    </thead>
+  <%= f.fields_for :orderables do |o_form| %>
+     <tr>
+       <td>
+         <%= o_form.collection_select :product_id, @products, :id, :name, :prompt => true %>
+       </td>
+       <td><%= o_form.text_field :organic_price %></td>
+       <td><%= o_form.text_field :conventional_price %></td>
+       <td>
+      <% unless o_form.object.new_record? %>
+        <% # Don't forget to name both of these '_destroy' in Rails 3 %>
+        <%= o_form.check_box '_destroy' %>
+      <% end %>
+      </td>
+    </tr>
+
+  <% end %>
+  </table>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
