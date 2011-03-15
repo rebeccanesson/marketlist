@@ -3,7 +3,7 @@
 <%= will_paginate %>
 <table>
   <tr>
-    <th>Order list</th>
+    <th>Products</th>
     <th>Quantity</th>
     <th></th>
     <th></th>
@@ -23,4 +23,5 @@
 
 <%= will_paginate %>
 
-<%= link_to 'New Order listing', new_order_list_product_family_order_listing_path(@order_list,@product_family) %>
+<%= link_to 'New Order listing', new_order_list_product_family_order_listing_path(@order_list,@product_family) %> | 
+<%= link_to 'Back to Order Lists', order_lists_path %>
