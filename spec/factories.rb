@@ -1,8 +1,16 @@
 require 'faker'
 
+Factory.sequence :email do |n|
+  u = User.find(:first, :order => "id ASC")
+  x = (u ? u.id : 0)
+  res = "factory_#{x}@example.com"
+  puts res
+  res
+end
+
 Factory.define :user do |user|
   user.name                  "Michael Hartl"
-  user.email                 "blahblah@example.com"
+  user.email                 Faker::Internet.email
   user.password              "foobar"
   user.password_confirmation "foobar"
 end
@@ -22,7 +30,7 @@ Factory.define :order_list do |order_list|
   order_list.order_end      Time.zone.now + 5.days
   order_list.delivery_start Time.zone.now + 7.days
   order_list.delivery_end   Time.zone.now + 7.days + 5.hours
-  order_list.association :user, {:email => Faker::Internet.email}
+  order_list.user           Factory(:user, :email => Faker::Internet.email)
 end
 
 Factory.define :order_listing do |order_listing|
@@ -31,15 +39,17 @@ Factory.define :order_listing do |order_listing|
   order_listing.quantity        3
 end
 
- Factory.sequence :email do |n|
-   "person-#{n}@example.com"
- end
-
 Factory.define :orderable do |orderable|
   orderable.product            Factory(:product)
   orderable.order_listing      Factory(:order_listing)
   orderable.organic_price      10.00
   orderable.conventional_price 8.00
+end
+
+Factory.define :commitment do |commitment|
+  commitment.orderable    Factory(:orderable)
+  commitment.user         Factory(:user, :email => Faker::Internet.email)
+  commitment.quantity     1
 end
 
 

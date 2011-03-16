@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310141355) do
+ActiveRecord::Schema.define(:version => 20110316001956) do
+
+  create_table "commitments", :force => true do |t|
+    t.integer  "orderable_id"
+    t.integer  "user_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "markets", :force => true do |t|
     t.string   "name"

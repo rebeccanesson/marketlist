@@ -9,6 +9,10 @@ describe MarketsController do
   def mock_market(stubs={})
     @mock_market ||= mock_model(Market, stubs).as_null_object
   end
+  
+  before(:each) do 
+    User.all.each { |u| u.destroy }
+  end
 
   describe "GET index" do
     it "assigns all markets as @markets" do

@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe SessionsController do
   render_views
+  
+  before(:each) do 
+    User.all.each { |u| u.destroy }
+  end
 
   describe "GET 'new'" do
 

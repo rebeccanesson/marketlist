@@ -6,6 +6,10 @@ require 'spec_helper'
 
 describe OrderListingsController do
   render_views
+  
+  before(:each) do 
+    User.all.each { |u| u.destroy }
+  end
 
   describe "GET index" do
     

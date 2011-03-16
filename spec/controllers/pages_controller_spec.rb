@@ -3,6 +3,10 @@ require 'spec_helper'
 describe PagesController do
   render_views
   
+  before(:each) do 
+    User.all.each { |u| u.destroy }
+  end
+  
   describe "GET 'admin'" do
   
     describe "as a non-admin user" do

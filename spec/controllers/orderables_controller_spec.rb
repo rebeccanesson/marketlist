@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe OrderablesController do
   render_views
+  
+  before(:each) do 
+    User.all.each { |u| u.destroy }
+  end
 
   describe "GET index" do
     

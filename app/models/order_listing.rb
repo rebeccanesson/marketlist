@@ -17,6 +17,7 @@ class OrderListing < ActiveRecord::Base
   belongs_to :order_list
   belongs_to :product_family
   has_many   :orderables
+  has_many   :commitments, :through => :orderables
   accepts_nested_attributes_for :orderables, :allow_destroy => true, :reject_if => proc { |attrs| attrs[:product_id].blank? } 
   
   
@@ -28,5 +29,9 @@ class OrderListing < ActiveRecord::Base
                                        :greater_than => 0
  
 
+  # This is the total number (including the already claimed commitments) that a user can have
+  def total_commitments_available_to(user)
+    quantity - commitments.size + commitments.select { |c| c.user == user }.size
+  end
   
 end

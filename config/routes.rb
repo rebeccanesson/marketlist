@@ -7,6 +7,7 @@ Marketlist::Application.routes.draw do
   resources :order_lists do
     resources :product_families do 
       resources :order_listings do
+        resources :commitments
         resources :orderables
       end
     end
@@ -14,7 +15,10 @@ Marketlist::Application.routes.draw do
 
   get "sessions/new"
 
-  resources :users
+  resources :users do 
+    resources :commitments
+  end
+  
   resources :sessions, :only => [:new, :create, :destroy]
   
   get "users/new"

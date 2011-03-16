@@ -3,6 +3,10 @@ require 'spec_helper'
 describe UsersController do
   render_views
   
+  before(:each) do 
+    User.all.each { |u| u.destroy }
+  end
+  
   describe "GET 'index'" do
 
      describe "for non-signed-in users" do
@@ -31,8 +35,8 @@ describe UsersController do
          third  = Factory(:user, :name => "Ben", :email => "another@example.net")
 
          @users = [@user, second, third]
-         30.times do
-           @users << Factory(:user, :email => Factory.next(:email))
+         30.times do |i|
+           @users << Factory(:user, :email => "another#{i}@example.org")
          end
        end
 

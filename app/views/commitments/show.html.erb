@@ -1,0 +1,16 @@
+<h2>Commitment for <%= @commitment.orderable.product.name %></h2>
+
+
+<p>
+  <b>User:</b>
+  <%= @commitment.user.name %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @commitment.quantity %>
+</p>
+
+
+<%= link_to 'Edit', edit_order_list_product_family_order_listing_commitment_path(@order_list,@product_family,@order_listing,@commitment) %> |
+<%= link_to 'Back', order_list_product_family_order_listing_commitments_path(@order_list,@product_family,@order_listing) %>
