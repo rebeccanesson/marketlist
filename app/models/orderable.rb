@@ -36,7 +36,7 @@ class Orderable < ActiveRecord::Base
                                                  :greater_than => 0
                                                  
   def name 
-    (product ? product.name : "no product")
+    (product ? "#{product.product_family.name}: #{product.name}" : "no product")
   end
   
 end

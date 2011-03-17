@@ -47,7 +47,7 @@ class OrderListing < ActiveRecord::Base
   end
   
   def display_name 
-    (!self.orderables.empty? ? self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')
+    (!self.orderables.empty? ? self.product_family.name + ": " + self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')
   end
   
 end
