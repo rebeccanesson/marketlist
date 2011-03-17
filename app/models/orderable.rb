@@ -44,7 +44,7 @@ class Orderable < ActiveRecord::Base
   end
   
   def name_for_user(current_user)
-    (current_user.organic ? "Organic " + name : name)
+    (current_user.organic ? "Organic " + product.name : product.name)
   end
   
 end
