@@ -1,6 +1,6 @@
 <% @order_listing = with_commitment_form %>
 <% @commitment = Commitment.new %>
-<div id="order_listing_<%= @order_listing.id %>" style="border:1px solid grey;margin:5px 0;">
+<div id="order_listing_<%= @order_listing.id %>" style="border-bottom:1px solid grey;margin:5px 0;">
  <div style="width:70px;float:left;margin-left:5px;"><%= @order_listing.total_commitments_available %></div>
  <div style="width:550px;float:left;margin-left:5px;">
      <% if @order_listing.total_commitments_available > 0 %>
