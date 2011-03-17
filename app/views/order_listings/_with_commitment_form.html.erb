@@ -12,7 +12,7 @@
            <%= hidden_field_tag 'commitment[user_id]', current_user.id %>
            <div style="display:inline-block;width:40px;float:left;"><%= f.text_field :quantity, :size => 2, :value => 0 %></div>
            <div style="display:inline-block;width:230px;float:left;"><%= orderable.name_for_user(current_user) %></div>
-           <div style="display:inline-block:width:60px;float:left;"><%= number_to_currency(orderable.price_for_user(current_user)) %></div>
+           <div style="display:inline-block:width:70px;float:left;"><%= number_to_currency(orderable.price_for_user(current_user)) %></div>
            <%= hidden_field_tag 'commitment[orderable_id]', orderable.id %>
            <div style="display:inline-block:width:100px;float:left;margin-left:5px;"><%= f.submit 'commit' %></div>
        <% end %>
