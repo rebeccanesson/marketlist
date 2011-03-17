@@ -50,19 +50,16 @@ class CommitmentsController < ApplicationController
   # POST /commitments.xml
   def create
     @commitment = Commitment.new(params[:commitment])
-
     respond_to do |format|
       if @commitment.save
         flash[:success] = 'Commitment was successfully created.'
-        format.html { redirect_to home_path }
-        # format.html { redirect_to(order_list_product_family_order_listing_commitment_path(@order_list,@product_family,@order_listing,@commitment)) }
+        format.html { redirect_to(order_list_product_family_order_listing_commitment_path(@order_list,@product_family,@order_listing,@commitment)) }
         format.xml  { render :xml => @commitment, :status => :created, :location => @commitment }
+        format.js
       else
-        @title = "Home"
-        @open_order_lists = OrderList.find(:all, :conditions => ["order_start <= ? and order_end >= ?", Time.now, Time.now])
-        @upcoming_order_list = OrderList.find(:first, :conditions => ["order_start > ?", Time.now], :order => "order_start ASC")
-        format.html { render 'pages/home' }
+        format.html { render 'new' }
         format.xml  { render :xml => @commitment.errors, :status => :unprocessable_entity }
+        format.js   { render 'error' }
       end
     end
   end

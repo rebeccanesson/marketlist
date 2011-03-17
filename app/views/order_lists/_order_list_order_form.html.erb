@@ -7,6 +7,10 @@
 <p><b>For delivery between <%= order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %> 
                         and <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %></b></p>
 
+
+<div id="notice">
+</div>
+
 <% if @commitment and @commitment.errors.any? %>
    <div id="error_explanation">
      <h2><%= pluralize(@commitment.errors.count, "error") %> prohibited this commitment from being saved:</h2>
