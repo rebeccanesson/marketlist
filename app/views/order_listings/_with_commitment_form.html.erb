@@ -1,0 +1,21 @@
+<% @order_listing = with_commitment_form %>
+<% @commitment = Commitment.new %>
+<tr>
+ <td><%= @order_listing.total_commitments_available %></td>
+ <td><%= @order_listing.display_name %></td>
+ <td>
+   <% if @order_listing.total_commitments_available > 0 and @order_listing.orderables.size > 0 %>
+     <%= form_for([@order_listing.order_list,@order_listing.product_family,@order_listing,@commitment]) do |f| %>
+         <%= hidden_field_tag 'commitment[user_id]', current_user.id %>
+         <%= f.text_field :quantity, :size => 2, :value => 0 %>
+         <%= f.collection_select :orderable_id, @order_listing.orderables, :id, :name %>
+         <%= f.submit 'commit' %>
+     <% end %>
+   <% end %>
+  </td>
+  <td>
+    <% current_user.commitments_for_order_listing(@order_listing).each do |c| %>
+      <%= c.quantity %> <%= c.orderable.name %> (<%= link_to 'remove', order_list_product_family_order_listing_commitment_path(@order_listing.order_list,@order_listing.product_family,@order_listing,c), :confirm => 'Are you sure?', :method => :delete %>)<br />
+    <% end %>
+  </td>
+</tr>

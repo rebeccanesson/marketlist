@@ -16,6 +16,12 @@ class PagesController < ApplicationController
     @market = Market.the_market
   end
   
+  def home
+    @title = "Home"
+    @open_order_lists = OrderList.find(:all, :conditions => ["order_start <= ? and order_end >= ?", Time.now, Time.now])
+    @upcoming_order_list = OrderList.find(:first, :conditions => ["order_start > ?", Time.now], :order => "order_start ASC")
+  end
+  
   private
   def authenticate
     deny_access unless signed_in?

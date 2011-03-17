@@ -34,5 +34,9 @@ class Orderable < ActiveRecord::Base
                                             
   validates_numericality_of :conventional_price, :allow_nil => true, 
                                                  :greater_than => 0
+                                                 
+  def name 
+    (product ? product.name : "no product")
+  end
   
 end

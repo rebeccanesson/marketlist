@@ -28,10 +28,7 @@ class Commitment < ActiveRecord::Base
   
    def quantity_in_allowed_range
      # self.errors.add(:quantity, "quantity is #{quantity} and available commitments is #{self.orderable.order_listing.total_commitments_available_to(self.user)}")
-     self.errors.add(:quantity, "is more than is available") unless quantity <= self.orderable.order_listing.total_commitments_available_to(self.user)
+     self.errors.add(:quantity, " committed must be less than the quantity needed") unless quantity <= self.orderable.order_listing.total_commitments_available
    end
 
-  
-  
-  
 end

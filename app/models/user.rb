@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
   end
+  
+  def commitments_for_order_listing(order_listing)
+    commitments.select { |c| c.order_listing == order_listing }
+  end
 
   private
 

@@ -215,12 +215,12 @@ describe CommitmentsController do
   
         it "should have the right title" do
           post :create, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-          response.should have_selector("title", :content => "New Commitment")
+          response.should have_selector("title", :content => "Home")
         end
   
         it "should render the 'new' page" do
           post :create, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-          response.should render_template('new')
+          response.should render_template('pages/home')
         end
       end
     
@@ -253,7 +253,7 @@ describe CommitmentsController do
         
         it "should redirect to the commitment show page" do
           post :create, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-          response.should redirect_to(order_list_product_family_order_listing_commitment_path(@order_list,@product_family,@order_listing,assigns(:commitment)))
+          response.should redirect_to(home_path)
         end  
      end
     end
@@ -467,6 +467,7 @@ describe CommitmentsController do
           @product_family = Factory(:product_family, :name => "Tomatoes")
           @product = Factory(:product, :product_family => @product_family)
           @order_list = Factory(:order_list, :user => @user)
+          @order_list.order_start = Time.now - 1.day
           @order_listing = Factory(:order_listing, :order_list => @order_list, :product_family => @product_family)
           @orderable = Factory(:orderable, :order_listing => @order_listing, :product => @product)
           @commitment = Factory(:commitment, :orderable => @orderable, :user => @seller)
@@ -474,11 +475,15 @@ describe CommitmentsController do
         end
   
         it "should render the 'edit' page" do
+          @now = Time.now
+          Time.stub!(:now).and_return(@now + 3.days)
           put :update, :id => @commitment, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
           response.should render_template('edit')
         end
   
         it "should have the right title" do
+          @now = Time.now
+          Time.stub!(:now).and_return(@now + 3.days)
           put :update, :id => @commitment, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :commitment => @attr, :product_family_id => @product_family.id
           response.should have_selector("title", :content => "Edit Commitment")
         end
@@ -498,6 +503,8 @@ describe CommitmentsController do
         end
   
         it "should change the commitments's attributes" do
+          @now = Time.now
+          Time.stub!(:now).and_return(@now + 3.days)
           put :update, :id => @commitment, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
           @commitment.reload
           @commitment.orderable.should  == @attr[:orderable]
@@ -506,11 +513,15 @@ describe CommitmentsController do
         end
   
         it "should redirect to the commitment show page" do
+          @now = Time.now
+          Time.stub!(:now).and_return(@now + 3.days)
           put :update, :id => @commitment, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
           response.should redirect_to(order_list_product_family_order_listing_commitment_path(@order_list,@product_family, @order_listing, @commitment))
         end
   
         it "should have a flash message" do
+          @now = Time.now
+          Time.stub!(:now).and_return(@now + 3.days)
           put :update, :id => @commitment, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
           flash[:success].should =~ /updated/
         end
@@ -592,14 +603,26 @@ describe CommitmentsController do
        end
 
        it "should destroy the commitment" do
+         @now = Time.now
+         Time.stub!(:now).and_return(@now + 3.days)
          lambda do
            delete :destroy, :id => @commitment, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
          end.should change(Commitment, :count).by(-1)
        end
+       
+      it "should not destroy the commitment after ordering closes" do 
+        @order_list.order_end = Time.now - 1.hour
+        lambda do
+          delete :destroy, :id => @commitment, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
+        end.should_not change(Commitment, :count)
+      end 
+          
 
        it "should redirect to the commitment page" do
+         @now = Time.now
+         Time.stub!(:now).and_return(@now + 3.days)
          delete :destroy, :id => @commitment, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-         response.should redirect_to(order_list_product_family_order_listing_commitments_path(@order_list,@product_family,@order_listing))
+         response.should redirect_to(home_path)
        end
      end
   
@@ -618,7 +641,7 @@ describe CommitmentsController do
   
       it "should redirect to the commitment page" do
         delete :destroy, :id => @commitment, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-        response.should redirect_to(order_list_product_family_order_listing_commitments_path(@order_list,@product_family,@order_listing))
+        response.should redirect_to(home_path)
       end
     end
   end

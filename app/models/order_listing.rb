@@ -31,7 +31,23 @@ class OrderListing < ActiveRecord::Base
 
   # This is the total number (including the already claimed commitments) that a user can have
   def total_commitments_available_to(user)
-    quantity - commitments.size + commitments.select { |c| c.user == user }.size
+    quantity - total_commitment_quantity + total_commitment_quantity_for_user(user)
+  end
+  
+  def total_commitments_available
+    quantity - total_commitment_quantity
+  end
+  
+  def total_commitment_quantity
+    self.commitments.inject(0) { |sum,c| sum + c.quantity }
+  end
+  
+  def total_commitment_quantity_for_user(user)
+    self.commitments.select { |c| c.user == user }.inject(0) { |sum,c| sum + c.quantity }
+  end
+  
+  def display_name 
+    (!self.orderables.empty? ? self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')
   end
   
 end
