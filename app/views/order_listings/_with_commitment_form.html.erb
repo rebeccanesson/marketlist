@@ -1,8 +1,8 @@
 <% @order_listing = with_commitment_form %>
 <% @commitment = Commitment.new %>
 <tr id="order_listing_<%= @order_listing.id %>">
+ <td><%= @order_listing.display_with_price_for_user(current_user) %></td>
  <td><%= @order_listing.total_commitments_available %></td>
- <td><%= @order_listing.display_name %></td>
  <td>
    <% if @order_listing.total_commitments_available > 0 %>
      <% @order_listing.orderables.each do |orderable| %>

@@ -10,6 +10,7 @@
 #  created_at        :datetime
 #  updated_at        :datetime
 #
+include ActionView::Helpers::NumberHelper
 
 class OrderListing < ActiveRecord::Base
   attr_accessible :order_list_id, :order_list, :product_family_id, :product_family, :quantity, :orderables_attributes, :orderables
@@ -48,6 +49,10 @@ class OrderListing < ActiveRecord::Base
   
   def display_name 
     (!self.orderables.empty? ? self.product_family.name + ": " + self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')
+  end
+  
+  def display_with_price_for_user(user)
+    (!self.orderables.empty? ? (user.organic ? "Organic" : "") + self.product_family.name + ": " + self.orderables.collect{ |o| o.product.name + " (" + (user.organic ? number_to_currency(o.organic_price) : number_to_currency(o.conventional_price) ) + ")" }.join(" OR ") : 'No Products')   
   end
   
 end

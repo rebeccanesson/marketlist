@@ -53,6 +53,10 @@ class User < ActiveRecord::Base
   def commitments_for_order_listing(order_listing)
     commitments.select { |c| c.order_listing == order_listing }
   end
+  
+  def organic
+    false
+  end
 
   private
 
