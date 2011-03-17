@@ -17,7 +17,7 @@
   </td>
   <td>
     <% current_user.commitments_for_order_listing(@order_listing).each do |c| %>
-      <%= c.quantity %> <%= c.orderable.name %> (<%= link_to 'remove', order_list_product_family_order_listing_commitment_path(@order_listing.order_list,@order_listing.product_family,@order_listing,c), :confirm => 'Are you sure?', :method => :delete %>)<br />
+      <%= c.quantity %> <%= c.orderable.name %> (<%= link_to 'x', order_list_product_family_order_listing_commitment_path(@order_listing.order_list,@order_listing.product_family,@order_listing,c), :confirm => 'Are you sure?', :method => :delete %>)<br />
     <% end %>
   </td>
 </tr>
