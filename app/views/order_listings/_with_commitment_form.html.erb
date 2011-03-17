@@ -1,8 +1,8 @@
 <% @order_listing = with_commitment_form %>
 <% @commitment = Commitment.new %>
-<div id="order_listing_<%= @order_listing.id %>" style="border-bottom:1px solid grey;margin:5px 0;">
- <div style="width:70px;float:left;margin-left:5px;"><%= @order_listing.total_commitments_available %></div>
- <div style="width:550px;float:left;margin-left:5px;">
+<div id="order_listing_<%= @order_listing.id %>" style="border-top:1px solid grey;margin:5px 0;">
+ <div style="width:120px;float:left;margin-left:5px;text-align:center;"><%= @order_listing.total_commitments_available %></div>
+ <div style="width:500px;float:left;margin-left:5px;">
      <% if @order_listing.total_commitments_available > 0 %>
        <% @order_listing.orderables.each do |orderable| %>
          <%= form_for([@order_listing.order_list,@order_listing.product_family,@order_listing,@commitment], :remote => true, :html => {:id => "new_commitment_#{@order_listing.id}"}) do |f| %>
