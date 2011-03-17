@@ -1,7 +1,6 @@
 <% @order_listing = with_commitment_form %>
 <% @commitment = Commitment.new %>
 <tr id="order_listing_<%= @order_listing.id %>">
- <td><%= @order_listing.display_with_price_for_user(current_user) %></td>
  <td><%= @order_listing.total_commitments_available %></td>
  <td>
    <% if @order_listing.total_commitments_available > 0 %>
@@ -9,9 +8,9 @@
        <%= form_for([@order_listing.order_list,@order_listing.product_family,@order_listing,@commitment], :remote => true, :html => {:id => "new_commitment_#{@order_listing.id}"}) do |f| %>
            <%= hidden_field_tag 'commitment[user_id]', current_user.id %>
            <%= f.text_field :quantity, :size => 2, :value => 0 %>
-           <%= orderable.name %>
+           <%= orderable.name_for_user(current_user) %> at <%= number_to_currency(orderable.price_for_user(current_user)) %>
            <%= hidden_field_tag 'commitment[orderable_id]', orderable.id %>
-           <%= f.submit 'commit' %>
+           <%= f.submit 'go' %>
        <% end %>
      <% end %>
    <% end %>

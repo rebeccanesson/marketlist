@@ -39,4 +39,12 @@ class Orderable < ActiveRecord::Base
     (product ? "#{product.product_family.name}: #{product.name}" : "no product")
   end
   
+  def price_for_user(current_user)
+    (current_user.organic ? organic_price : conventional_price)
+  end
+  
+  def name_for_user(current_user)
+    (current_user.organic ? "Organic " + name : name)
+  end
+  
 end
