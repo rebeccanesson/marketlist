@@ -1,28 +1,27 @@
 <% @order_listing = with_commitment_form %>
 <% @commitment = Commitment.new %>
-<tr id="order_listing_<%= @order_listing.id %>">
- <td><%= @order_listing.total_commitments_available %></td>
- <td>
-   <% if @order_listing.total_commitments_available > 0 %>
-     <% if @order_listing.orderables.size > 0 %>
-       <b><%= @order_listing.product_family.name %>:</b><br />
-     <% end %>
-     <% @order_listing.orderables.each do |orderable| %>
-       <%= form_for([@order_listing.order_list,@order_listing.product_family,@order_listing,@commitment], :remote => true, :html => {:id => "new_commitment_#{@order_listing.id}"}) do |f| %>
-           <%= hidden_field_tag 'commitment[user_id]', current_user.id %>
-           <div style="display:inline-block;width:40px;float:left;"><%= f.text_field :quantity, :size => 2, :value => 0 %></div>
-           <div style="display:inline-block;width:230px;float:left;"><%= orderable.name_for_user(current_user) %></div>
-           <div style="display:inline-block;width:45px;float:left;text-align:right;"><%= number_to_currency(orderable.price_for_user(current_user)) %></div>
-           <%= hidden_field_tag 'commitment[orderable_id]', orderable.id %>
-           <div style="display:inline-block:width:100px;float:left;margin-left:5px;"><%= f.submit 'commit' %></div>
+<div id="order_listing_<%= @order_listing.id %>" style="border:1px solid grey;margin:5px 0;">
+ <div style="width:70px;float:left;margin-left:5px;"><%= @order_listing.total_commitments_available %></div>
+ <div style="width:550px;float:left;margin-left:5px;">
+     <% if @order_listing.total_commitments_available > 0 %>
+       <% @order_listing.orderables.each do |orderable| %>
+         <%= form_for([@order_listing.order_list,@order_listing.product_family,@order_listing,@commitment], :remote => true, :html => {:id => "new_commitment_#{@order_listing.id}"}) do |f| %>
+             <%= hidden_field_tag 'commitment[user_id]', current_user.id %>
+             <div style="width:40px;float:left;"><%= f.text_field :quantity, :size => 2, :value => 0 %></div>
+             <div style="width:230px;float:left;"><%= orderable.name_for_user(current_user) %></div>
+             <div style="width:45px;float:left;text-align:right;"><%= number_to_currency(orderable.price_for_user(current_user)) %></div>
+             <%= hidden_field_tag 'commitment[orderable_id]', orderable.id %>
+             <div style="width:100px;float:left;margin-left:5px;"><%= f.submit 'commit' %></div>
+         <% end %>
+          <div style="clear:both;"></div>
        <% end %>
-       <div style="clear:both;" />
      <% end %>
-   <% end %>
-  </td>
-  <td>
+  </div>
+  <div style="width:270px;float:left;margin-left:5px;">
     <% current_user.commitments_for_order_listing(@order_listing).each do |c| %>
       <%= c.quantity %> <%= c.orderable.name %> (<%= link_to 'x', order_list_product_family_order_listing_commitment_path(@order_listing.order_list,@order_listing.product_family,@order_listing,c), :confirm => 'Are you sure?', :method => :delete %>)<br />
     <% end %>
-  </td>
-</tr>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+<div style="clear:both;" />
