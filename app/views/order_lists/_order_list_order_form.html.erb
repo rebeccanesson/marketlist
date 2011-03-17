@@ -25,10 +25,10 @@
 
 <div style="clear:both;"></div> 
 <% order_list.order_listings.group_by(&:product_family).each do |family,listings| %>        
-  <h5 style="margin:10px 0 5px;"><%= family.name %></h5>   
+  <h4 style="margin:10px 0 5px;"><%= family.name %></h4>   
   <div style="width:100%;display:block;height:20px;">
-      <div style="width:120px;float:left;margin-left:5px;"><b>Quantity Needed</b></div>
-      <div style="width:500px;float:left;margin-left:5px;"><b>I Will Provide</b></div>
+      <div style="width:120px;float:left;margin-left:5px;"><b>Cases Needed</b></div>
+      <div style="width:500px;float:left;margin-left:5px;"><b>Cases I Will Provide</b></div>
       <div style="width:270px;float:left;margin-left:5px;"><b>My Existing Commitment</b></div>
   </div>        
   <%= render :partial => 'order_listings/with_commitment_form', :collection => listings %>
