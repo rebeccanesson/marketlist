@@ -141,9 +141,9 @@ div.field, div.actions {
 #error_explanation h2 {
   text-align: left;
   font-weight: bold;
-  padding: 5px 5px 5px 15px;
+  padding: 3px 3px 3px 10px;
   font-size: 12px;
-  margin: -7px;
+  margin: -7px -7px 0px -7px;
   background-color: #c00;
   color: #fff;
 }
@@ -152,6 +152,10 @@ div.field, div.actions {
   color: #333;
   margin-bottom: 0;
   padding: 5px;
+}
+
+#error_explanation ul { 
+	margin: 5px;
 }
 
 #error_explanation ul li {
