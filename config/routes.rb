@@ -16,6 +16,9 @@ Marketlist::Application.routes.draw do
   get "sessions/new"
 
   resources :users do 
+    collection do
+      post 'forgot_password'
+    end
     resources :commitments
     resources :invoices
   end

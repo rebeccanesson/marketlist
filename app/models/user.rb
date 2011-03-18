@@ -1,28 +1,32 @@
 # == Schema Information
-# Schema version: 20110318014633
+# Schema version: 20110318153820
 #
 # Table name: users
 #
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#  encrypted_password :string(255)
-#  salt               :string(255)
-#  admin              :boolean
-#  organic            :boolean
-#  address_1          :string(255)
-#  address_2          :string(255)
-#  city               :string(255)
-#  state              :string(255)
-#  zipcode            :string(255)
-#  phone              :string(255)
+#  id                        :integer         not null, primary key
+#  name                      :string(255)
+#  email                     :string(255)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  encrypted_password        :string(255)
+#  salt                      :string(255)
+#  admin                     :boolean
+#  organic                   :boolean
+#  address_1                 :string(255)
+#  address_2                 :string(255)
+#  city                      :string(255)
+#  state                     :string(255)
+#  zipcode                   :string(255)
+#  phone                     :string(255)
+#  reset_password_code       :string(255)
+#  reset_password_code_until :datetime
 #
 
 class User < ActiveRecord::Base
   attr_accessor   :password
-  attr_accessible :name, :email, :password, :password_confirmation, :admin, :organic, :address_1, :address_2, :city, :state, :zipcode, :phone
+  attr_accessible :name, :email, :password, :password_confirmation, :admin, :organic, 
+                  :address_1, :address_2, :city, :state, :zipcode, :phone, 
+                  :reset_password_code
   
   has_many :commitments, :dependent => :destroy
   has_many :invoices

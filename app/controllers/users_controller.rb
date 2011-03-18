@@ -58,7 +58,31 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
   
- 
+  def forgot_password 
+    user = User.find_by_email(params[:email]) 
+    if (user) 
+      user.reset_password_code_until = 1.day.from_now 
+      user.reset_password_code = Digest::SHA1.hexdigest( "#{user.email}#{Time.now.to_s.split(//).sort_by {rand}.join}" ) 
+      user.save! UserNotifier.forgot_password(user).deliver 
+      flash[:success] = "Reset password link emailed to #{user.email}"
+      redirect_to '/'
+    else 
+      flash[:error] = "User not found for address #{params[:email]}"
+      redirect_to '/'
+    end
+  end
+  
+  def reset_password 
+    @user = User.find_by_reset_password_code(params[:reset_code]) 
+    sign_in(@user) if @user && @user.reset_password_code_until && Time.now < @user.reset_password_code_until 
+    if (current_user)
+      render 'edit'
+    else 
+      flash[:error] = "Password reset code is no longer valid."
+      redirect_to sign_in_path
+    end
+  end
+  
   private
 
 end

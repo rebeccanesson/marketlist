@@ -18,6 +18,19 @@
     <%= f.submit "Sign in" %>
   </div>
 <% end %>
+
+<br />
+<h4>Forgot Your Password?</h4>
+<%= form_tag('/users/forgot_password') do %>
+  <div class="field">
+    <%= label_tag :email %><br />
+    <%= text_field_tag :email %>
+  </div>
+  <div>
+    <%= submit_tag 'send me a password reset email' %>
+  </div>
+<% end %>
+
 </div>
 <div style="float:right;">
   <h3>Sign Up</h3>
