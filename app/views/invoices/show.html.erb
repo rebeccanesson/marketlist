@@ -15,7 +15,7 @@
   </thead>
   <% @invoice.commitments.each do |commitment| %>
     <tr>
-      <td><%= commitment.orderable.name_for_user(@user) %></td>
+      <td><%= commitment.orderable.name_for_user(@user, {:with_family => true}) %></td>
       <td></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.orderable.price_for_user(@user)) %></td>
       <td style="text-align:right;width:5%;"><%= commitment.quantity %></td>
