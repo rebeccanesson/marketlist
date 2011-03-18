@@ -1,6 +1,11 @@
 <h2>Invoice for delivery on <%= @invoice.order_list.delivery_start.strftime("%x") %></h2>
 
-<p><b>This invoice is <%= (@invoice.final ? "" : "NOT YET") %> FINAL</b><br/>
+<p>
+<% if !@invoice.final %>
+  <b>Ordering is still open. Click <%= link_to 'here', home_path %> to edit your invoice.</b>
+<% else %>
+  <b>This invoice is FINAL.  Please deliver your order on <%= @invoice.order_list.delivery_start.strftime("%x") %></b>
+<% end %><br />
 <a href="#" class="navigation" onclick="window.print()">Print this Invoice</a></p>
 
 <%= render :partial => 'users/info', :object => @invoice.user %>
@@ -16,7 +21,7 @@
   <% @invoice.commitments.each do |commitment| %>
     <tr>
       <td><%= commitment.orderable.name_for_user(@user, {:with_family => true}) %></td>
-      <td></td>
+      <td><%= commitment.orderable.product.description %></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.orderable.price_for_user(@user)) %></td>
       <td style="text-align:right;width:5%;"><%= commitment.quantity %></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.price_for_user(@user)) %></td>
