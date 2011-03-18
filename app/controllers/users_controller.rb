@@ -73,6 +73,7 @@ class UsersController < ApplicationController
   end
   
   def reset_password 
+    sign_out
     @user = User.find_by_reset_password_code(params[:reset_code]) 
     sign_in(@user) if @user && @user.reset_password_code_until && Time.now < @user.reset_password_code_until 
     if (current_user)
