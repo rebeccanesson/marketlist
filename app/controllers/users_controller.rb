@@ -79,7 +79,11 @@ class UsersController < ApplicationController
     if (current_user)
       render 'edit'
     else 
-      flash[:error] = "Password reset code is no longer valid."
+      if !@user
+        flash[:error] = "Password reset code is not valid."
+      else 
+        flash[:error] = "Password reset code is no longer valid."
+      end
       redirect_to '/'
     end
   end
