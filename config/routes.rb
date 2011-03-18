@@ -18,6 +18,7 @@ Marketlist::Application.routes.draw do
   resources :users do 
     collection do
       post 'forgot_password'
+      get  'reset_password'
     end
     resources :commitments
     resources :invoices
