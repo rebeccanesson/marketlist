@@ -13,7 +13,7 @@
 
 class Product < ActiveRecord::Base
   belongs_to :product_family
-  has_many :orderables
+  has_many :orderables, :dependent => :destroy
   
   attr_accessible :name, :description, :product_family, :product_family_id
    

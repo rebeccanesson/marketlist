@@ -17,6 +17,7 @@ Marketlist::Application.routes.draw do
 
   resources :users do 
     resources :commitments
+    resources :invoices
   end
   
   resources :sessions, :only => [:new, :create, :destroy]

@@ -13,6 +13,12 @@ Factory.define :user do |user|
   user.email                 Faker::Internet.email
   user.password              "foobar"
   user.password_confirmation "foobar"
+  user.organic               false
+  user.address_1             "19 Corporal Burns Road"
+  user.city                  "Cambridge"
+  user.state                 "MA"
+  user.zipcode               "02138"
+  user.phone                 "617-111-1111"
 end
 
 Factory.define :product_family do |product_family|
@@ -50,6 +56,11 @@ Factory.define :commitment do |commitment|
   commitment.orderable    Factory(:orderable)
   commitment.user         Factory(:user, :email => Faker::Internet.email)
   commitment.quantity     1
+end
+
+Factory.define :invoice do |invoice|
+  invoice.user         Factory(:user, :email => Faker::Internet.email)
+  invoice.order_list   Factory(:order_list)
 end
 
 

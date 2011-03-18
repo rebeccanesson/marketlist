@@ -16,6 +16,7 @@
 class OrderList < ActiveRecord::Base
   belongs_to :user
   has_many :order_listings
+  has_many :invoices
   
   attr_accessible :user, :order_start, :order_end, :delivery_start, :delivery_end
   
@@ -48,6 +49,10 @@ class OrderList < ActiveRecord::Base
       ol.delivery_end = ol.delivery_start + market.due_date_period.hours
     end 
     ol
+  end
+  
+  def commitments
+    self.order_listings.collect { |ol| ol.commitments }.flatten
   end
   
 end

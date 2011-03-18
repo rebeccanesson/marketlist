@@ -12,7 +12,7 @@
 class ProductFamily < ActiveRecord::Base
   attr_accessible :name
   
-  has_many :products
+  has_many :products, :dependent => :destroy
   
   validates :name, :presence => true,
                    :length   => { :maximum => 50 },

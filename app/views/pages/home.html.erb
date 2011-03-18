@@ -2,10 +2,11 @@
   <% @open_order_lists.each do |ool| %>
     <%= render :partial => 'order_lists/order_list_order_form', :locals => {:order_list => ool} %>
   <% end %>
+  <br />
   <div>
     <ul>
       <li>All commitments existing at the time ordering closes are final.</li>
-      <li>You may view your invoice on your account page</li>
+      <li>You may view your invoice on <%= link_to 'your account page', user_path(current_user) %></li>
     </ul>
   </div>
 <% else %>

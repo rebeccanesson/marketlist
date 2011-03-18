@@ -215,12 +215,12 @@ describe CommitmentsController do
   
         it "should have the right title" do
           post :create, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-          response.should have_selector("title", :content => "Home")
+          response.should have_selector("title", :content => "New Commitment")
         end
   
         it "should render the 'new' page" do
           post :create, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-          response.should render_template('pages/home')
+          response.should render_template('new')
         end
       end
     
@@ -253,7 +253,7 @@ describe CommitmentsController do
         
         it "should redirect to the commitment show page" do
           post :create, :commitment => @attr, :order_list_id => @order_list.id, :order_listing_id => @order_listing.id, :product_family_id => @product_family.id
-          response.should redirect_to(home_path)
+          response.should redirect_to(order_list_product_family_order_listing_commitment_path(@order_list,@product_family,@order_listing,assigns(:commitment)))
         end  
      end
     end

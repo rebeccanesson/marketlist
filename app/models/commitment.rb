@@ -26,9 +26,30 @@ class Commitment < ActiveRecord::Base
                                        
   validate :quantity_in_allowed_range, :if => Proc.new { |o| o.orderable and o.user and o.quantity }
   
-   def quantity_in_allowed_range
-     # self.errors.add(:quantity, "quantity is #{quantity} and available commitments is #{self.orderable.order_listing.total_commitments_available_to(self.user)}")
-     self.errors.add(:quantity, " committed must be less than the quantity needed") unless quantity <= self.orderable.order_listing.total_commitments_available
-   end
-
+  after_create :create_invoice
+  after_destroy :check_invoice
+  
+  def quantity_in_allowed_range
+   # self.errors.add(:quantity, "quantity is #{quantity} and available commitments is #{self.orderable.order_listing.total_commitments_available_to(self.user)}")
+   self.errors.add(:quantity, " committed must be less than the quantity needed") unless quantity <= self.orderable.order_listing.total_commitments_available_to(self.user)
+  end
+   
+  def create_invoice
+    ivs = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", self.user.id, self.order_listing.order_list.id])
+    if ivs.size == 0 
+      Invoice.create!(:user => self.user, :order_list => self.order_listing.order_list)
+    end 
+  end 
+  
+  def check_invoice
+    if self.order_listing.order_list.commitments.select { |c| c.user == self.user }.size == 0
+      invoice = Invoice.find(:first, :conditions => ["user_id = ? and order_list_id = ?", self.user.id, self.order_listing.order_list.id])
+      invoice.destroy if invoice
+    end
+  end
+  
+  def price_for_user(user)
+    self.orderable.price_for_user(user) * self.quantity
+  end
+     
 end

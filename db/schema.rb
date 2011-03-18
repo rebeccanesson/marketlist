@@ -10,12 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110316001956) do
+ActiveRecord::Schema.define(:version => 20110318014633) do
 
   create_table "commitments", :force => true do |t|
     t.integer  "orderable_id"
     t.integer  "user_id"
     t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "invoices", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "order_list_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,6 +90,13 @@ ActiveRecord::Schema.define(:version => 20110316001956) do
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "admin",              :default => false
+    t.boolean  "organic",            :default => false
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "phone"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

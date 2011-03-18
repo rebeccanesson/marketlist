@@ -1,0 +1,11 @@
+<% user = info %>
+<p><%= user.name %><br />
+<%= user.address_1 %><br />
+<% if !user.address_2.blank? %>
+  <%= user.address_2 %><br />
+<% end %>
+<%= user.city %> <%= user.state %>, <%= user.zipcode %><br />
+<% if current_user.admin? %>
+  <%= user.phone %> - <%= user.email %><br />
+<% end %>
+<%= (user.organic ? "Organic seller" : "Non-Organic seller") %></p>

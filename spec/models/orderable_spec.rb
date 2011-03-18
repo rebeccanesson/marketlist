@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Orderable do
   before(:each) do
     @user = Factory(:user)
+    @organic_user = Factory(:user, :email => "farmer@organic.org", :organic => true)
     @product = Factory(:product)
     @order_list = Factory(:order_list, :user => @user)
     @order_listing = Factory(:order_listing, :order_list => @order_list)
@@ -10,6 +11,11 @@ describe Orderable do
               :order_listing => @order_listing,  
               :organic_price => 10.00, 
               :conventional_price => 8.00 }
+    @orderable = Factory(:orderable,           
+                        :product => @product, 
+                        :order_listing => @order_listing,  
+                        :organic_price => 10.00, 
+                        :conventional_price => 8.00)
   end
   
   it "should create a new instance given valid attributes" do
@@ -52,5 +58,15 @@ describe Orderable do
     neg_price = Orderable.new(@attr.merge(:conventional_price => -1.00))
     neg_price.should_not be_valid
   end
+  
+  it "should give the organic price for a user marked as organic" do 
+    @orderable.price_for_user(@organic_user).should == @orderable.organic_price
+  end
+  
+  it "should give the conventional price for a user not marked as organic" do 
+    @orderable.price_for_user(@user).should == @orderable.conventional_price
+  end
+  
+  
 
 end

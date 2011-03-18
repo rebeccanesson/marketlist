@@ -18,7 +18,7 @@ class Orderable < ActiveRecord::Base
   belongs_to :product
   belongs_to :order_listing
   has_one :order_list, :through => :order_listing
-  has_one :commitment
+  has_one :commitment, :dependent => :destroy
   
   validates :product, :presence => true
   # validates :order_listing, :presence => true

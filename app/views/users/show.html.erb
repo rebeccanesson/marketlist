@@ -6,12 +6,21 @@
         <%= @user.name %>
         <%= "(admin)" if @user.admin? %>
       </h1>
+      <%= render :partial => 'info', :object => @user %>
+      
+      <br />
+      <h3>Invoices</h3>
+      <ul>
+        <% @user.invoices.each do |invoice| %>
+          <li><%= link_to "Invoice for #{invoice.order_list.delivery_start.strftime('%x')}", user_invoice_path(@user,invoice) %></li>
+        <% end %>
+      </ul>
     </td>
     <td class="sidebar round">
       <% if signed_in? and (current_user?(@user) or current_user.admin?) %>
-        <strong><%= link_to "Edit Account", edit_user_path(current_user) %></strong><br />
-        <strong><%= link_to "Request Organic Status", contact_path %></strong>
-        <strong><%= link_to "View My Invoices", "#" %></strong>
+        <strong><%= link_to "Edit Account", edit_user_path(@user) %></strong><br />
+        <strong><%= link_to "Request Organic Status", contact_path %></strong><br />
+        <strong><%= link_to "View My Invoices", user_invoices_path(@user) %></strong>
       <% end %>
     </td>
   </tr>

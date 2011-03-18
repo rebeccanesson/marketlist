@@ -176,8 +176,13 @@ describe UsersController do
     describe "success" do
 
       before(:each) do
-        @attr = { :name => "New User", :email => "user@example.com",
-                  :password => "foobar", :password_confirmation => "foobar" }
+        @attr = { :name => "Example User", 
+                  :email => "user@example.com", 
+                  :password => "foobar", 
+                  :password_confirmation => "foobar", 
+                  :address_1 => "19 Corporal Burns Road", 
+                  :city => "Cambridge", :state => "MA", :zipcode => "02138", 
+                  :phone => "617-111-1111" }
       end
 
       it "should create a user" do
@@ -285,8 +290,13 @@ describe UsersController do
 
     before(:each) do
       @user = Factory(:user)
-      @attr = { :name => "New User", :email => "user@example.com",
-                :password => "foobar", :password_confirmation => "foobar", :admin => true }
+      @attr = { :name => "Example User", 
+                :email => "user@example.com", 
+                :password => "foobar", 
+                :password_confirmation => "foobar", 
+                :address_1 => "19 Corporal Burns Road", 
+                :city => "Cambridge", :state => "MA", :zipcode => "02138", 
+                :phone => "617-111-1111" }
     end
 
     describe "for non-signed-in users" do
@@ -325,7 +335,7 @@ describe UsersController do
       end
       
       it "should require admin users to create admin users" do 
-        post :create, :user => @attr
+        post :create, :user => @attr.merge(:admin => true)
         response.should render_template('new')
       end
     end
@@ -343,7 +353,7 @@ describe UsersController do
       end
       
       it "should allow admin to create an admin user" do 
-        post :create, :user => @attr
+        post :create, :user => @attr.merge(:admin => true)
         response.should redirect_to(user_path(assigns(:user)))
       end
     end

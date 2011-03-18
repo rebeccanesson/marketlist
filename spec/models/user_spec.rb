@@ -5,7 +5,10 @@ describe User do
     @attr = { :name => "Example User", 
               :email => "user@example.com", 
               :password => "foobar", 
-              :password_confirmation => "foobar" }
+              :password_confirmation => "foobar", 
+              :address_1 => "19 Corporal Burns Road", 
+              :city => "Cambridge", :state => "MA", :zipcode => "02138", 
+              :phone => "617-111-1111" }
   end
 
   it "should create a new instance given valid attributes" do
@@ -20,6 +23,31 @@ describe User do
   it "should require an email address" do
     no_email_user = User.new(@attr.merge(:email => ""))
     no_email_user.should_not be_valid
+  end
+  
+  it "should require an address" do 
+    no_address_user = User.new(@attr.merge(:address_1 => ""))
+    no_address_user.should_not be_valid
+  end
+  
+  it "should require a city" do 
+    no_city_user = User.new(@attr.merge(:city => ""))
+    no_city_user.should_not be_valid
+  end
+  
+  it "should require a state" do 
+    no_state_user = User.new(@attr.merge(:state => ""))
+    no_state_user.should_not be_valid
+  end
+  
+  it "should require a zipcode" do 
+    no_zip_user = User.new(@attr.merge(:zipcode => ""))
+    no_zip_user.should_not be_valid
+  end
+  
+  it "should require a phone" do 
+    no_phone_user = User.new(@attr.merge(:phone => ""))
+    no_phone_user.should_not be_valid
   end
   
   it "should reject names that are too long" do

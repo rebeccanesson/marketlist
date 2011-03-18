@@ -20,6 +20,44 @@ describe Commitment do
     Commitment.create!(@attr)
   end
   
+  it "should create an invoice when it creates the commitment and there is not an invoice" do 
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 0
+    Commitment.create!(@attr)
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 1
+  end
+  
+  it "should not create an invoice when one already exists" do 
+    Commitment.create!(@attr)
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 1
+    Commitment.create!(@attr.merge(:orderable => @orderable2))
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 1
+  end
+    
+  it "should destroy the invoice when the last commitment is destroyed" do 
+    comm = Commitment.create!(@attr)
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 1
+    comm.destroy
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 0
+  end
+  
+  it "should not destroy the invoice when there are commitments left" do 
+    comm = Commitment.create!(@attr)
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 1
+    comm = Commitment.create!(@attr.merge(:orderable => @orderable2))
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 1
+    comm.destroy
+    count = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", @seller.id, @order_list.id]).size
+    count.should == 1 
+  end
+  
   it "should require a quantity" do
     no_quant = Commitment.new(@attr.merge(:quantity => nil))
     no_quant.should_not be_valid

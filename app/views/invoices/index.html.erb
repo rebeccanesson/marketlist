@@ -1,0 +1,17 @@
+<h1>Listing Invoices</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Order list</th>
+    <th></th>
+  </tr>
+
+<% @invoices.each do |invoice| %>
+  <tr>
+    <td><%= invoice.user_id %></td>
+    <td><%= invoice.order_list_id %></td>
+    <td><%= link_to 'Show', user_invoice_path(@user,invoice) %></td>
+  </tr>
+<% end %>
+</table>

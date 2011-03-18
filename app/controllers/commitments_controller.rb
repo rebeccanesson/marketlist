@@ -49,7 +49,13 @@ class CommitmentsController < ApplicationController
   # POST /commitments
   # POST /commitments.xml
   def create
-    @commitment = Commitment.new(params[:commitment])
+    @commitment = Commitment.find(:first, :conditions => ["user_id = ? and orderable_id = ?", params[:commitment][:user_id], params[:commitment][:orderable_id]])
+    if @commitment
+      puts "found and existing commitment"
+      @commitment.quantity += params[:commitment][:quantity].to_i
+    else 
+      @commitment = Commitment.new(params[:commitment])
+    end
     respond_to do |format|
       if @commitment.save
         flash[:success] = 'Commitment was successfully created.'
@@ -57,6 +63,7 @@ class CommitmentsController < ApplicationController
         format.xml  { render :xml => @commitment, :status => :created, :location => @commitment }
         format.js
       else
+        @title = "New Commitment"
         format.html { render 'new' }
         format.xml  { render :xml => @commitment.errors, :status => :unprocessable_entity }
         format.js   { render 'error' }

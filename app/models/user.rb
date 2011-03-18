@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110302213246
+# Schema version: 20110318014633
 #
 # Table name: users
 #
@@ -11,13 +11,21 @@
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  admin              :boolean
+#  organic            :boolean
+#  address_1          :string(255)
+#  address_2          :string(255)
+#  city               :string(255)
+#  state              :string(255)
+#  zipcode            :string(255)
+#  phone              :string(255)
 #
 
 class User < ActiveRecord::Base
   attr_accessor   :password
-  attr_accessible :name, :email, :password, :password_confirmation, :admin
+  attr_accessible :name, :email, :password, :password_confirmation, :admin, :organic, :address_1, :address_2, :city, :state, :zipcode, :phone
   
-  has_many :commitments
+  has_many :commitments, :dependent => :destroy
+  has_many :invoices
   
   validates :name, :presence => true,
                    :length   => { :maximum => 50 }
@@ -26,6 +34,12 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, 
                     :format => {:with => email_regex}, 
                     :uniqueness => {:case_sensitive => false}
+                    
+  validates :address_1, :presence => true
+  validates :city, :presence => true
+  validates :state, :presence => true
+  validates :zipcode, :presence => true
+  validates :phone, :presence => true
                     
   validates :password, :presence     => true,
                        :confirmation => true,
@@ -52,10 +66,6 @@ class User < ActiveRecord::Base
   
   def commitments_for_order_listing(order_listing)
     commitments.select { |c| c.order_listing == order_listing }
-  end
-  
-  def organic
-    false
   end
 
   private
