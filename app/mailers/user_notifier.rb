@@ -3,9 +3,9 @@ class UserNotifier < ActionMailer::Base
   default :subject => Market.the_market.name
   
   def forgot_password(user)
-      mail(:to => "#{user.name} <#{user.email}>")
-      @subject     = "#{Market.the_market.name} - Reset Password"  
+      @user = user
       @url  = "http://marketlist.heroku.com/users/reset_password/#{user.reset_password_code}"
+      mail(:to => "#{user.name} <#{user.email}>")
   end
   
 end
