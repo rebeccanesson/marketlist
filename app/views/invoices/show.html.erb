@@ -2,10 +2,10 @@
 
 <p>
 <% if !@invoice.final %>
-  <b>Ordering is still open. Click <%= link_to 'here', home_path %> to edit your invoice.</b>
+  <span class="navigation"><b>Ordering is still open. Click <%= link_to 'here', home_path %> to edit your invoice.</b><br /></span>
 <% else %>
-  <b>This invoice is FINAL.  Please deliver your order on <%= @invoice.order_list.delivery_start.strftime("%x") %></b>
-<% end %><br />
+  <b>This invoice is FINAL.  Please deliver your order on <%= @invoice.order_list.delivery_start.strftime("%x") %></b><br />
+<% end %>
 <a href="#" class="navigation" onclick="window.print()">Print this Invoice</a></p>
 
 <%= render :partial => 'users/info', :object => @invoice.user %>
