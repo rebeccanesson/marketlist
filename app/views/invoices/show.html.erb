@@ -1,4 +1,4 @@
-<h2>Invoice for delivery on <%= @invoice.order_list.delivery_start.strftime("%x") %></h2>
+<h2>Invoice for <%= @user.name %> for delivery on <%= @invoice.order_list.delivery_start.strftime("%x") %></h2>
 
 <p>
 <% if !@invoice.final %>
@@ -8,8 +8,16 @@
 <% end %>
 <a href="#" class="navigation" onclick="window.print()">Print this Invoice</a></p>
 
+<div style="float:left;">
 <%= render :partial => 'users/info', :object => @invoice.user %>
-
+</div>
+<div style="float:right;">
+  <div style="text-align:right;">
+    <%= render :partial => 'markets/info', :object => @market %>
+  </div>
+</div>
+<div style="clear:both;">
+  
 <table>
   <thead>
     <th>Product Name</th>
@@ -32,11 +40,11 @@
     <td style="text-align:right;"><%= number_to_currency(@invoice.total_price) %></td>
 </table>
 
-<p>
-  <b>Delivery Information:</b>
-  <%= @invoice.order_list.delivery_start.strftime("%x %l:%M%p") %> - <%= @invoice.order_list.delivery_end.strftime("%x %l:%M%p") %>
-</p>
-
+<h4>Delivery Information</h4>
+<ul>
+  <li>Delivery Period: <%= @invoice.order_list.delivery_start.strftime("%x %l:%M%p") %> - <%= @invoice.order_list.delivery_end.strftime("%x %l:%M%p") %></li>
+  <li>Delivery Instructions: <%= @market.delivery_info %></li>
+</ul>
 
 <div class="navigation">
 <%= link_to 'Edit', edit_user_invoice_path(@user, @invoice) %> |

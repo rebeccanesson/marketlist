@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110304023520
+# Schema version: 20110318124312
 #
 # Table name: markets
 #
@@ -15,11 +15,19 @@
 #  due_date_period      :integer
 #  created_at           :datetime
 #  updated_at           :datetime
+#  delivery_info        :text
+#  address_1            :string(255)
+#  address_2            :string(255)
+#  city                 :string(255)
+#  state                :string(255)
+#  zipcode              :string(255)
+#  phone                :string(255)
 #
 
 class Market < ActiveRecord::Base
   attr_accessible :name, :description, :contact_email, :logo_url, :start_day_of_week,
-                  :ordering_period, :due_date_day_of_week, :due_date_hour, :due_date_period
+                  :ordering_period, :due_date_day_of_week, :due_date_hour, :due_date_period, 
+                  :delivery_info, :address_1, :address_2, :city, :state, :zipcode, :phone
   
   validates :name, :presence => true,
                    :length => {:maximum => 50}

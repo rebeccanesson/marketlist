@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
   
+  before_filter :load_market
+  
   def authenticate
     deny_access unless signed_in?
   end 
@@ -19,6 +21,10 @@ class ApplicationController < ActionController::Base
       flash[:error] = "Only site administrators may perform that action"
       redirect_to(root_path)
     end 
+  end
+  
+  def load_market
+    @market = Market.the_market
   end
   
 end

@@ -1,10 +1,17 @@
 #header, .navigation { display:none;}
+
 table { 
 	border:1px solid #ccc;
 	border-spacing:0;
 	width:100%;
 }
+
 td, th { 
 	border:1px solid #ccc;
 	padding:5px;
+}
+
+.logo {
+	width:100%; 
+	text-align:center;
 }

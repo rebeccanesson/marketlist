@@ -1,3 +1,6 @@
+<h1><%= @market.name %></h1>
+<p><%= @market.description %></p>
+
 <% if @open_order_lists.size > 0 %> 
   <% @open_order_lists.each do |ool| %>
     <%= render :partial => 'order_lists/order_list_order_form', :locals => {:order_list => ool} %>
