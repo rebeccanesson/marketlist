@@ -80,7 +80,7 @@ class UsersController < ApplicationController
       render 'edit'
     else 
       flash[:error] = "Password reset code is no longer valid."
-      redirect_to sign_in_path
+      redirect_to '/'
     end
   end
   
