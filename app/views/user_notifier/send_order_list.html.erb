@@ -1,0 +1,16 @@
+<% if @order_list.order_end - @order_list.order_start <= 1.day %>
+Ordering day: <%= @order_list.order_start.strftime("%A, %b %e") %>
+<% else %>
+Ordering period: <%= @order_list.order_start.strftime("%A, %b %e") %> - <%= (@order_list.order_end - 1.day).strftime("%A, %b %e") %>
+<% end %>
+
+For delivery between <%= @order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %> and <%= @order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %>
+
+
+<% @order_list.order_listings.group_by(&:product_family).each do |family,listings| %>        
+  <%= family.name.upcase %>
+  <% listings.each do |order_listing| %>
+    * <%= order_listing.total_commitments_available %> <%= order_listing.orderables.collect { |o| o.name_for_user(@user) + " (" + number_to_currency(o.price_for_user(@user)) + ")" }.join(" OR ") %>
+  <% end %>
+
+<% end %>

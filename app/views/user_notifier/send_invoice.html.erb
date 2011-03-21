@@ -1,0 +1,11 @@
+Hi <%= @user.name %>
+
+Thank you for committing to provide products for <%= @market.name %>.  Your invoice is now final.  We will expect to see you for delivery between <%= @invoice.order_list.delivery_start.strftime("%x %l:%M%p") %> and <%= @invoice.order_list.delivery_end.strftime("%x %l:%M%p") %>. 
+
+<%= @market.delivery_info %>
+
+You may view and print your invoice here http://marketlist.heroku.com/users/<%= @user.id %>/invoices/<%= @invoice.id %>.  You can no longer change your commitments through the site.  If you would like to contact us, feel free to respond to this email or write to us at <%= @market.contact_email %>.  
+
+Thanks, 
+<%= @market.name %>
+http://marketlist.heroku.com

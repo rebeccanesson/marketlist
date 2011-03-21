@@ -6,7 +6,9 @@
 <% else %>
   <b>This invoice is FINAL.  Please deliver your order on <%= @invoice.order_list.delivery_start.strftime("%x") %></b><br />
 <% end %>
-<a href="#" class="navigation" onclick="window.print()">Print this Invoice</a></p>
+<a href="#" class="navigation" onclick="window.print()">Print this Invoice</a>
+| <%= link_to 'Email Me a Link to this Invoice', email_user_invoice_path(@invoice.user, @invoice) %>
+</p> 
 
 <div style="float:left;">
 <%= render :partial => 'users/info', :object => @invoice.user %>

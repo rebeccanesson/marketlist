@@ -55,4 +55,20 @@ class OrderList < ActiveRecord::Base
     self.order_listings.collect { |ol| ol.commitments }.flatten
   end
   
+  def order_open?
+    order_start <= Time.now and Time.now <= order_end
+  end
+  
+  def between_order_and_delivery? 
+    order_end < Time.now and Time.now <= delivery_start
+  end
+  
+  def invoice_for_user(user)
+    is = invoices.select { |i| i.user == user}
+    if !is.empty? 
+      is.first
+    else
+      nil
+    end
+  end  
 end

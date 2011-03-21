@@ -25,6 +25,13 @@ class InvoicesController < ApplicationController
     end
   end
   
+  def email
+    @invoice = Invoice.find(params[:id])
+    UserNotifier.send_invoice(@invoice.user,@invoice).deliver
+    flash[:success] = "A link to your invoice has been emailed to you"
+    redirect_to user_invoice_path(@invoice)
+  end
+  
   private
   def load_user
     @user = User.find(params[:user_id])

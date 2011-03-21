@@ -5,6 +5,10 @@ Marketlist::Application.routes.draw do
   resources :markets
 
   resources :order_lists do
+    member do 
+      get 'email'
+      get 'email_invoices'
+    end
     resources :product_families do 
       resources :order_listings do
         resources :commitments
@@ -21,7 +25,11 @@ Marketlist::Application.routes.draw do
       get  'reset_password'
     end
     resources :commitments
-    resources :invoices
+    resources :invoices do 
+      member do 
+        get 'email'
+      end
+    end
   end
   
   resources :sessions, :only => [:new, :create, :destroy]

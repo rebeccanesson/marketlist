@@ -71,4 +71,25 @@ class OrderListsController < ApplicationController
     redirect_to(order_lists_url)
   end
   
+  def email
+    @order_list = OrderList.find(params[:id])
+    User.all.each do |u|
+      UserNotifier.send_order_list(u, @order_list).deliver
+    end
+    flash[:success] = "Order list emailed to users"
+    redirect_to(order_lists_url)
+  end
+  
+  def email_invoices
+    @order_list = OrderList.find(params[:id])
+    User.all.each do |u|
+      invoice = @order_list.invoice_for_user(u)
+      if invoice 
+        UserNotifier.send_invoice(u,invoice).deliver
+      end
+    end
+    flash[:success] = "Invoices emailed to users"
+    redirect_to(order_lists_url)
+  end
+  
 end
