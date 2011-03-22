@@ -46,8 +46,13 @@ class OrderListing < ActiveRecord::Base
     self.commitments.select { |c| c.user == user }.inject(0) { |sum,c| sum + c.quantity }
   end
   
-  def display_name 
-    (!self.orderables.empty? ? self.product_family.name + ": " + self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')
+  def display_name(options={}) 
+    options.reverse_merge!({:include_family => true})
+    if options[:include_family]
+      (!self.orderables.empty? ? self.product_family.name + ": " + self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')
+    else 
+      (!self.orderables.empty? ? self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')    
+    end
   end
 
 end

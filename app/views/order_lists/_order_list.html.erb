@@ -20,8 +20,11 @@
     <% if order_list.order_open? %>
       | <%= link_to "email list to users", email_order_list_path(order_list) %>
     <% end %>
-    <% if order_list.between_order_and_delivery? %> 
+    <% if true || order_list.between_order_and_delivery? %> 
       | <%= link_to "email invoices to users", email_invoices_order_list_path(order_list) %>
+    <% end %>
+    <% if true || order_list.between_order_and_delivery? %>
+      | <%= link_to "view market invoice", redux_order_list_path(order_list) %>
     <% end %>
   <% end %> 
   </div>

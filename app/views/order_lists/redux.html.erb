@@ -1,0 +1,35 @@
+<h3>Claimed Listings</h3>
+<% @order_list.order_listings.group_by(&:product_family).each do |family,listings| %> 
+  <% next if listings.inject(0) { |sum,l| l.total_commitment_quantity } == 0 %>         
+  <h4 style="margin:10px 0 5px;font-weight:bold;"><%= family.name %></h4>   
+    <% listings.each do |listing| %>
+      <% next if listing.total_commitment_quantity == 0 %>
+      <h5><%= listing.display_name(:include_family => false) %>
+      <table>
+      <% listing.commitments.each do |commitment| %> 
+        <tr>
+          <td><%= commitment.quantity %></td>
+          <td><%= commitment.orderable.name_for_user(commitment.user) %></td>
+          <td><%= number_to_currency(commitment.price_for_user(commitment.user)) %></td>
+          <td><%= link_to commitment.user.name, commitment.user %></td>
+        </tr>
+      <% end %>
+      </table>
+    <% end %>
+
+<% end %>
+
+<h3>Unclaimed Listings</h3>
+<% @order_list.order_listings.group_by(&:product_family).each do |family,listings| %>  
+  <% next if listings.inject(0) { |sum,l| l.total_commitments_available } == 0 %>      
+  <h4 style="margin:10px 0 5px;font-weight:bold;"><%= family.name %></h4>   
+    <table>
+    <% listings.each do |listing| %>
+      <% next if listing.total_commitments_available == 0 %>
+      <tr>
+        <td><%= listing.total_commitments_available %></td>
+        <td><%= listing.display_name(:include_family => false) %></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>

@@ -8,6 +8,7 @@ Marketlist::Application.routes.draw do
     member do 
       get 'email'
       get 'email_invoices'
+      get 'redux'
     end
     resources :product_families do 
       resources :order_listings do

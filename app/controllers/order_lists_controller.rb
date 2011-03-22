@@ -92,4 +92,8 @@ class OrderListsController < ApplicationController
     redirect_to(order_lists_url)
   end
   
+  def redux
+    @order_list = OrderList.find(params[:id])
+  end
+  
 end
