@@ -1,6 +1,6 @@
 <h3>Claimed Listings by User for Delivery on <%= @order_list.delivery_start.strftime("%A, %b %e") %></h3>
-<% @order_list.order_listings.collect { |ol| ol.commitments }.flatten.group_by{ |c| c.user }.each do |user,commitments| %> 
     <table>
+<% @order_list.order_listings.collect { |ol| ol.commitments }.flatten.group_by{ |c| c.user }.each do |user,commitments| %> 
       <tr>
           <td style="border-bottom:1px black solid;"><b><%= user.name %></b></td>
           <td style="border-bottom:1px black solid;"><b><%= user.email %></b></td>
@@ -13,7 +13,7 @@
           <td><%= number_to_currency(commitment.price_for_user(commitment.user)) %></td>
         </tr>
       <% end %>
-      </table>
 <% end %>
+      </table>
 
 <a href="#" class="navigation" onclick="window.print()">Print</a>
