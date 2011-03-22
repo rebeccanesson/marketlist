@@ -44,7 +44,8 @@ class MarketsController < ApplicationController
 
     respond_to do |format|
       if @market.save
-        format.html { redirect_to(@market, :notice => 'Market was successfully created.') }
+        flash[:success] = "Market was successfully created."
+        format.html { redirect_to(admin_path) }
         format.xml  { render :xml => @market, :status => :created, :location => @market }
       else
         format.html { render :action => "new" }
@@ -60,7 +61,8 @@ class MarketsController < ApplicationController
 
     respond_to do |format|
       if @market.update_attributes(params[:market])
-        format.html { redirect_to(@market, :notice => 'Market was successfully updated.') }
+        flash[:success] = 'Market was successfully updated.'
+        format.html { redirect_to(admin_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -40,7 +40,7 @@ class OrderListsController < ApplicationController
     
       if @order_list.save
         flash[:success] = 'Order list was successfully created.'
-        redirect_to(@order_list)
+        redirect_to(order_lists_url)
       else
         @title = "New Order List"
         render :action => "new" 
@@ -54,7 +54,7 @@ class OrderListsController < ApplicationController
 
       if @order_list.update_attributes(params[:order_list])
         flash[:success] = 'Order list was successfully updated.'
-        redirect_to(@order_list) 
+        redirect_to(order_lists_url) 
       else
         @product_families = ProductFamily.find(:all, :order => "name ASC")
         @title = "Edit Order List"

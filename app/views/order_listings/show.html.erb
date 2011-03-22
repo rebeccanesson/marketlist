@@ -1,3 +1,4 @@
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], ["Edit Order List", @order_list], "Order Listing for family #{@product_family.name}"] %>
 
 <p>Order listing fro the <%= link_to "order list", @order_listing.order_list %> opening on <%= @order_list.order_start %> and for delivery on <%= @order_list.delivery_start %></b>
 </p>
@@ -18,6 +19,3 @@
   <%= "OR" unless ord == @order_listing.orderables.last %>
 <% end %>
 </ul>
-
-<%= link_to 'Edit', edit_order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) %> |
-<%= link_to 'Back', order_list_product_family_order_listings_path(@order_list,@product_family) %>

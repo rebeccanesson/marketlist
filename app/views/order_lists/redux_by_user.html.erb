@@ -1,3 +1,5 @@
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], "Claimed Listings by User for Delivery on #{@order_list.delivery_start.strftime('%A, %b %e')}"] %>
+
 <h3>Claimed Listings by User for Delivery on <%= @order_list.delivery_start.strftime("%A, %b %e") %></h3>
     <table>
 <% @order_list.order_listings.collect { |ol| ol.commitments }.flatten.group_by{ |c| c.user }.each do |user,commitments| %> 

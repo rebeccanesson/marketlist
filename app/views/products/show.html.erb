@@ -1,3 +1,8 @@
+<% if current_user.admin? %>
+  <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Products', products_path], @product.name] %>
+<% else %>
+  <%= render :partial => 'common/breadcrumbs', :object => [@product.name] %>
+<% end %>
 <h2>
   <%= @product.product_family.name %>: <%= @product.name %>
 </h2>
@@ -6,7 +11,3 @@
   <b>Description:</b>
   <%= @product.description %>
 </p>
-
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>

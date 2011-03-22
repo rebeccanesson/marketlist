@@ -1,4 +1,4 @@
-#header, .navigation { display:none;}
+#header, .navigation, .breadcrumbs { display:none;}
 
 table { 
 	border:1px solid #ccc;

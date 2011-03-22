@@ -1,14 +1,13 @@
-<h1>Editing Order List</h1>
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], "Edit Order List"] %>
+
+<h3>Editing Order List</h3>
 
 <%= render 'form' %>
 
-<h2>Add or Edit Order Listings by Product Family</h2>
+<h3>Add or Edit Order Listings by Product Family</h3>
 
 <ul>
   <% @product_families.each do |product_family| %>
     <li><%= link_to product_family.name, order_list_product_family_order_listings_path(@order_list,product_family) %></li>
   <% end %>
 </ul>
-
-<%= link_to 'Show', @order_list %> |
-<%= link_to 'Back', order_lists_path %>

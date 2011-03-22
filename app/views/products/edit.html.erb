@@ -1,4 +1,4 @@
-<h1>Editing product</h1>
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Products', products_path], "Edit #{@product.name}"] %>
 
 <%= render 'form' %>
 

@@ -1,6 +1,3 @@
-<h1>Edit Product Family</h1>
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Product Families', product_families_path], "Edit #{@product_family.name}"] %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @product_family %> |
-<%= link_to 'Back', product_families_path %>

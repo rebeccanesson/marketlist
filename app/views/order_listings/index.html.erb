@@ -1,4 +1,4 @@
-<h1>Listing Order Listings  for family <%= @product_family.name %></h1>
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], ["Edit Order List", @order_list], "Order Listings for family #{@product_family.name}"] %>
 
 <%= will_paginate %>
 <table>
@@ -23,5 +23,4 @@
 
 <%= will_paginate %>
 
-<%= link_to 'New Order listing', new_order_list_product_family_order_listing_path(@order_list,@product_family) %> | 
-<%= link_to 'Back to Order Lists', order_lists_path %>
+<%= link_to 'New Order listing', new_order_list_product_family_order_listing_path(@order_list,@product_family) %> 
