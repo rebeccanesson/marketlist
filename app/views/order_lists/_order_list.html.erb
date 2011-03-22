@@ -1,4 +1,5 @@
 <li>
+  <div style="float:left;">
   <% if order_list.order_end - order_list.order_start <= 1.day %>
     Ordering day: <%= order_list.order_start.strftime("%A, %b %e") %>
   <% else %>
@@ -12,21 +13,24 @@
                      <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %>
   <% end %><br />
   <%= pluralize(order_list.order_listings.size, "order listing")%>
+  </div>
   <div style="float:right;">
   <% if current_user.admin? %>
     <%= link_to "delete", order_list, :method => :delete, :confirm => "You sure?",
-                                  :title => "Delete order list" %>
-    | <%= link_to "edit", edit_order_list_path(order_list) %> 
+                                  :title => "Delete order list" %><br />
+    <%= link_to "edit", edit_order_list_path(order_list) %><br />
     <% if order_list.order_open? %>
-      | <%= link_to "email list to users", email_order_list_path(order_list) %>
+      <%= link_to "email list to users", email_order_list_path(order_list) %><br />
     <% end %>
     <% if true || order_list.between_order_and_delivery? %> 
-      | <%= link_to "email invoices to users", email_invoices_order_list_path(order_list) %>
+      <%= link_to "email invoices to users", email_invoices_order_list_path(order_list) %><br />
     <% end %>
     <% if true || order_list.between_order_and_delivery? %>
-      | <%= link_to "view market invoice", redux_order_list_path(order_list) %>
+      <%= link_to "view market invoice by listing", redux_by_listing_order_list_path(order_list) %><br />
+      <%= link_to "view market invoice by user", redux_by_user_order_list_path(order_list) %><br />
+      <%= link_to "view unclaimed listings", redux_unclaimed_order_list_path(order_list) %>
     <% end %>
   <% end %> 
   </div>
-  
+  <div style="clear:both;" ></div>
 </li>

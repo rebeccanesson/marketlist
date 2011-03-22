@@ -1,0 +1,15 @@
+<h3>Unclaimed Listings for Delivery on <%= @order_list.delivery_start.strftime("%A, %b %e") %></h3>
+    <table>
+<% @order_list.order_listings.group_by(&:product_family).each do |family,listings| %>   
+    <% listings.each do |listing| %>
+      <% next if listing.total_commitments_available == 0 %>
+      <tr>
+        <td><%= listing.total_commitments_available %></td>
+        <td><%= listing.display_name %></td>
+      </tr>
+    <% end %>
+<% end %>
+    </table>
+    
+    
+<a href="#" class="navigation" onclick="window.print()">Print</a>

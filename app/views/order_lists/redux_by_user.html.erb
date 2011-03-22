@@ -1,0 +1,19 @@
+<h3>Claimed Listings by User for Delivery on <%= @order_list.delivery_start.strftime("%A, %b %e") %></h3>
+<% @order_list.order_listings.collect { |ol| ol.commitments }.flatten.group_by{ |c| c.user }.each do |user,commitments| %> 
+    <table>
+      <tr>
+          <td style="border-bottom:1px black solid;"><b><%= user.name %></b></td>
+          <td style="border-bottom:1px black solid;"><b><%= user.email %></b></td>
+          <td style="border-bottom:1px black solid;"><b><%= user.phone %></b></td>
+      </tr>
+      <% commitments.each do |commitment| %> 
+        <tr>
+          <td><%= commitment.quantity %></td>
+          <td><%= commitment.orderable.name_for_user(commitment.user) %></td>
+          <td><%= number_to_currency(commitment.price_for_user(commitment.user)) %></td>
+        </tr>
+      <% end %>
+      </table>
+<% end %>
+
+<a href="#" class="navigation" onclick="window.print()">Print</a>
