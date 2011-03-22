@@ -8,7 +8,7 @@
          <%= form_for([@order_listing.order_list,@order_listing.product_family,@order_listing,@commitment], :remote => true, :html => {:id => "new_commitment_#{@order_listing.id}"}) do |f| %>
              <%= hidden_field_tag 'commitment[user_id]', current_user.id %>
              <div style="width:60px;float:left;"><%= f.text_field :quantity, :size => 2, :value => 0 %></div>
-             <div style="width:310px;float:left;"><%= orderable.name_for_user(current_user) %></div>
+             <div style="width:310px;float:left;"><%= link_to orderable.name_for_user(current_user), orderable.product %></div>
              <div style="width:45px;float:left;text-align:right;"><%= number_to_currency(orderable.price_for_user(current_user)) %></div>
              <%= hidden_field_tag 'commitment[orderable_id]', orderable.id %>
              <div style="width:50px;float:left;margin-left:5px;"><%= f.submit 'commit' %></div>
