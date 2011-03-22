@@ -208,7 +208,7 @@ describe OrderListsController do
 
         it "should redirect to the order list show page" do
           post :create, :order_list => @attr
-          response.should redirect_to(order_list_path(assigns(:order_list)))
+          response.should redirect_to(order_lists_path)
         end  
      end
     end
@@ -347,7 +347,7 @@ describe OrderListsController do
 
         it "should redirect to the order_list show page" do
           put :update, :id => @order_list, :order_list => @attr
-          response.should redirect_to(order_list_path(@order_list))
+          response.should redirect_to(order_lists_path)
         end
 
         it "should have a flash message" do

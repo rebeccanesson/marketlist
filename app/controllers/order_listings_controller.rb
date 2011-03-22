@@ -54,7 +54,7 @@ class OrderListingsController < ApplicationController
     respond_to do |format|
       if @order_listing.save
         flash[:success] = 'Order listing was successfully created.'
-        format.html { redirect_to(order_list_product_family_order_listings_path(@order_list,@product_family) }
+        format.html { redirect_to order_list_product_family_order_listings_path(@order_list,@product_family) }
         format.xml  { render :xml => @order_listing, :status => :created, :location => @order_listing }
       else
         @title = "New Order Listing"
@@ -72,7 +72,7 @@ class OrderListingsController < ApplicationController
     respond_to do |format|
       if @order_listing.update_attributes(params[:order_listing])
         flash[:success] = 'Order listing was successfully updated.'
-        format.html { redirect_to(order_list_product_family_order_listings_path(@order_list,@product_family) }
+        format.html { redirect_to order_list_product_family_order_listings_path(@order_list,@product_family) }
         format.xml  { head :ok }
       else
         @title = "Edit Order Listing"

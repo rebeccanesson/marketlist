@@ -48,7 +48,11 @@ Marketlist::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy'
   
 
-  resources :products
+  resources :products do 
+    collection do 
+      post 'create_from_csv'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

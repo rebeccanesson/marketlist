@@ -1,5 +1,5 @@
 <% if current_user.admin? %>
-  <%= render :partial => 'common/breadcrumbs', :opject => [['Administer Site', admin_path], ['All Users', users_path], @user.name] %>
+  <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Users', users_path], @user.name] %>
 <% end %>
 <table class="profile" summary="Profile information">
   <tr>

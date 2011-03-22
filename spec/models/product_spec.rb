@@ -33,4 +33,10 @@ describe Product do
     long_name_prod.should_not be_valid
   end 
   
+  it "should reject products with non-unique SKU/PLU" do 
+    Product.create!(@attr.merge(:plu_number => "foo"))
+    prod = Product.new(@attr.merge(:plu_number => "foo"))
+    prod.should_not be_valid
+  end
+  
 end

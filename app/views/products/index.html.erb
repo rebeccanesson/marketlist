@@ -1,6 +1,11 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], 'All Products'] %>
 
-<%= link_to 'Add a new product', new_product_path %>
+<%= link_to 'Add a new product', new_product_path %> OR
+<%= form_tag({:action => 'create_from_csv'}, :multipart => true) do %>
+  <label for="upload_file">Upload CSV to create products</label>:
+  <%= file_field 'upload', 'datafile' %>
+  <%= submit_tag "Upload" %>
+<% end %><br/>
 
 <%= will_paginate %>
 

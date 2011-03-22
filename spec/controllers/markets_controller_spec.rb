@@ -57,7 +57,7 @@ describe MarketsController do
       it "redirects to the created market" do
         Market.stub(:new) { mock_market(:save => true) }
         post :create, :market => {}
-        response.should redirect_to(market_url(mock_market))
+        response.should redirect_to(admin_url)
       end
     end
 
@@ -93,7 +93,7 @@ describe MarketsController do
       it "redirects to the market" do
         Market.stub(:find) { mock_market(:update_attributes => true) }
         put :update, :id => "1"
-        response.should redirect_to(market_url(mock_market))
+        response.should redirect_to(admin_url)
       end
     end
 

@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.xml
   def index
-    @products = Product.paginate(:page => params[:page], :include => :product_family, :order => "product_families.name ASC, products.name ASC")
+    @products = Product.paginate(:page => params[:page], :include => :product_family, :order => "upper(product_families.name) ASC, products.name ASC")
     @title = "All Products"
   end
 
@@ -65,6 +65,17 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.destroy
     redirect_to(products_url) 
+  end
+  
+  def create_from_csv
+    res = Product.create_from_csv(params[:upload])
+    msg = ""
+    msg += "Created or updated #{res[0].join(', ')}. " unless res[0].empty?
+    msg += "Could not create or update #{res[1].join(', ')}." unless res[1].empty?
+    flash[:success] = msg
+    @products = Product.paginate(:page => params[:page], :include => :product_family, :order => "upper(product_families.name) ASC, products.name ASC")
+    @title = "All Products"
+    redirect_to products_url
   end
   
   private

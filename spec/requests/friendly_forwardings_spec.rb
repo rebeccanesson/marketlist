@@ -4,6 +4,8 @@ describe "FriendlyForwardings" do
 
   it "should forward to the requested page after signin" do
     user = Factory(:user)
+    user.admin = true
+    user.save!
     visit edit_user_path(user)
     # The test automatically follows the redirect to the signin page.
     fill_in :email,    :with => user.email
