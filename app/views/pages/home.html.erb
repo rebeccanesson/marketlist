@@ -4,14 +4,20 @@
 <% if @open_order_lists.size > 0 %> 
   <% @open_order_lists.each do |ool| %>
     <%= render :partial => 'order_lists/order_list_order_form', :locals => {:order_list => ool} %>
-  <% end %>
   <br />
   <div>
     <ul>
       <li>All commitments existing at the time ordering closes are final.</li>
-      <li>You may view your invoice on <%= link_to 'your account page', user_path(current_user) %></li>
+      <li>
+        <% if ool.invoice_for_user(current_user)%>
+          <div id="invoice_link_<%= ool.id %>"><%= link_to 'View your invoice', user_invoice_path(current_user,ool.invoice_for_user(current_user))%></div>
+        <% else %>
+          <div id="invoice_link_<%= ool.id %>">You may view your invoice once you've made a commitment</div>
+        <% end %>
+      </li>
     </ul>
   </div>
+  <% end %>
 <% else %>
   <p>No order lists are currently open for ordering.
   <% if @upcoming_order_list %>

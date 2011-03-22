@@ -56,8 +56,10 @@ class CommitmentsController < ApplicationController
     else 
       @commitment = Commitment.new(params[:commitment])
     end
+    res = @commitment.save
     respond_to do |format|
-      if @commitment.save
+      if res
+        @invoice = @commitment.invoice
         flash[:success] = 'Commitment was successfully created.'
         format.html { redirect_to(order_list_product_family_order_listing_commitment_path(@order_list,@product_family,@order_listing,@commitment)) }
         format.xml  { render :xml => @commitment, :status => :created, :location => @commitment }

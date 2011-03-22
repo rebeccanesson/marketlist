@@ -33,6 +33,10 @@ class Commitment < ActiveRecord::Base
    # self.errors.add(:quantity, "quantity is #{quantity} and available commitments is #{self.orderable.order_listing.total_commitments_available_to(self.user)}")
    self.errors.add(:quantity, " committed must be less than the quantity needed") unless quantity <= self.orderable.order_listing.total_commitments_available_to(self.user)
   end
+  
+  def invoice
+    i = Invoice.find(:first, :conditions => ["user_id = ? and order_list_id = ?", self.user.id, self.order_listing.order_list.id])
+  end
    
   def create_invoice
     ivs = Invoice.find(:all, :conditions => ["user_id = ? and order_list_id = ?", self.user.id, self.order_listing.order_list.id])
