@@ -52,7 +52,7 @@ class Product < ActiveRecord::Base
         if (plu and !plu.blank?)
           prod = Product.find(:first, :conditions => ["name = ? and plu_number = ? and organic_plu_number = ?", name, plu, organic_plu]) || 
                  Product.find(:first, :conditions => ["name = ? and plu_number = ? and organic_plu_number is null", name, plu]) ||
-                 Product.find(:first, :conditions => ["name = ?", name])
+                 Product.find(:first, :conditions => ["name = ?", name]) ||
                  Product.new(:plu_number => row[2], :organic_plu_number => row[3])
         else 
           prod = Product.new
