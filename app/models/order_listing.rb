@@ -54,5 +54,9 @@ class OrderListing < ActiveRecord::Base
       (!self.orderables.empty? ? self.orderables.collect{ |o| o.product.name }.join(" OR ") : 'No Products')    
     end
   end
+  
+  def plu_numbers 
+    self.orderables.collect { |o| [o.product.plu_number, o.product.organic_plu_number] }.flatten.reject { |plu| plu.blank? }.join(", ")
+  end
 
 end

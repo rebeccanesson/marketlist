@@ -6,12 +6,12 @@
 <% @order_list.order_listings.group_by(&:product_family).each do |family,listings| %> 
     <% listings.each do |listing| %>
       <% next if listing.total_commitment_quantity == 0 %>
-      <tr><td colspan="4" style="border-bottom:1px black solid;"><b><%= listing.display_name %></b></td></tr>
+      <tr><td colspan="5" style="border-bottom:1px black solid;"><b><%= listing.display_name %></b></td></tr>
       <% listing.commitments.each do |commitment| %> 
         <tr>
           <td><%= commitment.quantity %></td>
           <td><%= commitment.orderable.name_for_user(commitment.user) %></td>
-          <td><%= commitment.orderable.product.plu_number %></td>
+          <td><%= commitment.orderable.plu_for_user(commitment.user) %></td>
           <td><%= number_to_currency(commitment.price_for_user(commitment.user)) %></td>
           <td><%= link_to commitment.user.name, commitment.user %></td>
         </tr>

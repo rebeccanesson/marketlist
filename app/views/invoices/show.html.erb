@@ -33,7 +33,7 @@
     <tr>
       <td><%= commitment.orderable.name_for_user(@user, {:with_family => true}) %></td>
       <td><%= commitment.orderable.product.description %></td>
-      <td><%= commitment.orderable.product.plu_number %></td>
+      <td><%= commitment.orderable.plu_for_user(@user) %></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.orderable.price_for_user(@user)) %></td>
       <td style="text-align:right;width:5%;"><%= commitment.quantity %></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.price_for_user(@user)) %></td>

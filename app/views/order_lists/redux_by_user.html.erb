@@ -4,7 +4,7 @@
     <table>
 <% @order_list.order_listings.collect { |ol| ol.commitments }.flatten.group_by{ |c| c.user }.each do |user,commitments| %> 
       <tr>
-          <td style="border-bottom:1px black solid;"><b><%= user.name %></b></td>
+          <td colspan="2" style="border-bottom:1px black solid;"><b><%= user.name %></b></td>
           <td style="border-bottom:1px black solid;"><b><%= user.email %></b></td>
           <td style="border-bottom:1px black solid;"><b><%= user.phone %></b></td>
       </tr>
@@ -12,6 +12,7 @@
         <tr>
           <td><%= commitment.quantity %></td>
           <td><%= commitment.orderable.name_for_user(commitment.user) %></td>
+          <td><%= commitment.orderable.plu_for_user(commitment.user) %></td>
           <td><%= number_to_currency(commitment.price_for_user(commitment.user)) %></td>
         </tr>
       <% end %>

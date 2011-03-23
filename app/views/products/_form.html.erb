@@ -23,9 +23,13 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
-  <div class="plu_number">
+  <div class="field">
     <%= f.label :plu_number, 'PLU/SKU number'%>
     <%= f.text_field :plu_number %>
+  </div>
+  <div class="field">
+    <%= f.label :organic_plu_number, 'Organic PLU/SKU number' %>
+    <%= f.text_field :organic_plu_number %>
   </div>
   <div class="actions">
     <%= f.submit %>

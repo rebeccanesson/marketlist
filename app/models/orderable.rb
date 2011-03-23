@@ -39,16 +39,20 @@ class Orderable < ActiveRecord::Base
     (product ? "#{product.product_family.name}: #{product.name}" : "no product")
   end
   
-  def price_for_user(current_user)
-    (current_user.organic ? organic_price : conventional_price)
+  def price_for_user(user)
+    (user.organic ? organic_price : conventional_price)
   end
   
-  def name_for_user(current_user, options={})
+  def name_for_user(user, options={})
     if options[:with_family]
-      (current_user.organic ? "Organic " + product.product_family.name + ": " + product.name : product.product_family.name + ": " + product.name)
+      (user.organic ? "Organic " + product.product_family.name + ": " + product.name : product.product_family.name + ": " + product.name)
     else 
-      (current_user.organic ? "Organic " + product.name : product.name)
+      (user.organic ? "Organic " + product.name : product.name)
     end
+  end
+  
+  def plu_for_user(user)
+    (user.organic ? product.organic_plu_number : product.plu_number)
   end
   
 end
