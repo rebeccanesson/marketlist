@@ -33,6 +33,7 @@ Marketlist::Application.routes.draw do
         get 'email'
       end
     end
+    resources :user_family_blocks, :only => [:index]
   end
   
   resources :sessions, :only => [:new, :create, :destroy]

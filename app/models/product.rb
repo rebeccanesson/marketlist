@@ -39,7 +39,7 @@ class Product < ActiveRecord::Base
                           
     def self.create_from_csv(upload)
       name =  upload['datafile'].original_filename
-      directory = "public/data"
+      directory = "#{RAILS_ROOT}/tmp/"
       path = File.join(directory, name)
       File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
       success = []
@@ -49,7 +49,9 @@ class Product < ActiveRecord::Base
         plu = row[2]
         organic_plu = row[3]
         if (plu and !plu.blank?)
-          prod = Product.find(:first, :conditions => ["plu_number = ? and organic_plu_number = ?", plu, organic_plu]) || Product.new(:plu_number => row[2], :organic_plu_number => row[3])
+          prod = Product.find(:first, :conditions => ["plu_number = ? and organic_plu_number = ?", plu, organic_plu]) || 
+                 Product.find(:first, :conditions => ["plu_number = ? and organic_plu_number is null", plu]) ||
+                 Product.new(:plu_number => row[2], :organic_plu_number => row[3])
         else 
           prod = Product.new
         end
@@ -57,6 +59,8 @@ class Product < ActiveRecord::Base
         prod.product_family_id = pf.id
         prod.name = row[1]
         prod.description = row[4] 
+        prod.plu_number = row[2] unless row[2].blank?
+        prod.organic_plu_number = row[3] unless row[3].blank?
         if prod.save!
           success << prod.name
         else

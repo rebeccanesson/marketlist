@@ -13,6 +13,7 @@ class ProductFamily < ActiveRecord::Base
   attr_accessible :name
   
   has_many :products, :dependent => :destroy
+  has_many :user_family_blocks, :dependent => :destroy
   
   validates :name, :presence => true,
                    :length   => { :maximum => 50 },
