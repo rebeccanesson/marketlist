@@ -58,7 +58,7 @@ class Product < ActiveRecord::Base
           prod = Product.new
         end
         pf = ProductFamily.find_by_name(row[0]) || ProductFamily.find_by_name(row[0].capitalize) || ProductFamily.create!(:name => row[0])
-        puts "pf is #{pf}"
+        puts "pf is #{pf} and id is #{pf.id}"
         prod.product_family_id = pf.id
         prod.name = row[1]
         prod.description = row[4] 
