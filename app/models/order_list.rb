@@ -71,4 +71,9 @@ class OrderList < ActiveRecord::Base
       nil
     end
   end  
+  
+  def order_listings_for_user(user)
+    self.order_listings.select { |ol| ol.product_family.is_available_for_user(user) }
+  end 
+  
 end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110323010031
+# Schema version: 20110323132012
 #
 # Table name: user_family_blocks
 #
@@ -8,10 +8,11 @@
 #  product_family_id :integer
 #  created_at        :datetime
 #  updated_at        :datetime
+#  locked            :boolean
 #
 
-class UserFamilyBlocks < ActiveRecord::Base
-  attr_accessible :user, :user_id, :product_family, :product_family_id
+class UserFamilyBlock < ActiveRecord::Base
+  attr_accessible :user, :user_id, :product_family, :product_family_id, :locked
   
   belongs_to :user
   belongs_to :product_family

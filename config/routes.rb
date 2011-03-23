@@ -33,7 +33,11 @@ Marketlist::Application.routes.draw do
         get 'email'
       end
     end
-    resources :user_family_blocks, :only => [:index]
+    resources :user_family_blocks, :only => [:index] do 
+      collection do
+        post 'batch_create'
+      end
+    end
   end
   
   resources :sessions, :only => [:new, :create, :destroy]

@@ -1,0 +1,25 @@
+<%= render :partial => 'common/breadcrumbs', :object => [[@user.name, user_path(@user)], 'Manage Product Families'] %>
+
+<p>Uncheck a product family to remove it from the lists of products that are displayed to you for ordering.  A disabled check box indicates that an admin user has blocked you from claiming products in that product family.</p>
+
+<%= form_tag "user_family_blocks/batch_create" do %>
+  <% if current_user.admin? %>
+    <div>
+      <div style="float:left;width:300px;">&nbsp;</div><div style="float:left;width=100px">Lock</div>
+      <div style="clear:both"></div>
+    </div>
+  <% end %>
+  <% @product_families.each do |product_family| %>
+  <div>
+    <div style="float:left;width:300px;"><%= check_box_tag "product_family[#{product_family.id}]", product_family.id, product_family.is_available_for_user(@user), :disabled => product_family.is_locked_for_user(@user) %> <%= product_family.name %>
+    </div>
+    <% if current_user.admin? and product_family.is_blocked_for_user(@user) %>
+      <div style="float:left;100px;">
+        <%= check_box_tag "product_family_locks[#{product_family.id}]", product_family.id, product_family.is_locked_for_user(@user) %></div>
+    <% end %>
+    <div style="clear:both;"></div>
+  </div> 
+  <% end %>
+  <br />
+  <%= submit_tag 'Save' %>
+<% end %>

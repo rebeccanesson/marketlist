@@ -72,6 +72,17 @@ class User < ActiveRecord::Base
   def commitments_for_order_listing(order_listing)
     commitments.select { |c| c.order_listing == order_listing }
   end
+  
+  def batch_create_blocks(product_family_ids, product_family_locks)
+    self.user_family_blocks.each { |u| u.destroy }
+    puts "product_family_ids is #{product_family_ids}, keys are #{product_family_ids.keys}, values are #{product_family_ids.values}"
+    ProductFamily.all.each do |pf|
+      puts "product_family_ids includes #{pf.id}? #{product_family_ids.values.collect { |v| v.to_i }.include?(pf.id)}"
+      unless product_family_ids.values.collect { |v| v.to_i }.include?(pf.id)  # if the key is there, then there should be no blocks
+        UserFamilyBlock.create!(:user_id => self.id, :product_family_id => pf.id, :locked => product_family_locks.values.collect { |v| v.to_i }.include?(pf.id))
+      end
+    end 
+  end
 
   private
 

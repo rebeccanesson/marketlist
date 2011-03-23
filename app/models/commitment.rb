@@ -29,9 +29,15 @@ class Commitment < ActiveRecord::Base
   after_create :create_invoice
   after_destroy :check_invoice
   
+  validate :user_can_commit_to_product_family
+  
   def quantity_in_allowed_range
    # self.errors.add(:quantity, "quantity is #{quantity} and available commitments is #{self.orderable.order_listing.total_commitments_available_to(self.user)}")
    self.errors.add(:quantity, " committed must be less than the quantity needed") unless quantity <= self.orderable.order_listing.total_commitments_available_to(self.user)
+  end
+  
+  def user_can_commit_to_product_family
+    self.errors.add(:user, " is not authorized to commit to products in the #{self.orderable.product.product_family.name} family") unless self.orderable.product.product_family.is_available_for_user(self.user)
   end
   
   def invoice
