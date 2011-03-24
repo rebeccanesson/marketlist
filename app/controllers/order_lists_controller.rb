@@ -104,4 +104,11 @@ class OrderListsController < ApplicationController
     @order_list = OrderList.find(params[:id])
   end
   
+  def duplicate
+    @old_order_list = OrderList.find(params[:id])
+    @order_list = @old_order_list.duplicate_for_market(Market.the_market)
+    flash[:success] = 'Duplicated order list'
+    redirect_to order_list_path(@order_list)
+  end
+  
 end

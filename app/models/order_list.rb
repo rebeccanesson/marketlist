@@ -74,6 +74,21 @@ class OrderList < ActiveRecord::Base
   
   def order_listings_for_user(user)
     self.order_listings.select { |ol| ol.product_family.is_available_for_user(user) }
+  end
+  
+  def duplicate_for_market(market)
+    dup = OrderList.new_for_market(market)
+    dup.user = self.user
+    dup.save!
+    self.order_listings.each do |ol|
+      dup_ol = OrderListing.new(:quantity => ol.quantity, :product_family => ol.product_family, :order_list => dup)
+      dup_ol.save!
+      ol.orderables.each do |ord|
+        dup_ord = Orderable.new(:product => ord.product, :organic_price => ord.organic_price, :conventional_price => ord.conventional_price, :order_listing => dup_ol)
+        dup_ord.save! 
+      end
+    end
+    dup
   end 
   
 end

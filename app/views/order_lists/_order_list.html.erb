@@ -28,7 +28,8 @@
     <% if true || order_list.between_order_and_delivery? %>
       <%= link_to "view market invoice by listing", redux_by_listing_order_list_path(order_list) %><br />
       <%= link_to "view market invoice by user", redux_by_user_order_list_path(order_list) %><br />
-      <%= link_to "view unclaimed listings", redux_unclaimed_order_list_path(order_list) %>
+      <%= link_to "view unclaimed listings", redux_unclaimed_order_list_path(order_list) %><br />
+      <%= link_to "duplicate this order list", duplicate_order_list_path(order_list)%>
     <% end %>
   <% end %> 
   </div>
