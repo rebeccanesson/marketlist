@@ -26,7 +26,7 @@ class OrderList < ActiveRecord::Base
   validates :delivery_end, :presence => true
   validates :user, :presence => true
   
-  validates_is_after :order_start
+  validates_is_after :order_start, :after => Time.zone.now.beginning_of_day - 1.hour
   validates_is_after :order_end, :after => :order_start
   validates_is_after :delivery_start, :after => :order_end
   validates_is_after :delivery_end, :after => :delivery_start
