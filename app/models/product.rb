@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110323003040
+# Schema version: 20110405002704
 #
 # Table name: products
 #
@@ -11,6 +11,7 @@
 #  product_family_id  :integer
 #  plu_number         :string(255)
 #  organic_plu_number :string(255)
+#  package_size       :string(255)
 #
 
 require "fastercsv"
@@ -18,7 +19,7 @@ class Product < ActiveRecord::Base
   belongs_to :product_family
   has_many :orderables, :dependent => :destroy
   
-  attr_accessible :name, :description, :product_family, :product_family_id, :plu_number, :organic_plu_number
+  attr_accessible :name, :description, :product_family, :product_family_id, :plu_number, :organic_plu_number, :package_size
    
     
     
@@ -64,6 +65,7 @@ class Product < ActiveRecord::Base
         prod.description = row[4] 
         prod.plu_number = row[2] unless row[2].blank?
         prod.organic_plu_number = row[3] unless row[3].blank?
+        prod.package_size = row[5] unless row[5].blank?
         if prod.save!
           success << prod.name
         else

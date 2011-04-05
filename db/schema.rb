@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323132012) do
+ActiveRecord::Schema.define(:version => 20110405002704) do
 
   create_table "commitments", :force => true do |t|
     t.integer  "orderable_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20110323132012) do
     t.integer  "product_family_id"
     t.string   "plu_number"
     t.string   "organic_plu_number"
+    t.string   "package_size"
   end
 
   create_table "user_family_blocks", :force => true do |t|

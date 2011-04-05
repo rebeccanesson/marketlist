@@ -12,7 +12,8 @@
 #
 
 class OrderListing < ActiveRecord::Base
-  attr_accessible :order_list_id, :order_list, :product_family_id, :product_family, :quantity, :orderables_attributes, :orderables
+  attr_accessible :order_list_id, :order_list, :product_family_id, :product_family, 
+                  :quantity, :orderables_attributes, :orderables
   
   belongs_to :order_list
   belongs_to :product_family

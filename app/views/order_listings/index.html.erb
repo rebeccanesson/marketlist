@@ -1,26 +1,71 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], ["Edit Order List", @order_list], "Order Listings for family #{@product_family.name}"] %>
 
 <%= will_paginate %>
-<table>
-  <tr>
-    <th>Products</th>
-    <th>Quantity</th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @order_listings.each do |order_listing| %>
-  <tr>
-    <td><%= order_listing.display_name %></td>
-    <td><%= order_listing.quantity %></td>
-    <td><%= link_to 'Edit', edit_order_list_product_family_order_listing_path(@order_list,@product_family,order_listing) %></td>
-    <td><%= link_to 'Destroy', [@order_list,@product_family,order_listing], :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+<% used_listings = [] %>
+<%= form_for(@order_list) do |f| %>
+<table>
+  <thead>
+    <th>Quantity</th>
+    <th><table>
+          <thead>
+            <th width="50%">Product(s)</th>
+            <th width="20%">Org. Price</th>
+            <th width="20%">Conv. Price</th>
+            <th width="10%">Remove Product</th>
+          </thead>
+        </table></th>
+    <th>Add Products</th>
+    <th>Remove Listing</th>
+  </thead>
+  <% @products.each do |prod| %>
+    <% @order_listing = @order_list.order_listing_for_product(prod) %>
+    <% next if @order_listing and used_listings.include?(@order_listing) %>
+    <% used_listings << @order_listing %>
+    <tr>
+    <% unless @order_listing %>
+      <% @order_listing = setup_orderable(OrderListing.new(:product_family => @product_family)) %>
+      <% @order_listing.orderables.first.product = prod %>
+    <% end %>
+    <%= f.fields_for :order_listings, @order_listing do |ol_f| %>
+      <%= ol_f.hidden_field :product_family_id %>
+      <td><%= ol_f.text_field :quantity, :size => 2 %></td>
+      <td>
+        <table>
+        <%= ol_f.fields_for :orderables, @order_listing.orderables do |o_f| %>
+           <tr>
+             <td width="50%">
+               <%= o_f.object.product.name %>
+               <%= o_f.hidden_field :product_id, :value => o_f.object.product.id %>
+             </td>
+             <td width="20%"><%= o_f.text_field :organic_price, :size => 6 %></td>
+             <td width="20%"><%= o_f.text_field :conventional_price, :size => 6 %></td>
+             <td width="10%">
+            <% unless o_f.object.new_record? %>
+              <% # Don't forget to name both of these '_destroy' in Rails 3 %>
+              <%= o_f.check_box '_destroy' %>
+            <% end %>
+          </tr>
+        <% end %>
+        </table>
+      </td>
+      <td><%= link_to 'Add Product', edit_order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) unless ol_f.object.new_record? %></td>
+      <td>
+      <% unless ol_f.object.new_record? %>
+        <% # Don't forget to name both of these '_destroy' in Rails 3 %>
+        <%= ol_f.check_box '_destroy' %>
+      <% end %>
+      </td>
+    <% end %>
+    </tr>
+  <% end %>
 </table>
+<input type="hidden" name="product_family_id" value="<%=@product_family.id%>">
+<%= f.submit %>
+<% end %>
 
 <br />
 
 <%= will_paginate %>
 
-<%= link_to 'New Order listing', new_order_list_product_family_order_listing_path(@order_list,@product_family) %> 
+<%= link_to 'New "OR" Order listing', new_order_list_product_family_order_listing_path(@order_list,@product_family) %> 

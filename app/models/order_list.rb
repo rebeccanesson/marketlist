@@ -15,10 +15,11 @@
 
 class OrderList < ActiveRecord::Base
   belongs_to :user
-  has_many :order_listings
+  has_many :order_listings, :dependent => :destroy
+  accepts_nested_attributes_for :order_listings, :allow_destroy => true, :reject_if => proc { |attrs| attrs[:quantity].blank? } 
   has_many :invoices
   
-  attr_accessible :user, :order_start, :order_end, :delivery_start, :delivery_end
+  attr_accessible :user, :order_start, :order_end, :delivery_start, :delivery_end, :order_listings_attributes
   
   validates :order_start, :presence => true
   validates :order_end, :presence => true
@@ -31,7 +32,7 @@ class OrderList < ActiveRecord::Base
   validates_is_after :delivery_start, :after => :order_end
   validates_is_after :delivery_end, :after => :delivery_start
   
-  has_many :orderables
+  has_many :orderables, :through => :order_listings
   
   def self.new_for_market(market)
     ol = OrderList.new
@@ -89,6 +90,11 @@ class OrderList < ActiveRecord::Base
       end
     end
     dup
+  end
+  
+  def order_listing_for_product(product)
+    OrderListing.find(:first, :joins => "inner join orderables on orderables.order_listing_id = order_listings.id", 
+                              :conditions => ["order_listings.order_list_id = ? and orderables.product_id = ?", self.id, product.id]) 
   end 
   
 end

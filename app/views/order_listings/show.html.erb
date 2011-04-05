@@ -1,6 +1,6 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], ["Edit Order List", @order_list], "Order Listing for family #{@product_family.name}"] %>
 
-<p>Order listing fro the <%= link_to "order list", @order_listing.order_list %> opening on <%= @order_list.order_start %> and for delivery on <%= @order_list.delivery_start %></b>
+<p>Order listing from the <%= link_to "order list", @order_listing.order_list %> opening on <%= @order_list.order_start %> and for delivery on <%= @order_list.delivery_start %></b>
 </p>
 
 <p>

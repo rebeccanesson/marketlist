@@ -12,7 +12,7 @@
 class ProductFamily < ActiveRecord::Base
   attr_accessible :name
   
-  has_many :products, :dependent => :destroy
+  has_many :products, :order => :name, :dependent => :destroy
   has_many :user_family_blocks, :dependent => :destroy
   
   validates :name, :presence => true,
