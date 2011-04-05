@@ -1,7 +1,7 @@
 <% if current_user.admin? %>
   <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Products', products_path], @product.name] %>
 <% else %>
-  <%= render :partial => 'common/breadcrumbs', :object => [@product.name] %>
+  <%= render :partial => 'common/breadcrumbs', :object => [['Current Order List', home_path], @product.name] %>
 <% end %>
 <h2>
   <%= @product.product_family.name %>: <%= @product.name %>
