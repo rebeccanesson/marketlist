@@ -9,10 +9,12 @@
     <th>Quantity</th>
     <th><table>
           <thead>
-            <th width="50%">Product(s)</th>
-            <th width="20%">Org. Price</th>
-            <th width="20%">Conv. Price</th>
-            <th width="10%">Remove Product</th>
+            <th width="40%">Product(s)</th>
+            <th width="12%">Package Size</th>
+            <th width="12%">Org. Price</th>
+            <th width="12%">Conv. Price</th>
+            <th width="12%">PLU/SKU</th>
+            <th width="12%">Remove Product</th>
           </thead>
         </table></th>
     <th>Add Alternatives</th>
@@ -29,16 +31,16 @@
     <% end %>
     <%= f.fields_for :order_listings, @order_listing do |ol_f| %>
       <%= ol_f.hidden_field :product_family_id %>
-      <td><%= ol_f.text_field :quantity, :size => 2 %></td>
-      <td>
+      <td width="8%"><%= ol_f.text_field :quantity, :size => 2 %></td>
+      <td width="76%">
         <table>
         <%= ol_f.fields_for :orderables, @order_listing.orderables do |o_f| %>
            <tr>
-             <td width="50%">
+             <td width="40%">
                <div style="position:relative;">
                  <%= link_to o_f.object.product.name, edit_product_path(o_f.object.product), {:id => "product_#{o_f.object.product.id}"} %>
                  <%= o_f.hidden_field :product_id, :value => o_f.object.product.id %>
-                 <div id="product_desc_<%=o_f.object.product.id%>" style="display:none;position:absolute;background:white;padding:10px;border:1px solid green;top:5px;left:50px;"><%= o_f.object.product.description %></div>
+                 <div id="product_desc_<%=o_f.object.product.id%>" style="display:none;position:absolute;background:white;padding:10px;border:1px solid green;top:5px;left:50px;z-index:2;"><%= o_f.object.product.description %></div>
                  <script type="text/javascript">
                     $('#product_<%=o_f.object.product.id%>').hover(
                          function() { $('#product_desc_<%=o_f.object.product.id%>').show(); },
@@ -47,9 +49,11 @@
                  </script>
                </div>
              </td>
-             <td width="20%"><%= o_f.text_field :organic_price, :size => 6 %></td>
-             <td width="20%"><%= o_f.text_field :conventional_price, :size => 6 %></td>
-             <td width="10%">
+             <td width="12%"><%= o_f.object.product.package_size %></td>
+             <td width="12%"><%= o_f.text_field :organic_price, :size => 6 %></td>
+             <td width="12%"><%= o_f.text_field :conventional_price, :size => 6 %></td>
+             <td width="12%"><%= o_f.object.product.plu_number %>,<%= o_f.object.product.organic_plu_number %></td>
+             <td width="12%">
             <% unless o_f.object.new_record? %>
               <% # Don't forget to name both of these '_destroy' in Rails 3 %>
               <%= o_f.check_box '_destroy' %>
@@ -58,8 +62,8 @@
         <% end %>
         </table>
       </td>
-      <td><%= link_to 'Add Alternative', edit_order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) unless ol_f.object.new_record? %></td>
-      <td>
+      <td width="8%"><%= link_to 'Add Alternative', edit_order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) unless ol_f.object.new_record? %></td>
+      <td width="8%">
       <% unless ol_f.object.new_record? %>
         <% # Don't forget to name both of these '_destroy' in Rails 3 %>
         <%= ol_f.check_box '_destroy' %>
