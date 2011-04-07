@@ -34,6 +34,14 @@ class OrderList < ActiveRecord::Base
   
   has_many :orderables, :through => :order_listings
   
+  def self.active
+    where("delivery_end >= ?", Time.now).order("order_start DESC")
+  end
+  
+  def self.inactive
+    where("delivery_end < ?", Time.now).order("order_start DESC")
+  end
+  
   def self.new_for_market(market)
     ol = OrderList.new
     if (market.start_day_of_week and market.ordering_period and market.due_date_day_of_week and 
@@ -55,6 +63,10 @@ class OrderList < ActiveRecord::Base
   def commitments
     self.order_listings.collect { |ol| ol.commitments }.flatten
   end
+  
+  def active? 
+    Time.now <= delivery_end
+  end 
   
   def order_open?
     order_start <= Time.now and Time.now <= order_end

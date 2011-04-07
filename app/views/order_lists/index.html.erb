@@ -1,13 +1,21 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], 'All Order Lists'] %>
 
-<%= link_to 'Create a new order list', new_order_list_path %>
+<p><%= link_to 'Create a new order list', new_order_list_path %></p>
 
-<%= will_paginate %>
-
+<h3>Active Order Lists</h3>
 <ul class="order_lists">
-  <% @order_lists.each do |order_list| %>
+  <% @active_order_lists.each do |order_list| %>
     <%= render order_list %> 
   <% end %>
 </ul>
 
-<%= will_paginate %>
+<h3>Inactive Order Lists</h3>
+<%= will_paginate @inactive_order_lists %>
+
+<ul class="order_lists">
+  <% @inactive_order_lists.each do |order_list| %>
+    <%= render order_list %> 
+  <% end %>
+</ul>
+
+<%= will_paginate @inactive_order_lists %>

@@ -5,7 +5,8 @@ class OrderListsController < ApplicationController
   # GET /order_lists
   # GET /order_lists.xml
   def index
-    @order_lists = OrderList.paginate(:page => params[:page], :order => "order_start DESC")
+    @active_order_lists = OrderList.active
+    @inactive_order_lists = OrderList.inactive.paginate(:page => params[:page], :order => "order_start DESC")
     @title = "All Order Lists"
   end
 
