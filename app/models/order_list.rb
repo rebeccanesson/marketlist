@@ -97,4 +97,8 @@ class OrderList < ActiveRecord::Base
                               :conditions => ["order_listings.order_list_id = ? and orderables.product_id = ?", self.id, product.id]) 
   end 
   
+  def order_listings_for_family(product_family)
+    OrderListing.find(:all, :conditions => ["order_listings.order_list_id = ? and order_listings.product_family_id = ?", self.id, product_family.id])
+  end
+  
 end

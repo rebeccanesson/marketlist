@@ -15,7 +15,7 @@
             <th width="10%">Remove Product</th>
           </thead>
         </table></th>
-    <th>Add Products</th>
+    <th>Add Alternatives</th>
     <th>Remove Listing</th>
   </thead>
   <% @products.each do |prod| %>
@@ -58,7 +58,7 @@
         <% end %>
         </table>
       </td>
-      <td><%= link_to 'Add Product', edit_order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) unless ol_f.object.new_record? %></td>
+      <td><%= link_to 'Add Alternative', edit_order_list_product_family_order_listing_path(@order_list,@product_family,@order_listing) unless ol_f.object.new_record? %></td>
       <td>
       <% unless ol_f.object.new_record? %>
         <% # Don't forget to name both of these '_destroy' in Rails 3 %>
