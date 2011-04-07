@@ -35,8 +35,17 @@
         <%= ol_f.fields_for :orderables, @order_listing.orderables do |o_f| %>
            <tr>
              <td width="50%">
-               <%= o_f.object.product.name %>
-               <%= o_f.hidden_field :product_id, :value => o_f.object.product.id %>
+               <div style="position:relative;">
+                 <%= link_to o_f.object.product.name, edit_product_path(o_f.object.product), {:id => "product_#{o_f.object.product.id}"} %>
+                 <%= o_f.hidden_field :product_id, :value => o_f.object.product.id %>
+                 <div id="product_desc_<%=o_f.object.product.id%>" style="display:none;position:absolute;background:white;padding:10px;border:1px solid green;top:5px;right:-40px;"><%= o_f.object.product.description %></div>
+                 <script type="text/javascript">
+                    $('#product_<%=o_f.object.product.id%>').hover(
+                         function() { $('#product_desc_<%=o_f.object.product.id%>').show(); },
+                         function() { $("#product_desc_<%=o_f.object.product.id%>").hide(); }
+                     );
+                 </script>
+               </div>
              </td>
              <td width="20%"><%= o_f.text_field :organic_price, :size => 6 %></td>
              <td width="20%"><%= o_f.text_field :conventional_price, :size => 6 %></td>
