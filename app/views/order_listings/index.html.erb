@@ -38,7 +38,7 @@
                <div style="position:relative;">
                  <%= link_to o_f.object.product.name, edit_product_path(o_f.object.product), {:id => "product_#{o_f.object.product.id}"} %>
                  <%= o_f.hidden_field :product_id, :value => o_f.object.product.id %>
-                 <div id="product_desc_<%=o_f.object.product.id%>" style="display:none;position:absolute;background:white;padding:10px;border:1px solid green;top:5px;right:-5px;"><%= o_f.object.product.description %></div>
+                 <div id="product_desc_<%=o_f.object.product.id%>" style="display:none;position:absolute;background:white;padding:10px;border:1px solid green;top:5px;left:50px;"><%= o_f.object.product.description %></div>
                  <script type="text/javascript">
                     $('#product_<%=o_f.object.product.id%>').hover(
                          function() { $('#product_desc_<%=o_f.object.product.id%>').show(); },
