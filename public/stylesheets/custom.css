@@ -118,6 +118,11 @@ div.field, div.actions {
   margin-bottom: 10px;
 }
 
+div.field label { 
+	width:200px;
+	display:inline-block;
+}
+
 .field_with_errors {
   margin-top: 10px;
   padding: 2px;
