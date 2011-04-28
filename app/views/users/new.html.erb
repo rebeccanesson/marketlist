@@ -20,33 +20,34 @@
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="field">
-    <%= f.label :address_1 %>
+    <%= f.label :address_1 %><br />
     <%= f.text_field :address_1 %>
   </div>
   <div class="field">
-    <%= f.label :address_2 %>
+    <%= f.label :address_2 %><br />
     <%= f.text_field :address_2 %>
   </div>
   <div class="field">
-    <%= f.label :city %>
+    <%= f.label :city %><br />
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :state %>
+    <%= f.label :state %><br />
     <%= f.text_field :state %>
   </div>
   <div class="field">
-    <%= f.label :zipcode %>
+    <%= f.label :zipcode %><br />
     <%= f.text_field :zipcode %>
   </div>
-  <div class="phone">
-    <%= f.label :phone %>
+  <div class="field">
+    <%= f.label :phone %><br />
     <%= f.text_field :phone %>
   </div>
-  
   <% if @current_user and @current_user.admin? %>
+  <div class="field">
     <%= f.label :admin %><br />
     <%= f.check_box :admin %>
+  </div>
   <% end %>
   <div class="actions">
     <%= f.submit "Sign up" %>
