@@ -66,6 +66,7 @@ class ProductFamiliesController < ApplicationController
       redirect_to(product_family_url(@product_family))
     else 
       @product_family.destroy
+      flash[:success] = "#{@product_family.name} product family destroyed"
       redirect_to(product_families_url)
     end
   end
