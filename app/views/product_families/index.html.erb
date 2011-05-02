@@ -4,10 +4,17 @@
 
 <%= will_paginate %>
 
-<ul class="product_families">
+<table class="product_families">
+  <thead>
+    <th>Family name</th>
+    <th>Number of products</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
   <% @product_families.each do |product_family| %>
     <%= render product_family %>
   <% end %>
-</ul>
+  </tbody>
+</table>
 
 <%= will_paginate %>
