@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
   # GET /products/new.xml
   def new
     @product = Product.new
+    @product.product_family = ProductFamily.find(params[:product_family_id]) if params[:product_family_id]
     @title = "New Product"
     @product_families = ProductFamily.find(:all, :order => "name ASC")
   end

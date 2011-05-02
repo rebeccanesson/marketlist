@@ -1,4 +1,12 @@
-<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], ["Edit Order List", @order_list], "Order Listings for family #{@product_family.name}"] %>
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], ["Edit Order List", @order_list], ["Order Listings for family #{@product_family.name}", @product_family]] %>
+
+<div>
+  <p><%= link_to 'Add a product to this family', new_product_path(:product_family_id => @product_family.id) %></p>
+</div>
+
+<% if @products.empty? %>
+  <p>There are currently no products in this family.  Use the link above to add some before creating order listings.</p>
+<% end %>
 
 <%= will_paginate %>
 

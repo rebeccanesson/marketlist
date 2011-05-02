@@ -3,6 +3,26 @@
   <%= @product_family.name %>
 </p>
 
+<table>
+  <thead>
+    <th>Product Name</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+  <% @product_family.products.each do |product| %>
+    <tr>
+      <td><%= link_to product.name, product %></td>
+      <td>
+        <div class="button_holder">
+          <% if current_user.admin? %>
+            <%= button_to "delete", product_path(product),  :method => :delete, :confirm => 'Are you sure?' %> |
+            <%= link_to "edit", product_path(product) %>
+          <% end %>
+        <div class="button_holder">
+      </td>
+  <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_product_family_path(@product_family) %> |
 <%= link_to 'Back', product_families_path %>

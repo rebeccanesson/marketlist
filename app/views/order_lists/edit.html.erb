@@ -8,7 +8,7 @@
 
 <ul>
   <% @product_families.each do |product_family| %>
-    <li><%= link_to product_family.name, order_list_product_family_order_listings_path(@order_list,product_family) %>
+    <li><%= link_to product_family.name, order_list_product_family_order_listings_path(@order_list,product_family) %> (<%= product_family.products.size %>)
       <ul>
         <% @order_list.order_listings_for_family(product_family).each do |listing| %>
           <li><%= listing.quantity %> <%= listing.display_name(:include_family => false) %></li>
