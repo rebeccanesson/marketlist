@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
+    @user.addresses.build
+    @user.addresses.build
     @title = "Sign Up"
   end
   
@@ -26,8 +28,11 @@ class UsersController < ApplicationController
       render 'new'
     elsif @user.save
       sign_in @user
+      if params[:request_organic]
+        UserNotifier.request_organic_status(@user).deliver
+      end
       flash[:success] = "Welcome to the Market List!"
-      redirect_to @user
+      redirect_to user_user_family_blocks_path(@user)
     else
       @title = "Sign up"
       render 'new'
@@ -45,11 +50,21 @@ class UsersController < ApplicationController
       render 'edit'
     elsif @user.update_attributes(params[:user])
       flash[:success] = "Account updated."
+      if params[:request_organic]
+        UserNotifier.request_organic_status(@user).deliver
+      end
       redirect_to @user
     else
       @title = "Edit user"
       render 'edit'
     end
+  end
+  
+  def request_organic
+    @user = User.find(params[:id])
+    UserNotifier.request_organic_status(@user).deliver
+    flash[:success] = "The market administration has been notified of your request."
+    redirect_to @user
   end
   
   def destroy

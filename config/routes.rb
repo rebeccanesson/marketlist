@@ -28,6 +28,9 @@ Marketlist::Application.routes.draw do
       post 'forgot_password'
       get  'reset_password'
     end
+    member do 
+      get 'request_organic'
+    end
     resources :commitments
     resources :invoices do 
       member do 

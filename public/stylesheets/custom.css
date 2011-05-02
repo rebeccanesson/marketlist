@@ -134,6 +134,14 @@ div.field label {
   color: #fff;
 }
 
+div.button_holder { 
+	float:right;
+}
+
+div.button_holder form { 
+	display:inline-block;
+}
+
 #error_explanation {
   width: 400px;
   border: 2px solid red;

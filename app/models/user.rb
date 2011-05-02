@@ -25,12 +25,14 @@
 class User < ActiveRecord::Base
   attr_accessor   :password
   attr_accessible :name, :email, :password, :password_confirmation, :admin, :organic, 
-                  :address_1, :address_2, :city, :state, :zipcode, :phone, 
+                  :addresses, :addresses_attributes, :phone, 
                   :reset_password_code
   
   has_many :commitments, :dependent => :destroy
   has_many :invoices
   has_many :user_family_blocks, :dependent => :destroy
+  has_many :addresses
+  accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => :all_blank 
   
   validates :name, :presence => true,
                    :length   => { :maximum => 50 }
@@ -40,10 +42,6 @@ class User < ActiveRecord::Base
                     :format => {:with => email_regex}, 
                     :uniqueness => {:case_sensitive => false}
                     
-  validates :address_1, :presence => true
-  validates :city, :presence => true
-  validates :state, :presence => true
-  validates :zipcode, :presence => true
   validates :phone, :presence => true
                     
   validates :password, :presence     => true,
@@ -52,6 +50,19 @@ class User < ActiveRecord::Base
                        :unless       => Proc.new { |u| !u.encrypted_password.blank? }
   
   before_save :encrypt_password
+  
+  
+  def address 
+    if addresses.size > 0 
+      addresses.first
+    end
+  end
+  
+  def farm_address
+    if addresses.size > 1
+      addresses[1]
+    end
+  end
   
   # Return true if the user's password matches the submitted password.
   def has_password?(submitted_password)

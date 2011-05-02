@@ -1,10 +1,10 @@
 <li>
-  <%= product_family.name %>
-  <div style="float:right;">
+  <%= product_family.name %> has <%= product_family.products.size %> products
+  <div class="button_holder">
   <% if current_user.admin? %>
-    <%= link_to "delete", product_family, :method => :delete, :confirm => "You sure?",
-                                  :title => "Delete #{product_family.name}" %>
+    <%= button_to "delete", product_family_path(product_family),  :method => :delete, :confirm => 'Are you sure?' %>
     | <%= link_to "edit", edit_product_family_path(product_family) %>
   <% end %> 
   </div> 
+  <div style="clear:both;">
 </li>

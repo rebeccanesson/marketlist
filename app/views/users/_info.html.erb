@@ -1,10 +1,30 @@
 <% user = info %>
-<p><%= user.name %><br />
-<%= user.address_1 %><br />
-<% if !user.address_2.blank? %>
-  <%= user.address_2 %><br />
+<h4><%= user.name %></h4>
+
+<p>
+<% if user.address %>
+  <%= user.address.street_1 %><br />
+  <% if !user.address.street_2.blank? %>
+    <%= user.address.street_2 %><br />
+  <% end %>
+  <%= user.address.city %> <%= user.address.state %>, <%= user.address.zipcode %>
 <% end %>
-<%= user.city %> <%= user.state %>, <%= user.zipcode %><br />
+</p>
+
+<h4><%= user.farm_name %></h4>
+
+<p>
+<% if user.farm_address %>
+  <%= user.farm_address.street_1 %><br />
+  <% if !user.farm_address.street_2.blank? %>
+    <%= user.farm_address.street_2 %><br />
+  <% end %>
+  <%= user.farm_address.city %> <%= user.farm_address.state %>, <%= user.farm_address.zipcode %>
+<% else %>
+  Farm address same as above.
+<% end %>
+</p>
+
 <% if current_user.admin? %>
   <%= user.phone %> - <%= user.email %><br />
 <% end %>

@@ -1,0 +1,80 @@
+<div style="margin-left:25px;">
+<%= form_for(@user) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :farm_name %>
+    <%= f.text_field :farm_name %>
+  </div>
+  <% if @current_user && @current_user == @user && !@user.organic %>
+    <div class="field">
+      <%= label_tag 'Request Organic Status' %>
+      <%= check_box_tag 'request_organic' %>
+    </div>
+  <% end %>
+  <% index = 0 %>
+  <% f.fields_for :addresses do |af| %>
+    <% if index == 0 %>
+      <h4>Address:</h4>
+      <% index = index + 1 %>
+    <% else %>
+      <h4>Farm Address (if different):</h4>
+    <% end %>
+    <div style="margin-left:25px;">
+      <div class="field">
+        <%= af.label :street_1 %>
+        <%= af.text_field :street_1 %>
+      </div>
+      <div class="field">
+        <%= af.label :street_2 %>
+        <%= af.text_field :street_2 %>
+      </div>
+      <div class="field">
+        <%= af.label :city %>
+        <%= af.text_field :city %>
+      </div>
+      <div class="field">
+        <%= af.label :state %>
+        <%= af.text_field :state %>
+      </div>
+      <div class="field">
+        <%= af.label :zipcode %>
+        <%= af.text_field :zipcode %>
+      </div>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :phone %>
+    <%= f.text_field :phone %>
+  </div>
+  <% if @current_user and @current_user.admin? %>
+  <div class="field">
+    <%= f.label :admin %>
+    <%= f.check_box :admin %>
+  </div>
+  <div class="field">
+    <%= f.label :organic %>
+    <%= f.check_box :organic %>
+  </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit submit_text %>
+  </div>
+<% end %>
+</div>

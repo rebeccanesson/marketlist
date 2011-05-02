@@ -117,7 +117,8 @@ class CommitmentsController < ApplicationController
   end
   
   def admin_user_or_creator
-    unless current_user.id == params[:commitment][:user_id]
+    unless current_user.id.to_s == params[:commitment][:user_id].to_s
+      puts "they are not equal so checking if it is an admin"
       admin_user
     end
   end

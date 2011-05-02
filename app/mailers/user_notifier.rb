@@ -21,4 +21,11 @@ class UserNotifier < ActionMailer::Base
     mail(:to => "#{user.name} <#{user.email}>", :subject => "#{Market.the_market.name} - Ordering Open")
   end
   
+  def request_organic_status(user)
+    @user = user
+    @market = Market.the_market
+    @url = "http://marketlist.heroku.com/users/#{@user.id}/edit"
+    mail(:to => "#{@market.name} <#{@market.contact_email}>", :subject => "Organic Status Request: #{@user.name}")
+  end
+  
 end

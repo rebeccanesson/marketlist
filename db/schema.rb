@@ -10,7 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110405002704) do
+ActiveRecord::Schema.define(:version => 20110502004823) do
+
+  create_table "addresses", :force => true do |t|
+    t.string   "street_1"
+    t.string   "street_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
 
   create_table "commitments", :force => true do |t|
     t.integer  "orderable_id"
@@ -109,14 +120,10 @@ ActiveRecord::Schema.define(:version => 20110405002704) do
     t.string   "salt"
     t.boolean  "admin",                     :default => false
     t.boolean  "organic",                   :default => false
-    t.string   "address_1"
-    t.string   "address_2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
     t.string   "phone"
     t.string   "reset_password_code"
     t.datetime "reset_password_code_until"
+    t.string   "farm_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
