@@ -31,10 +31,12 @@ class Product < ActiveRecord::Base
    validates :product_family, :presence => true    
    
    validates :plu_number, :uniqueness => true, 
-                          :allow_nil => true
+                          :allow_nil => true, 
+                          :allow_blank => true
                           
    validates :organic_plu_number, :uniqueness => true, 
-                                  :allow_nil => true
+                                  :allow_nil => true, 
+                                  :allow_blank => true
    
   
                           

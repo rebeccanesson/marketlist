@@ -61,12 +61,13 @@ class CommitmentsController < ApplicationController
       if res
         @invoice = @commitment.invoice
         flash[:success] = 'Commitment was successfully created.'
-        format.html { redirect_to(order_list_product_family_order_listing_commitment_path(@order_list,@product_family,@order_listing,@commitment)) }
+        format.html { redirect_to(home_path) }
         format.xml  { render :xml => @commitment, :status => :created, :location => @commitment }
-        format.js
+        format.js 
       else
         @title = "New Commitment"
-        format.html { render 'new' }
+        flash[:error] = 'Commitment could not be created'
+        format.html { redirect_to(home_path) }
         format.xml  { render :xml => @commitment.errors, :status => :unprocessable_entity }
         format.js   { render 'error' }
       end

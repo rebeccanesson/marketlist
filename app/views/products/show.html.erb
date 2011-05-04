@@ -7,6 +7,15 @@
   <%= @product.product_family.name %>: <%= @product.name %>
 </h2>
 
+<% if current_user.admin? %>
+<div class="button_holder" style="float:none;margin-bottom:10px;">
+  <%= link_to "edit", edit_product_path(@product) %>
+  | <%= button_to "delete", @product, :method => :delete, :confirm => "You sure?",
+                                :title => "Delete #{@product.name}" %>
+  
+</div>
+<% end%>
+
 <p>
   <b>Description:</b>
   <%= @product.description %>

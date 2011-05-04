@@ -1,9 +1,9 @@
 <li>
   <%= link_to product.name, product %><br />
   <%= product.description %>
-  <div style="float:right;">
+  <div class="button_holder">
   <% if current_user.admin? %>
-    <%= link_to "delete", product, :method => :delete, :confirm => "You sure?",
+    <%= button_to "delete", product, :method => :delete, :confirm => "You sure?",
                                   :title => "Delete #{product.name}" %>
     | <%= link_to "edit", edit_product_path(product) %>
   <% end %> 
