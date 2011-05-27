@@ -3,7 +3,8 @@
 }
 
 body {
-  background: #C1E4D0;
+  background: #DDF5EB;
+	font-family:'Georgia';
 }
 
 header {
@@ -19,7 +20,7 @@ section {
   margin-top: 1em;
   font-size: 120%;
   padding: 20px;
-  background: #C1E4D0;
+  background: #DDF5EB;
 }
 
 section h1 {

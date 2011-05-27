@@ -1,2 +1,0 @@
-page.replace_html :notice, "<div id='error_explanation'><h2>#{pluralize(@commitment.errors.count, 'error')} prohibited this commitment from being saved:</h2><ul><li>#{@commitment.errors.full_messages.join('</li><li>')}</li></ul></div>"
-page["new_commitment_#{@order_listing.id}"].reset

@@ -51,7 +51,7 @@ class CommitmentsController < ApplicationController
   def create
     @commitment = Commitment.find(:first, :conditions => ["user_id = ? and orderable_id = ?", params[:commitment][:user_id], params[:commitment][:orderable_id]])
     if @commitment
-      puts "found and existing commitment"
+      puts "found a commitment"
       @commitment.quantity += params[:commitment][:quantity].to_i
     else 
       @commitment = Commitment.new(params[:commitment])
@@ -65,9 +65,7 @@ class CommitmentsController < ApplicationController
         format.xml  { render :xml => @commitment, :status => :created, :location => @commitment }
         format.js 
       else
-        @title = "New Commitment"
-        flash[:error] = 'Commitment could not be created'
-        format.html { redirect_to(home_path) }
+        format.html { flash[:error] = 'Commitment could not be created'; redirect_to(home_path) }
         format.xml  { render :xml => @commitment.errors, :status => :unprocessable_entity }
         format.js   { render 'error' }
       end

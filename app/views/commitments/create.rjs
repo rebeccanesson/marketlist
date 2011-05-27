@@ -1,6 +1,0 @@
-page.replace_html :notice, "<div class='flash success'>#{flash[:success]}</div>"
-flash.discard
-page.replace "order_listing_#{@commitment.order_listing.id}", :partial => 'order_listings/with_commitment_form', :object => @commitment.order_listing
-page["order_listing_#{@order_listing.id}"].visual_effect :highlight, :duration => 3
-page.replace "invoice_link_#{@order_listing.order_list.id}", "<div id='invoice_link_#{@order_listing.order_list.id}'>#{link_to 'View your invoice', user_invoice_path(current_user,@invoice)}</div>"
-page["invoice_link_#{@order_listing.order_list.id}"].visual_effect :highlight, :duration => 3

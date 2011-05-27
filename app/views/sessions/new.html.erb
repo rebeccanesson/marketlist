@@ -7,11 +7,11 @@
 
 <%= form_for(:session, :url => sessions_path) do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password %>
     <%= f.password_field :password %>
   </div>
   <div class="actions">
@@ -23,8 +23,8 @@
 <h4>Forgot Your Password?</h4>
 <%= form_tag('/users/forgot_password') do %>
   <div class="field">
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email %>
+    <%= label_tag :email %>
+    <%= text_field_tag :email, nil, :size => 30 %>
   </div>
   <div>
     <%= submit_tag 'send me a password reset email' %>

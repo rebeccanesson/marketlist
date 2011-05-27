@@ -7,7 +7,7 @@
   <br />
   <div>
     <ul>
-      <li>All commitments existing at the time ordering closes are final.</li>
+      <li>All commitments are final at the time ordering closes.</li>
       <li>
         <% if ool.invoice_for_user(current_user)%>
           <div id="invoice_link_<%= ool.id %>"><%= link_to 'View your invoice', user_invoice_path(current_user,ool.invoice_for_user(current_user))%></div>
