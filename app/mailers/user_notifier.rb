@@ -18,6 +18,7 @@ class UserNotifier < ActionMailer::Base
   def send_order_list(user,order_list)
     @user = user
     @order_list = order_list
+    @market = Market.the_market
     mail(:to => "#{user.name} <#{user.email}>", :subject => "#{Market.the_market.name} - Ordering Open")
   end
   
