@@ -12,7 +12,6 @@
         <tr>
           <td><%= commitment.quantity %></td>
           <td><%= commitment.orderable.name_for_user(commitment.user) %></td>
-          <td><%= commitment.orderable.plu_for_user(commitment.user) %></td>
           <td><%= number_to_currency(commitment.price_for_user(commitment.user)) %></td>
         </tr>
       <% end %>

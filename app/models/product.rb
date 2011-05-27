@@ -50,24 +50,13 @@ class Product < ActiveRecord::Base
       FasterCSV.foreach(path) do |row|
         puts "row is #{row}"
         name = row[1]
-        plu = row[2]
-        organic_plu = row[3]
-        if (plu and !plu.blank?)
-          prod = Product.find(:first, :conditions => ["name = ? and plu_number = ? and organic_plu_number = ?", name, plu, organic_plu]) || 
-                 Product.find(:first, :conditions => ["name = ? and plu_number = ? and organic_plu_number is null", name, plu]) ||
-                 Product.find(:first, :conditions => ["name = ?", name]) ||
-                 Product.new(:plu_number => row[2], :organic_plu_number => row[3])
-        else 
-          prod = Product.new
-        end
+        prod = Product.find(:first, :conditions => ["name = ?", name]) || Product.new
         pf = ProductFamily.find_by_name(row[0]) || ProductFamily.find_by_name(row[0].capitalize) || ProductFamily.create!(:name => row[0])
         puts "pf is #{pf} and id is #{pf.id}"
         prod.product_family_id = pf.id
         prod.name = row[1]
-        prod.description = row[4] 
-        prod.plu_number = row[2] unless row[2].blank?
-        prod.organic_plu_number = row[3] unless row[3].blank?
-        prod.package_size = row[5] unless row[5].blank?
+        prod.description = row[2] 
+        prod.package_size = row[3] unless row[3].blank?
         if prod.save!
           success << prod.name
         else

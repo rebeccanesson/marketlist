@@ -21,7 +21,6 @@
             <th width="12%">Package Size</th>
             <th width="12%">Org. Price</th>
             <th width="12%">Conv. Price</th>
-            <th width="12%">PLU/SKU</th>
             <th width="12%">Remove Product</th>
           </thead>
         </table></th>
@@ -57,11 +56,10 @@
                  </script>
                </div>
              </td>
-             <td width="12%"><%= o_f.object.product.package_size %></td>
-             <td width="12%"><%= o_f.text_field :organic_price, :size => 6 %></td>
-             <td width="12%"><%= o_f.text_field :conventional_price, :size => 6 %></td>
-             <td width="12%"><%= o_f.object.product.plu_number %>,<%= o_f.object.product.organic_plu_number %></td>
-             <td width="12%">
+             <td width="15%"><%= o_f.object.product.package_size %></td>
+             <td width="15%"><%= o_f.text_field :organic_price, :size => 6 %></td>
+             <td width="15%"><%= o_f.text_field :conventional_price, :size => 6 %></td>
+             <td width="15%">
             <% unless o_f.object.new_record? %>
               <% # Don't forget to name both of these '_destroy' in Rails 3 %>
               <%= o_f.check_box '_destroy' %>

@@ -24,7 +24,6 @@
   <thead>
     <th>Product Name</th>
     <th>Description</th>
-    <th>PLU/SKU Number</th>
     <th style="text-align:right;">Price</th>
     <th style="text-align:right;">Quantity</th>
     <th style="text-align:right;">Total Price</th>
@@ -33,7 +32,6 @@
     <tr>
       <td><%= commitment.orderable.name_for_user(@user, {:with_family => true}) %></td>
       <td><%= commitment.orderable.product.description %></td>
-      <td><%= commitment.orderable.plu_for_user(@user) %></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.orderable.price_for_user(@user)) %></td>
       <td style="text-align:right;width:5%;"><%= commitment.quantity %></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.price_for_user(@user)) %></td>
