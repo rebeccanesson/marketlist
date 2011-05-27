@@ -75,6 +75,10 @@
     <%= f.label :delivery_info %> (the information displayed to users on their invoice about how to delivery their goods)
     <%= f.text_area :delivery_info %>
   </div>
+  <div class="field">
+    <%= f.label :order_list_email_intro %> (the text displayed at the top of the email to producers when you send out the order list -- HTML ok)
+    <%= f.text_area :order_list_email_intro %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

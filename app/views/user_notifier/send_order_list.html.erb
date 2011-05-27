@@ -1,3 +1,4 @@
+<%= @market.order_list_email_intro %><br /><br />
 <% if @order_list.order_end - @order_list.order_start <= 1.day %>
 Ordering day: <%= @order_list.order_start.strftime("%A, %b %e") %>
 <% else %>

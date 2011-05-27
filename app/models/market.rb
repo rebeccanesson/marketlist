@@ -27,7 +27,8 @@
 class Market < ActiveRecord::Base
   attr_accessible :name, :description, :contact_email, :logo_url, :start_day_of_week,
                   :ordering_period, :due_date_day_of_week, :due_date_hour, :due_date_period, 
-                  :delivery_info, :address_1, :address_2, :city, :state, :zipcode, :phone
+                  :delivery_info, :address_1, :address_2, :city, :state, :zipcode, :phone, 
+                  :order_list_email_intro
   
   validates :name, :presence => true,
                    :length => {:maximum => 50}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110502004823) do
+ActiveRecord::Schema.define(:version => 20110527021124) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street_1"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20110502004823) do
 
   create_table "markets", :force => true do |t|
     t.string   "name"
-    t.text     "description",          :limit => 255
+    t.text     "description",            :limit => 255
     t.string   "contact_email"
     t.string   "logo_url"
     t.integer  "start_day_of_week"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20110502004823) do
     t.string   "state"
     t.string   "zipcode"
     t.string   "phone"
+    t.text     "order_list_email_intro"
   end
 
   create_table "order_listings", :force => true do |t|
