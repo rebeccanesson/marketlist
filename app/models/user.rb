@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
   end
   
   def batch_create_blocks(product_family_ids, product_family_locks)
+    product_family_locks = {} unless product_family_locks
     self.user_family_blocks.each { |u| u.destroy }
     puts "product_family_ids is #{product_family_ids}, keys are #{product_family_ids.keys}, values are #{product_family_ids.values}"
     ProductFamily.all.each do |pf|
