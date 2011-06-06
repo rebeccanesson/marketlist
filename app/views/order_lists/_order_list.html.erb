@@ -21,9 +21,7 @@
                                   :title => "Delete order list" %><br />
       <%= link_to "edit", edit_order_list_path(order_list) %><br />
     <% end %>
-    <% if order_list.order_open? %>
-      <%= link_to "email list to users", email_order_list_path(order_list) %><br />
-    <% end %>
+    <%= link_to "email list to users", email_order_list_path(order_list) %><br />
     <%= link_to "email invoices to users", email_invoices_order_list_path(order_list) %><br />
     <%= link_to "view market invoice by listing", redux_by_listing_order_list_path(order_list) %><br />
     <%= link_to "view market invoice by user", redux_by_user_order_list_path(order_list) %><br />
