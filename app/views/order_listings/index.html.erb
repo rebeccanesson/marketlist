@@ -60,7 +60,7 @@
              <td width="15%"><%= o_f.text_field :organic_price, :size => 6 %></td>
              <td width="15%"><%= o_f.text_field :conventional_price, :size => 6 %></td>
              <td width="15%">
-            <% unless o_f.object.new_record? %>
+            <% if !o_f.object.new_record? && @order_listing.orderables.size > 1 %>
               <% # Don't forget to name both of these '_destroy' in Rails 3 %>
               <%= o_f.check_box '_destroy' %>
             <% end %>
