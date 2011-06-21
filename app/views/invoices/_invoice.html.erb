@@ -27,6 +27,7 @@
 <table>
   <thead>
     <th>Product Name</th>
+    <th>Package Size</th>
     <th>Description</th>
     <th style="text-align:right;">Price</th>
     <th style="text-align:right;">Quantity</th>
@@ -35,6 +36,7 @@
   <% invoice.commitments.each do |commitment| %>
     <tr>
       <td><%= commitment.orderable.name_for_user(invoice.user, {:with_family => true}) %></td>
+      <td><%= commitment.orderable.product.package_size %></td>
       <td><%= commitment.orderable.product.description %></td>
       <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.orderable.price_for_user(invoice.user)) %></td>
       <td style="text-align:right;width:5%;"><%= commitment.quantity %></td>
@@ -42,7 +44,7 @@
     </tr>
   <% end %>
   <tr>
-    <td colspan="4" style="text-align:right;">Total:</td>
+    <td colspan="5" style="text-align:right;">Total:</td>
     <td style="text-align:right;"><%= number_to_currency(invoice.total_price) %></td>
 </table>
 

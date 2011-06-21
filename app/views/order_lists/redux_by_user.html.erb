@@ -6,13 +6,15 @@
       <tr>
           <td colspan="2" style="border-bottom:1px black solid;"><b><%= user.name %></b></td>
           <td style="border-bottom:1px black solid;"><b><%= user.email %></b></td>
-          <td style="border-bottom:1px black solid;"><b><%= user.phone %></b></td>
+          <td colspan="2" style="border-bottom:1px black solid;"><b><%= user.phone %></b></td>
       </tr>
       <% commitments.each do |commitment| %> 
         <tr>
           <td><%= commitment.quantity %></td>
           <td><%= commitment.orderable.name_for_user(commitment.user) %></td>
+          <td><%= commitment.orderable.product.package_size %></td>
           <td><%= number_to_currency(commitment.price_for_user(commitment.user)) %></td>
+          <td><%= commitment.created_at.strftime('%x %r')%></td>
         </tr>
       <% end %>
 <% end %>
