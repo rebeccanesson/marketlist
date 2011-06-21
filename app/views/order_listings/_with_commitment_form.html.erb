@@ -17,7 +17,14 @@
           <div style="clear:both;"></div>
        <% end %>
      <% else %>
-       &nbsp;
+       <% @order_listing.orderables.each do |orderable| %>
+             <div style="width:60px;float:left;">&nbsp;</div>
+             <div style="width:310px;float:left;padding-top:4px;"><%= link_to orderable.name_for_user(current_user), orderable.product %> (SOLD OUT)</div>
+             <div style="width:60px;float:left;padding-top:4px;"><%= orderable.product.package_size %></div>
+             <div style="width:45px;float:left;text-align:right;padding-top:2px;"><%= number_to_currency(orderable.price_for_user(current_user)) %></div>
+             <div style="width:50px;float:left;margin-left:5px;"></div>
+          <div style="clear:both;"></div>
+       <% end %>
      <% end %>
   </div>
   <div style="width:270px;float:left;margin-left:5px;">
