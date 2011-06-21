@@ -9,8 +9,8 @@
 
 <% @invoices.each do |invoice| %>
   <tr>
-    <td><%= invoice.user_id %></td>
-    <td><%= invoice.order_list_id %></td>
+    <td><%= invoice.user.name %></td>
+    <td><%= invoice.order_list.delivery_start.strftime('%x') %></td>
     <td><%= link_to 'Show', user_invoice_path(@user,invoice) %></td>
   </tr>
 <% end %>

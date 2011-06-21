@@ -6,7 +6,11 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.xml
   def index
-    @invoices = Invoice.all
+    if @user
+      @invoices = @user.invoices.joins(:order_list).order("order_lists.delivery_start DESC")
+    else
+      @invoices = Invoice.joins(:order_list).order("order_lists.delivery_start DESC")
+    end 
 
     respond_to do |format|
       format.html # index.html.erb

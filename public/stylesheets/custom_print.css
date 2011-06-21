@@ -12,6 +12,17 @@ td, th {
 }
 
 .logo {
+	display:none;
 	width:100%; 
 	text-align:center;
+}
+
+.print_logo { 
+	width:100%; 
+	text-align:center;	
+}
+
+.page_break { 
+	display:block; 
+	page-break-before:always;
 }

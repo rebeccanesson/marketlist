@@ -2,6 +2,14 @@
   width: 950px;
 }
 
+.print_logo { 
+	display:none;
+}
+
+.page_break { 
+	display:none; 
+}
+
 body {
   background: #DDF5EB;
 	font-family:'Georgia';

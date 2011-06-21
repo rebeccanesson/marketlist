@@ -14,7 +14,7 @@
       <br />
       <h3>Invoices</h3>
       <ul>
-        <% @user.invoices.each do |invoice| %>
+        <% @user.ordered_invoices.each do |invoice| %>
           <li><%= link_to "Invoice for #{invoice.order_list.delivery_start.strftime('%x')}", user_invoice_path(@user,invoice) %></li>
         <% end %>
       </ul>

@@ -51,6 +51,9 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
   
+  def ordered_invoices
+    self.invoices.joins(:order_list).order("order_lists.delivery_start DESC")
+  end
   
   def address 
     if addresses.size > 0 

@@ -110,6 +110,10 @@ class OrderListsController < ApplicationController
     @order_list = OrderList.find(params[:id])
   end
   
+  def redux_by_invoice
+    @order_list = OrderList.find(params[:id])
+  end
+  
   def preview
     @order_list = OrderList.find(params[:id])
   end

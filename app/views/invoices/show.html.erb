@@ -1,54 +1,6 @@
-<h2>Invoice for <%= @user.name %> for delivery on <%= @invoice.order_list.delivery_start.strftime("%x") %></h2>
-
-<p>
-<% if !@invoice.final %>
-  <span class="navigation"><b>Ordering is still open. Click <%= link_to 'here', home_path %> to edit your invoice.</b><br /></span>
-<% else %>
-  <b>This invoice is FINAL.  Please deliver your order on <%= @invoice.order_list.delivery_start.strftime("%x") %></b><br />
-<% end %>
-<a href="#" class="navigation" onclick="window.print()">Print this Invoice</a>
-| <%= link_to 'Email Me a Link to this Invoice', email_user_invoice_path(@invoice.user, @invoice) %>
-</p> 
-
-<div style="float:left;">
-<%= render :partial => 'users/info', :object => @invoice.user %>
-</div>
-<div style="float:right;">
-  <div style="text-align:right;">
-    <%= render :partial => 'markets/info', :object => @market %>
-  </div>
-</div>
-<div style="clear:both;">
-  
-<table>
-  <thead>
-    <th>Product Name</th>
-    <th>Description</th>
-    <th style="text-align:right;">Price</th>
-    <th style="text-align:right;">Quantity</th>
-    <th style="text-align:right;">Total Price</th>
-  </thead>
-  <% @invoice.commitments.each do |commitment| %>
-    <tr>
-      <td><%= commitment.orderable.name_for_user(@user, {:with_family => true}) %></td>
-      <td><%= commitment.orderable.product.description %></td>
-      <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.orderable.price_for_user(@user)) %></td>
-      <td style="text-align:right;width:5%;"><%= commitment.quantity %></td>
-      <td style="text-align:right;width:10%;"><%= number_to_currency(commitment.price_for_user(@user)) %></td>
-    </tr>
-  <% end %>
-  <tr>
-    <td colspan="4" style="text-align:right;">Total:</td>
-    <td style="text-align:right;"><%= number_to_currency(@invoice.total_price) %></td>
-</table>
-
-<h4>Delivery Information</h4>
-<ul>
-  <li>Delivery Period: <%= @invoice.order_list.delivery_start.strftime("%x %l:%M%p") %> - <%= @invoice.order_list.delivery_end.strftime("%x %l:%M%p") %></li>
-  <li>Delivery Instructions: <%= @market.delivery_info %></li>
-</ul>
+<%= render :partial => 'invoice' %>
 
 <div class="navigation">
-<%= link_to 'Edit', edit_user_invoice_path(@user, @invoice) %> |
-<%= link_to 'Back', user_invoices_path(@user) %>
+<%= link_to 'Edit', edit_user_invoice_path(@invoice.user, @invoice) %> |
+<%= link_to 'Back', user_invoices_path(@invoice.user) %>
 </div>

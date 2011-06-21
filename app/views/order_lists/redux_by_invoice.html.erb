@@ -1,0 +1,3 @@
+<% @order_list.invoices.each do |invoice| %>
+  <%= render :partial => 'invoices/invoice', :object => invoice %>
+<% end %>

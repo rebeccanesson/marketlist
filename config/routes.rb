@@ -11,6 +11,7 @@ Marketlist::Application.routes.draw do
       get 'redux_by_listing'
       get 'redux_by_user'
       get 'redux_unclaimed'
+      get 'redux_by_invoice'
       get 'duplicate'
       get 'preview'
     end
