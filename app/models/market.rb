@@ -9,6 +9,7 @@
 #  contact_email        :string(255)
 #  logo_url             :string(255)
 #  start_day_of_week    :integer
+#  order_start_hour     :integer
 #  ordering_period      :integer
 #  due_date_day_of_week :integer
 #  due_date_hour        :integer
@@ -28,7 +29,7 @@ class Market < ActiveRecord::Base
   attr_accessible :name, :description, :contact_email, :logo_url, :start_day_of_week,
                   :ordering_period, :due_date_day_of_week, :due_date_hour, :due_date_period, 
                   :delivery_info, :address_1, :address_2, :city, :state, :zipcode, :phone, 
-                  :order_list_email_intro
+                  :order_list_email_intro, :order_start_hour
   
   validates :name, :presence => true,
                    :length => {:maximum => 50}
@@ -56,6 +57,10 @@ class Market < ActiveRecord::Base
                                             
   validates_numericality_of :due_date_period, :allow_nil => true, 
                                               :greater_than_or_equal_to => 1
+                                              
+  validates_numericality_of :order_start_hour, :allow_nil => true, 
+                                                :greater_than_or_equal_to => 0, 
+                                                :less_than => 24
                             
                         
                     

@@ -56,6 +56,10 @@
     <%= select(:market, :start_day_of_week, [['',nil],['Sunday', 0], ['Monday', 1], ['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]]) %>
   </div>
   <div class="field">
+    <%= f.label :order_start_hour %> (this will set a default value when you create a new order list)<br />
+    <%= f.text_field :order_start_hour, :size => 3 %>
+  </div>
+  <div class="field">
     <%= f.label :ordering_period %> (the number of days to keep ordering open)<br />
     <%= f.text_field :ordering_period, :size => 3 %>
   </div>
