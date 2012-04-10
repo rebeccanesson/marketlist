@@ -1,8 +1,8 @@
 <% if order_list.order_end - order_list.order_start <= 1.day %>
-  <h4>Ordering day: <%= order_list.order_start.strftime("%A, %b %e") %></h4>
+  <h4>Ordering day: <%= order_list.order_start.strftime("%A, %b %e %l:%M%p") %> to midnight</h4>
 <% else %>
-  <h4>Ordering period: <%= order_list.order_start.strftime("%A, %b %e") %> - 
-                       <%= (order_list.order_end - 1.day).strftime("%A, %b %e") %></h4>
+  <h4>Ordering period: <%= order_list.order_start.strftime("%A, %b %e %l:%M%p") %> - 
+                       <%= (order_list.order_end - 1.day).strftime("%A, %b %e") %> at midnight</h4>
 <% end %>
 <p><b>For delivery between <%= order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %> 
                         and <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %></b></p>

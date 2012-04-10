@@ -21,7 +21,7 @@
 <% else %>
   <p>No order lists are currently open for ordering.
   <% if @upcoming_order_list %>
-    Ordering opens again on <%= @upcoming_order_list.order_start.strftime("%A, %b %e") %>. 
+    Ordering opens again on <%= @upcoming_order_list.order_start.strftime("%A, %b %e %l:%M%p") %>. 
   <% else %>
     The next ordering day has not yet been scheduled.
   <% end %>
