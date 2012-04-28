@@ -6,8 +6,8 @@
   </div>
   <div class="span5">
   <% if current_user.admin? %>
-    <%= button_to "delete", user, :method => :delete, :confirm => "You sure?", :class => "btn" %>
     <%= link_to "edit", edit_user_path(user), :class => "btn" %>
+    <%= button_to "delete", user, :method => :delete, :confirm => "You sure?", :class => "btn" %>
   <% end %> 
   </div>
 </li>
