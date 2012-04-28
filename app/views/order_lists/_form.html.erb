@@ -1,6 +1,7 @@
-<%= form_for(@order_list) do |f| %>
+<%= form_for(@order_list, :html => {:class => "form-horizontal"}) do |f| %>
+<fieldset>
   <% if @order_list.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@order_list.errors.count, "error") %> prohibited this order_list from being saved:</h2>
 
       <ul>
@@ -11,23 +12,40 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :order_start %><br />
-    <%= f.datetime_select :order_start %>
+  <div class="control-group">
+    <div class="control-label" for="order_start">
+      <%= f.label :order_start %>
+    </div>
+    <div class="controls">
+      <%= f.datetime_select :order_start, {:id => "order_start"}, {:class => "input-small"} %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :order_end %><br />
-    <%= f.date_select :order_end %> at 12:00AM
+  <div class="control-group">
+    <div class="control-label" for="order_end">
+      <%= f.label :order_end %>
+    </div>
+    <div class="controls">
+      <%= f.date_select :order_end, {:id => "order_end"}, {:class => "input-small"} %> at 12:00AM
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :delivery_start %><br />
-    <%= f.datetime_select :delivery_start %>
+  <div class="control-group">
+    <div class="control-label" for="delivery_start">
+    <%= f.label :delivery_start %>
+    </div>
+    <div class="controls">
+    <%= f.datetime_select :delivery_start, {:id => "delivery_start"}, {:class => "input-small"} %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :delivery_end %><br />
-    <%= f.datetime_select :delivery_end %>
+  <div class="control-group">
+    <div class="control-label" for="delivery_end">
+      <%= f.label :delivery_end %>
+    </div>
+    <div class="controls">
+      <%= f.datetime_select :delivery_end, {:id => "delivery_end"}, {:class => "input-small"} %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit :class => "btn btn-primary" %>
   </div>
+  </fieldset>
 <% end %>

@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
     @product = Product.new(params[:product])
       if @product.save
         flash[:success] = 'Product was successfully created.'
-        redirect_to(@product)
+        redirect_to(@product.product_family)
       else
         @product_families = ProductFamily.find(:all, :order => "name ASC")
         @title = "New Product"

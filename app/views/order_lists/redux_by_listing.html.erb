@@ -2,7 +2,7 @@
 
 <h3>Claimed Listings for Delivery on <%= @order_list.delivery_start.strftime("%A, %b %e") %></h3>
 
-      <table>
+      <table class="table table-striped table-bordered">
 <% @order_list.order_listings.group_by(&:product_family).each do |family,listings| %> 
     <% listings.each do |listing| %>
       <% next if listing.total_commitment_quantity == 0 %>
@@ -21,4 +21,4 @@
 <% end %>
       </table>
 
-<a href="#" class="navigation" onclick="window.print()">Print</a>
+<p><a href="#" class="btn btn-primary" onclick="window.print()">Print</a></p>

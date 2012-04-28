@@ -1,6 +1,6 @@
 <%= form_for([@order_list,@product_family,setup_orderable(@order_listing)]) do |f| %>
   <% if @order_listing.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@order_listing.errors.count, "error") %> prohibited this order_listing from being saved:</h2>
 
       <ul>
@@ -17,7 +17,7 @@
   </div>
   
   <h4>Orderables</h4>
-  <table>
+  <table class="table table-striped table-bordered">
     <thead>
       <th>Product</th>
       <th>Organic Price</th>
@@ -42,7 +42,7 @@
   <% end %>
   </table>
   
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit :class => "btn btn-primary" %>
   </div>
 <% end %>

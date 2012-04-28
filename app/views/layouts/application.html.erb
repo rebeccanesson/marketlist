@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= title %></title>
-    <%= render 'layouts/stylesheets' %>
-    <%= javascript_include_tag 'jquery-1.5.2.min', 'rails', 'application' %>
-    <%= javascript_include_tag 'jquery-ui-1.8.12.custom.min' %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <div class="container">
       <%= render 'layouts/header' %>
-          <section class="round">
+      <div class="container" style="margin-top:180px;">
             <% flash.each do |key, value| %>
-               <div class="flash <%= key %>"><%= value %></div>
+               <div class="alert alert-<%= key %>"><%= value %></div>
              <% end %>
             <%= yield %>
-          </section>
       <%= render 'layouts/footer' %>
       <%= debug(params) if Rails.env.development? %>
-    </div>
+      </div>
   </body>
 </html>
 

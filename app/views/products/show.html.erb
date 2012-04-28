@@ -3,28 +3,26 @@
 <% else %>
   <%= render :partial => 'common/breadcrumbs', :object => [['Current Order List', home_path], @product.name] %>
 <% end %>
+
+<div class="row">
 <h2>
   <%= @product.product_family.name %>: <%= @product.name %>
 </h2>
-
-<% if current_user.admin? %>
-<div class="button_holder" style="float:none;margin-bottom:10px;">
-  <%= link_to "edit", edit_product_path(@product) %>
-  | <%= button_to "delete", @product, :method => :delete, :confirm => "You sure?",
-                                :title => "Delete #{@product.name}" %>
-  
 </div>
+
+<div class="row">
+<% if current_user.admin? %>
+  <%= link_to "edit", edit_product_path(@product), :class => "btn" %>
+  <%= button_to "delete", @product, :method => :delete, :confirm => "You sure?",
+                                :title => "Delete #{@product.name}", :class => "btn" %>
 <% end%>
-
-<p>
-  <b>Description:</b>
-  <%= @product.description %>
-</p>
-
-<p>
-  <b>Package Size</b>
-  <%= @product.package_size %>
-</p>
+</div>
 
 
-<p><%= link_to 'Back to Order List', home_path %>
+<dl>
+  <dt>Description</dt>
+  <dd><%= @product.description %></dd>
+  <dt>Package Size</dt>
+  <dd><%= @product.package_size %></dd>
+</dl>
+

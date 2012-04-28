@@ -1,25 +1,24 @@
-<header>
-   <div class="logo">
-      <%= image_tag(@market.logo_url, :alt => "Market List Logo", :class => "round", :height => "100px") %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner pull-center">
+    <div class="container">
+      <%= image_tag(@market.logo_url, :alt => "Market List Logo", :class => "brand", :height => "150px") %>
+        <ul class="nav">
+            <% if signed_in? %>
+              <li><%= link_to "Home", home_path %></li>
+            <% end %>
+            <% if signed_in? %>
+              <li><%= link_to "My Account", current_user %></li>
+            <% end %>
+            <li><%= link_to "Help", contact_path %></li>
+            <% if admin? %>
+              <li><%= link_to "Administer Site", admin_path %></li>
+            <% end %>
+            <% if signed_in? %>
+              <li><%= link_to "Sign out", signout_path, :method => :delete %></li>
+            <% else %>
+              <li><%= link_to "Sign in", signin_path %></li>
+            <% end %>
+          </ul>
     </div>
-  <nav class="round navigation">
-    <ul>
-      <% if signed_in? %>
-        <li><%= link_to "Home", home_path %></li>
-      <% end %>
-      <% if signed_in? %>
-        <li><%= link_to "My Account", current_user %></li>
-      <% end %>
-      <li><%= link_to "Help", contact_path %></li>
-      <% if admin? %>
-        <li><%= link_to "Administer Site", admin_path %></li>
-      <% end %>
-      <% if signed_in? %>
-        <li><%= link_to "Sign out", signout_path, :method => :delete %></li>
-      <% else %>
-        <li><%= link_to "Sign in", signin_path %></li>
-      <% end %>
-      
-    </ul>
-  </nav>
-</header>
+  </div>
+</div>

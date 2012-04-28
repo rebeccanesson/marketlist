@@ -1,12 +1,20 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], 'All Products'] %>
 
-<%= link_to 'Add a new product', new_product_path %> OR
-<%= form_tag({:action => 'create_from_csv'}, :multipart => true) do %>
-  <label for="upload_file">Upload CSV to create products</label>:
+<div class="row">
+  <div class="span6">
+<%= link_to 'Add a new product', new_product_path, :class => "btn btn-primary"%><br/>
+  </div>
+  <div class="span5">
+<%= form_tag({:action => 'create_from_csv'}, :multipart => true, :class => "well form-horizontal") do %>
+  <fieldset>
+  <label for="upload_file">Upload CSV to Create Products <a class="btn button-popover" rel="popover" href="#" data-content="CSV format is: product family name, product name, product description, package size"><i class="icon-info-sign"></i></a></label>
+  
   <%= file_field 'upload', 'datafile' %>
-  <%= submit_tag "Upload" %>
-  <div>CSV format is: product family name, product name, product description, package size</div>
-<% end %><br/>
+  <%= submit_tag "Upload", :class => "btn btn-primary" %>
+  </fieldset>
+<% end %>
+  </div>
+</div>
 
 <%= will_paginate %>
 
@@ -15,17 +23,19 @@
 <% @products.each do |product| %>
   <% if last_family != product.product_family.name %>
     <% if !first %>
-      </ul>
+      </table>
+      </div>
     <% end %>
-    <h4 class="product_family"><%= product.product_family.name %></h4>
-    <ul class="products">
+    <div class="row">
+    <h2><%= product.product_family.name %></h2><br />
+    <table class="table table-striped table-bordered">
   <% end %>
   <%= render product %>
   
   <% last_family = product.product_family.name %>
   <% first = false %>
 <% end %>
-
+</div>
 
 <%= will_paginate %>
 

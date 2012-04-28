@@ -1,3 +1,5 @@
+<%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], @market.name] %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -49,7 +51,3 @@
   <b>Due date period:</b>
   <%= @market.due_date_period %>
 </p>
-
-
-<%= link_to 'Edit', edit_market_path(@market) %> |
-<%= link_to 'Back', admin_path %>

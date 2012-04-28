@@ -1,6 +1,6 @@
 <%= form_for([@order_list,@product_family,@order_listing,@commitment]) do |f| %>
   <% if @commitment.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@commitment.errors.count, "error") %> prohibited this commitment from being saved:</h2>
 
       <ul>
@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
+  <div class="field">`
     <%= f.label :quantity %><br />
     <%= f.text_field :quantity %>
   </div>

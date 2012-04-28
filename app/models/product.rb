@@ -42,7 +42,7 @@ class Product < ActiveRecord::Base
                           
     def self.create_from_csv(upload)
       name =  upload['datafile'].original_filename
-      directory = "#{RAILS_ROOT}/tmp/"
+      directory = Rails.root.join(tmp)
       path = File.join(directory, name)
       File.open(path, "wb") { |f| f.write(upload['datafile'].read) }
       success = []

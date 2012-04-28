@@ -1,19 +1,24 @@
 <% user = info %>
-<h4><%= user.name %></h4>
 
-<p>
+<br />
+
+<address>
 <% if user.address %>
+  <%= user.name %><br />
   <%= user.address.street_1 %><br />
   <% if !user.address.street_2.blank? %>
     <%= user.address.street_2 %><br />
   <% end %>
-  <%= user.address.city %> <%= user.address.state %>, <%= user.address.zipcode %>
+  <%= user.address.city %> <%= user.address.state %>, <%= user.address.zipcode %><br/>
+  <% if current_user.admin? %>
+    <%= user.phone %><br />
+    <%= user.email %><br />
+  <% end %>
 <% end %>
-</p>
+</address>
 
-<h4><%= user.farm_name %></h4>
-
-<p>
+<address>
+  <%= user.farm_name %><br/>
 <% if user.farm_address %>
   <%= user.farm_address.street_1 %><br />
   <% if !user.farm_address.street_2.blank? %>
@@ -23,9 +28,6 @@
 <% else %>
   Farm address same as above.
 <% end %>
-</p>
-
-<% if current_user.admin? %>
-  <%= user.phone %> - <%= user.email %><br />
-<% end %>
-<%= (user.organic ? "Organic seller" : "Non-Organic seller") %></p>
+</address>
+  
+<p><span class="badge badge-info"><%= (user.organic ? "Organic seller" : "Non-Organic seller") %></span></p>

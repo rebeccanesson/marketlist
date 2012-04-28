@@ -1,40 +1,40 @@
+<div class="row">
 <h1><%= @market.name %></h1>
 <p><%= @market.description %><p>
+</div>
 
-<div style="margin-top:25px;">
-  <div style="float:left;">
-<h3>Sign in</h3>
+<div class="row">
+  <div class="span6">
+<h2>Sign in</h2>
 
 <%= form_for(:session, :url => sessions_path) do |f| %>
-  <div class="field">
+  <fieldset>
     <%= f.label :email %>
     <%= f.text_field :email %>
-  </div>
-  <div class="field">
     <%= f.label :password %>
     <%= f.password_field :password %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Sign in" %>
-  </div>
+    <div>
+    <%= f.submit "Sign in", :class => "btn btn-primary btn-large" %></div>
+  </fieldset>
 <% end %>
 
 <br />
-<h4>Forgot Your Password?</h4>
+<h3>Forgot Your Password?</h3>
 <%= form_tag('/users/forgot_password') do %>
   <div class="field">
     <%= label_tag :email %>
     <%= text_field_tag :email, nil, :size => 30 %>
   </div>
   <div>
-    <%= submit_tag 'send me a password reset email' %>
+    <%= submit_tag 'send me a password reset email', :class => "btn btn-large" %>
   </div>
 <% end %>
+</div>
 
+<div class="span6">
+  <h2>Sign Up</h2>
+  <p>
+  <%= link_to "Sign up now!", signup_path, :class => "btn btn-primary btn-large" %>
+  </p>
 </div>
-<div style="float:right;">
-  <h3>Sign Up</h3>
-  <%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
 </div>
-</div>
-<div style="clear:both;" />

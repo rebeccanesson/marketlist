@@ -1,80 +1,144 @@
 <div style="margin-left:25px;">
-<%= form_for(@user) do |f| %>
+<%= form_for(@user, :html => {:class => "form-horizontal"}) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirmation" %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
-    <%= f.label :farm_name %>
-    <%= f.text_field :farm_name %>
-  </div>
+    <fieldset>
+      <div class="control-group">
+        <div class="control-label" for="name">
+        <%= f.label :name %>
+        </div>
+        <div class="controls">
+          <%= f.text_field :name, :id => "name" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="control-label" for="email">
+          <%= f.label :email %>
+        </div>
+        <div class="controls">
+          <%= f.text_field :email, :id => "email" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="control-label" for="password">
+          <%= f.label :password %>
+        </div>
+        <div class="controls">
+          <%= f.password_field :password, :id => "password" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="control-label" for="password_confirmation">
+          <%= f.label :password_confirmation, "Confirmation" %>
+        </div>
+        <div class="controls">
+          <%= f.password_field :password_confirmation, :id => "password_confirmation" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="control-label" for="farm_name">
+          <%= f.label :farm_name %>
+        </div>
+        <div class="controls">
+          <%= f.text_field :farm_name, :id =>"farm_name" %>
+        </div>
+      </div>
   <% if @current_user && @current_user == @user && !@user.organic %>
-    <div class="field">
+    <div class="control-group">
+      <div class="control-label" for="request_organic_status">
       <%= label_tag 'Request Organic Status' %>
-      <%= check_box_tag 'request_organic' %>
+      </div>
+      <div class="controls">
+      <%= check_box_tag 'request_organic', :id => "request_organic_status" %>
+      </div>
     </div>
   <% end %>
   <% index = 0 %>
-  <% f.fields_for :addresses do |af| %>
+  <%= f.fields_for :addresses do |af| %>
     <% if index == 0 %>
-      <h4>Address:</h4>
+      <h3>Address:</h3>
       <% index = index + 1 %>
     <% else %>
-      <h4>Farm Address (if different):</h4>
+      <h3>Farm Address (if different):</h3>
     <% end %>
-    <div style="margin-left:25px;">
-      <div class="field">
-        <%= af.label :street_1 %>
-        <%= af.text_field :street_1 %>
+      <div class="control-group">
+        <div class="control-label" for="street_1_#{index}">
+          <%= af.label :street_1 %>
+        </div>
+        <div class="controls">
+          <%= af.text_field :street_1, :id => "street_1_#{index}" %>
+        </div>
       </div>
-      <div class="field">
-        <%= af.label :street_2 %>
-        <%= af.text_field :street_2 %>
+      <div class="control-group">
+        <div class="control-label" for="street_2_#{index}">
+          <%= af.label :street_2 %>
+        </div>
+        <div class="controls">
+          <%= af.text_field :street_2, :id => "street_2_#{index}" %>
+        </div>
       </div>
-      <div class="field">
-        <%= af.label :city %>
-        <%= af.text_field :city %>
+      <div class="control-group">
+        <div class="control-label" for="street_2_#{index}">
+          <%= af.label :city %>
+        </div>
+        <div class="controls">
+          <%= af.text_field :city, :id => "city_#{index}" %>
+        </div>
       </div>
-      <div class="field">
-        <%= af.label :state %>
-        <%= af.text_field :state %>
+      <div class="control-group">
+        <div class="control-label" for="street_2_#{index}">
+          <%= af.label :state%>
+        </div>
+        <div class="controls">
+          <%= af.text_field :state, :id => "state_#{index}"  %>
+        </div>
       </div>
-      <div class="field">
-        <%= af.label :zipcode %>
-        <%= af.text_field :zipcode %>
+      <div class="control-group">
+        <div class="control-label" for="street_2_#{index}">
+          <%= af.label :zipcode %>
+        </div>
+        <div class="controls">
+          <%= af.text_field :zipcode, :id => "zipcode_#{index}"  %>
+        </div>
       </div>
-    </div>
   <% end %>
-  <div class="field">
+  <div class="control-group">
+    <div class="control-label" for="phone">
     <%= f.label :phone %>
-    <%= f.text_field :phone %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :phone, :id => "phone" %>
+    </div>
   </div>
   <% if @current_user and @current_user.admin? %>
-  <div class="field">
+  <div class="control-group">
+    <div class="control-label" for="admin">
     <%= f.label :admin %>
-    <%= f.check_box :admin %>
+    </div>
+    <div class="controls">
+    <%= f.check_box :admin, id => "admin" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :organic %>
-    <%= f.check_box :organic %>
+  <div class="control-group">
+    <div class="control-label" for="organic">
+      <%= f.label :organic %>
+    </div>
+    <div class="controls">
+    <%= f.check_box :organic, :id => "organic" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="control-label" for="gravatar">
+      <label>User Image (Gravatar)</label>
+    </div>
+    <div class="controls">
+      <%= gravatar_for @user, :id => "gravatar" %>
+      <a href="http://gravatar.com/emails" class="btn">Choose</a>
+    </div>
   </div>
   <% end %>
-  <div class="actions">
-    <%= f.submit submit_text %>
+  <div class="form-actions">
+    <%= f.submit submit_text, :class => "btn btn-primary" %>
   </div>
+  </fieldset>
 <% end %>
-</div>

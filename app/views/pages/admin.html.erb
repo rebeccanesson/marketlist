@@ -1,9 +1,10 @@
-<h1><%= @title %></h1>
+<h1><%= @title %></h1><br />
 
 <ul>
-  <li><%= link_to 'Manage Users', users_path %></li>
-  <li><%= link_to 'Manage Product Families', product_families_path %></li>
-  <li><%= link_to 'Manage Products', products_path %></li>
-  <li><%= link_to 'Manage Order Lists', order_lists_path %></li>
-  <li><%= link_to 'Configure the Market', edit_market_path(@market) %></li>
+  <li><strong><%= link_to 'Manage Users', users_path %></strong></li>
+  <li><strong><%= link_to 'Manage Product Families', product_families_path %></strong></li>
+  <li><strong><%= link_to 'Manage Products', products_path %></strong></li>
+  <li><strong><%= link_to 'Manage Order Lists', order_lists_path %></strong></li>
+  <li><strong><%= link_to 'Configure the Market', edit_market_path(@market) %></strong></li>
 </ul>
+<br />

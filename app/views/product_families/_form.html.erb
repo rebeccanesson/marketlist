@@ -1,6 +1,6 @@
-<%= form_for(@product_family) do |f| %>
+<%= form_for(@product_family, :html => {:class => "form-horizontal"}) do |f| %>
   <% if @product_family.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@product_family.errors.count, "error") %> prohibited this product_family from being saved:</h2>
 
       <ul>
@@ -11,11 +11,15 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <div class="control-label" for="name">
+    <%= f.label :name %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :name, :id => "name" %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit :class => "btn btn-primary" %>
   </div>
 <% end %>

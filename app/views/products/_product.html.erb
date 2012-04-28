@@ -1,12 +1,16 @@
-<li>
-  <%= link_to product.name, product %><br />
-  <%= product.description %>
-  <div class="button_holder">
+<tr>
+  <td>
+  <strong><%= link_to product.name, product %></strong><br />
+  <%= product.description %><br />
+  <%= product.package_size %>
+</td>
+<td>
   <% if current_user.admin? %>
+    <%= link_to "edit", edit_product_path(product), :class => "btn" %>
     <%= button_to "delete", product, :method => :delete, :confirm => "You sure?",
-                                  :title => "Delete #{product.name}" %>
-    | <%= link_to "edit", edit_product_path(product) %>
+                                  :title => "Delete #{product.name}", :class => "btn" %>
   <% end %> 
   </div>
   
-</li>
+</td>
+</tr>

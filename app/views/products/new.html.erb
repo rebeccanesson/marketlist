@@ -1,5 +1,8 @@
+<% if current_user.admin? %>
+  <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Products', products_path], 'New Product'] %>
+<% end %>
+
 <h1>New product</h1>
+<br />
 
 <%= render 'form' %>
-
-<%= link_to 'Back', products_path %>

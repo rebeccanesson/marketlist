@@ -1,10 +1,12 @@
-$("#notice").html("<div class='flash success'><%=flash[:success]%></div>")
-var $old_form = $("#order_listing_<%=@commitment.order_listing.id%>")
-var new_form = document.createElement('span');
-var $new_form = $(new_form);
-$new_form = $new_form.html("<%= escape_javascript(render(:partial => 'order_listings/with_commitment_form', :object => @commitment.order_listing)) %>").children(":first");
-$old_form.replaceWith($new_form);
-$new_form.effect("highlight", {}, 2000);
+var $invoice_link = $("#invoice_link_<%=@order_list.id%>")
+$invoice_link.html("<a href='/users/<%=current_user.id%>/invoices/<%=@invoice.id%>' class='btn btn-primary'>View invoice</a>")
+$invoice_link.children(":first").effect('highlight', {}, 2000)
 
-$("#invoice_link_<%=@order_listing.order_list.id%>").html("<a href='/users/<%=current_user.id%>/invoices/<%=@invoice.id%>'>View your invoice</a>").effect("highlight",{},2000);
+var $old_row = $("#commitment_form_<%=@commitment.order_listing.id%>")
+var new_row = document.createElement('span');
+var $new_row = $(new_row)
+$new_row = $new_row.html("<%= escape_javascript(render(:partial => 'order_listings/with_commitment_form', :object => @commitment.order_listing)) %>").children(":first");
+$old_row.replaceWith($new_row);
+$new_row.children().effect("highlight", {}, 2000);
+ 
 

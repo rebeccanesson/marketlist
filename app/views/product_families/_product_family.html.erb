@@ -2,12 +2,18 @@
   <td>
     <%= product_family.name %>
   </td>
-  <td><%= product_family.products.size %></td>
+  <td>
+    <% if product_family.products.size == 0 %>
+      <span class="badge badge-warning">
+    <% else %>
+      <span class="badge badge-info">
+    <% end %>
+    <%= product_family.products.size %></span></td>
   <td>
     <div class="button_holder">
     <% if current_user.admin? %>
-      <%= button_to "delete", product_family_path(product_family),  :method => :delete, :confirm => 'Are you sure?' %>
-      | <%= link_to "edit", edit_product_family_path(product_family) %>
+      <%= button_to "delete", product_family_path(product_family),  :method => :delete, :confirm => 'Are you sure?', :class => "btn" %>
+      <%= link_to "edit", edit_product_family_path(product_family), :class => "btn" %>
     <% end %> 
     </div> 
   </td>

@@ -41,6 +41,10 @@ class UsersController < ApplicationController
   
   def edit
     @title = "Edit user"
+    if @user.addresses.empty?
+      @user.addresses.build
+      @user.addresses.build
+    end
   end
   
   def update

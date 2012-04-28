@@ -49,6 +49,7 @@ class CommitmentsController < ApplicationController
   # POST /commitments
   # POST /commitments.xml
   def create
+    @order_list = OrderList.find(params[:order_list_id])
     @commitment = Commitment.find(:first, :conditions => ["user_id = ? and orderable_id = ?", params[:commitment][:user_id], params[:commitment][:orderable_id]])
     if @commitment
       puts "found a commitment"
@@ -57,6 +58,8 @@ class CommitmentsController < ApplicationController
       @commitment = Commitment.new(params[:commitment])
     end
     res = @commitment.save
+    @invoice = @commitment.invoice if @commitment
+    
     respond_to do |format|
       if res
         @invoice = @commitment.invoice

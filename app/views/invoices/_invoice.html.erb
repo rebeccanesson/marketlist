@@ -1,30 +1,34 @@
-<div class="print_logo">
-   <%= image_tag(@market.logo_url, :alt => "Market List Logo", :class => "round", :height => "100px") %>
- </div>
+<div class="row">
+<h1>Invoice for <%= invoice.user.name %> for delivery on <%= invoice.order_list.delivery_start.strftime("%x") %></h1>
+</div>
 
-<h2>Invoice for <%= invoice.user.name %> for delivery on <%= invoice.order_list.delivery_start.strftime("%x") %></h2>
-
-<p>
+<div class="row">
+<div class="alert alert-info">
+  <button class="close" data-dismiss="alert">×</button>
 <% if !invoice.final %>
-  <span class="navigation"><b>Ordering is still open. Click <%= link_to 'here', home_path %> to edit your invoice.</b><br /></span>
+  Ordering is still open. Click <%= link_to 'here', home_path %> to edit your invoice.
 <% else %>
-  <b>This invoice is FINAL.  Please deliver your order on <%= invoice.order_list.delivery_start.strftime("%x") %></b><br />
+  This invoice is FINAL.  Please deliver your order on <%= invoice.order_list.delivery_start.strftime("%x") %>
 <% end %>
-<a href="#" class="navigation" onclick="window.print()">Print this Invoice</a>
-| <%= link_to 'Email Me a Link to this Invoice', email_user_invoice_path(invoice.user, invoice) %>
-</p> 
+</div>
+</div>
 
-<div style="float:left;">
-<%= render :partial => 'users/info', :object => invoice.user %>
+<div class="btn-group">
+<a href="#" onclick="window.print()" class="btn">Print this Invoice</a>
+<%= link_to 'Email Me a Link to this Invoice', email_user_invoice_path(invoice.user, invoice), :class => "btn" %>
 </div>
-<div style="float:right;">
-  <div style="text-align:right;">
-    <%= render :partial => 'markets/info', :object => @market %>
+
+<br />
+<div class="row">
+  <div class="span6">
+  <%= render :partial => 'users/info', :object => invoice.user %>
   </div>
+  <div class="span5 well">
+      <%= render :partial => 'markets/info', :object => @market %>
+  </div>  
 </div>
-<div style="clear:both;">
   
-<table>
+<table class="table table-striped table-bordered">
   <thead>
     <th>Product Name</th>
     <th>Package Size</th>
@@ -48,10 +52,12 @@
     <td style="text-align:right;"><%= number_to_currency(invoice.total_price) %></td>
 </table>
 
-<h4>Delivery Information</h4>
-<ul>
-  <li>Delivery Period: <%= invoice.order_list.delivery_start.strftime("%x %l:%M%p") %> - <%= invoice.order_list.delivery_end.strftime("%x %l:%M%p") %></li>
-  <li>Delivery Instructions: <%= @market.delivery_info %></li>
-</ul>
-
-<div class="page_break"></div>
+<div class="row">
+<h3>Delivery Information</h3>
+<dl class="dl-horizontal">
+  <dt>Delivery Period</dt> 
+  <dd><%= invoice.order_list.delivery_start.strftime("%x %l:%M%p") %> - <%= invoice.order_list.delivery_end.strftime("%x %l:%M%p") %></dd>
+  <dt>Instructions</dt>
+  <dd><%= @market.delivery_info %></dd>
+</dl>
+</div>

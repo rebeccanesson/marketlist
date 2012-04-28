@@ -1,13 +1,13 @@
 <li>
+  <div class="span6">
   <%= gravatar_for user, :size => 30 %>
   <%= link_to user.name, user %>
   <%= "(admin)" if user.admin? %>
-  <div class="button_holder">
+  </div>
+  <div class="span5">
   <% if current_user.admin? %>
-    <%= button_to "delete", user, :method => :delete, :confirm => "You sure?" %>
-    | <%= link_to "edit", edit_user_path(user) %>
+    <%= button_to "delete", user, :method => :delete, :confirm => "You sure?", :class => "btn" %>
+    <%= link_to "edit", edit_user_path(user), :class => "btn" %>
   <% end %> 
   </div>
-  <div style="clear:both;">
-  
 </li>

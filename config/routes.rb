@@ -1,8 +1,10 @@
 Marketlist::Application.routes.draw do
 
-  resources :product_families
-
   resources :markets
+  
+  resources :product_families do 
+    resources :products
+  end
 
   resources :order_lists do
     member do 

@@ -1,5 +1,5 @@
-<li class="<%=cycle('odd','even')%>" style="padding:10px;">
-  <div style="float:left;">
+<tr>
+<td>
   <% if order_list.order_end - order_list.order_start <= 1.day %>
     Ordering day: <%= order_list.order_start.strftime("%A, %b %e %l:%M%p") %> to midnight
   <% else %>
@@ -13,23 +13,31 @@
                      <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %>
   <% end %><br />
   <%= pluralize(order_list.order_listings.size, "order listing")%>
-  </div>
-  <div style="float:right;">
+</td>
+<td>
   <% if current_user.admin? %>
-    <% if order_list.active? %>
-      <%= link_to "delete", order_list, :method => :delete, :confirm => "You sure?",
-                                  :title => "Delete order list" %><br />
-      <%= link_to "edit", edit_order_list_path(order_list) %><br />
-    <% end %>
-    <%= link_to "preview order list", preview_order_list_path(order_list) %><br />
-    <%= link_to "email list to users", email_order_list_path(order_list) %><br />
-    <%= link_to "email invoices to users", email_invoices_order_list_path(order_list) %><br />
-    <%= link_to "view market invoice by listing", redux_by_listing_order_list_path(order_list) %><br />
-    <%= link_to "view market invoice by user", redux_by_user_order_list_path(order_list) %><br />
-    <%= link_to "view all user invoices", redux_by_invoice_order_list_path(order_list) %><br />
-    <%= link_to "view unclaimed listings", redux_unclaimed_order_list_path(order_list) %><br />
-    <%= link_to "duplicate this order list", duplicate_order_list_path(order_list)%>
-  <% end %> 
+  <div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      Action
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <!-- dropdown menu links -->
+      <% if order_list.active? %>
+        <li><%= link_to "delete", order_list, :method => :delete, :confirm => "You sure?",
+                                    :title => "Delete order list" %></li>
+        <li><%= link_to "edit", edit_order_list_path(order_list) %></li>
+      <% end %>
+      <li><%= link_to "preview order list", preview_order_list_path(order_list) %></li>
+      <li><%= link_to "email list to users", email_order_list_path(order_list) %></li>
+      <li><%= link_to "email invoices to users", email_invoices_order_list_path(order_list) %></li>
+      <li><%= link_to "view market invoice by listing", redux_by_listing_order_list_path(order_list) %></li>
+      <li><%= link_to "view market invoice by user", redux_by_user_order_list_path(order_list) %></li>
+      <li><%= link_to "view all user invoices", redux_by_invoice_order_list_path(order_list) %></li>
+      <li><%= link_to "view unclaimed listings", redux_unclaimed_order_list_path(order_list) %></li>
+      <li><%= link_to "duplicate this order list", duplicate_order_list_path(order_list)%></li>
+    </ul>
   </div>
-  <div style="clear:both;" ></div>
-</li>
+  <% end %> 
+</td>
+</tr>

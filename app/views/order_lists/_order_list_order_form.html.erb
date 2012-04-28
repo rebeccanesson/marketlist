@@ -1,18 +1,25 @@
+<div class="alert alert-info">
+  <dl class="dl-horizontal">
 <% if order_list.order_end - order_list.order_start <= 1.day %>
-  <h4>Ordering day: <%= order_list.order_start.strftime("%A, %b %e %l:%M%p") %> to midnight</h4>
+  <dt>Ordering day</dt>
+  <dd><%= order_list.order_start.strftime("%A, %b %e %l:%M%p") %> to midnight</dd>
 <% else %>
-  <h4>Ordering period: <%= order_list.order_start.strftime("%A, %b %e %l:%M%p") %> - 
-                       <%= (order_list.order_end - 1.day).strftime("%A, %b %e") %> at midnight</h4>
+  <dt>Ordering period</dt>
+  <dd><%= order_list.order_start.strftime("%A, %b %e %l:%M%p") %> - 
+                       <%= (order_list.order_end - 1.day).strftime("%A, %b %e") %> at midnight</dd>
 <% end %>
-<p><b>For delivery between <%= order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %> 
-                        and <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %></b></p>
-
+  <dt>For delivery</dt>
+  <dd><%= order_list.delivery_start.strftime("%A, %b %e at %l:%M%p") %> 
+                        - <%= order_list.delivery_end.strftime("%A, %b %e at %l:%M%p") %></dd>
+  </dl>
+  <p><strong>All commitments are final at the time ordering closes.</strong></p>
+</div>
 
 <div id="notice">
 </div>
 
-<% if @commitment and @commitment.errors.any? %>
-   <div id="error_explanation">
+<% if @commitment && @commitment.errors.any? %>
+   <div id="error_explanation" class="alert alert-error">
      <h2><%= pluralize(@commitment.errors.count, "error") %> prohibited this commitment from being saved:</h2>
 
      <ul>
@@ -23,15 +30,22 @@
    </div>
  <% end %>
 
-<div style="clear:both;"></div> 
 <% order_list.order_listings_for_user(current_user).group_by(&:product_family).each do |family,listings| %>        
-  <h4 style="margin:10px 0 5px;font-weight:bold;"><%= family.name %></h4>   
-  <div style="width:100%;display:block;height:20px;">
-      <div style="width:60px;float:left;margin-left:5px;"><b>Cases Needed</b></div>
-      <div style="width:360px;float:left;margin-left:5px;"><div style="width:100px;"><b>Cases I Will Provide</b></div></div>
-      <div style="width:60px;float:left;margin-left:5px;"><b>Package Size</b></div>
-      <div style="width:270px;float:left;margin-left:130px;"><b>My Commitment</b></div>
-  </div>      
-  <div style="clear:both;">  
-  <%= render :partial => 'order_listings/with_commitment_form', :collection => listings %>
+  <h4><%= family.name %></h4><br />
+  <table class="table table-striped table-bordered">   
+    <thead>
+      <tr>
+      <th>Cases Needed</th>
+      <th>Cases I Will Provide</th>
+      <th>Product</th>
+      <th>Package Size</th>
+      <th>Price</th>
+      <th>Commit</th>
+      <th>Current Commitment</th>
+      </tr>
+  </thead>      
+  <tbody> 
+    <%= render :partial => 'order_listings/with_commitment_form', :collection => listings %>
+  </tbody>
+  </table>
 <% end %>

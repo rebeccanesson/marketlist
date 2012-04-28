@@ -1,5 +1,9 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Product Families', product_families_path], "New Product Family"] %>
 
-<%= render 'form' %>
+<div class="row">
+<h1>Create New Product Family</h1>
+</div>
 
-<%= link_to 'Back', product_families_path %>
+<div class="row">
+<%= render 'form' %>
+</div>

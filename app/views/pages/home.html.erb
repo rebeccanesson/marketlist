@@ -1,24 +1,22 @@
+<div class="row">
 <h1><%= @market.name %></h1>
 <p><%= @market.description %></p>
+</div>
 
+<div class="row">
 <% if @open_order_lists.size > 0 %> 
   <% @open_order_lists.each do |ool| %>
     <%= render :partial => 'order_lists/order_list_order_form', :locals => {:order_list => ool} %>
   <br />
-  <div>
-    <ul>
-      <li>All commitments are final at the time ordering closes.</li>
-      <li>
-        <% if ool.invoice_for_user(current_user)%>
-          <div id="invoice_link_<%= ool.id %>"><%= link_to 'View your invoice', user_invoice_path(current_user,ool.invoice_for_user(current_user))%></div>
-        <% else %>
-          <div id="invoice_link_<%= ool.id %>">You may view your invoice once you've made a commitment</div>
-        <% end %>
-      </li>
-    </ul>
-  </div>
+    <% if ool.invoice_for_user(current_user)%>
+        <div id="invoice_link_<%= ool.id %>"><%= link_to 'View invoice', user_invoice_path(current_user,ool.invoice_for_user(current_user)), :class => 'btn btn-primary'%></div>
+    <% else %>
+        <div id="invoice_link_<%= ool.id %>"><p class="alert alert-info">You may view your invoice once you've made a commitment</p></div>
+    <% end %>
+    <br />
   <% end %>
 <% else %>
+  <div class="alert alert-info">
   <p>No order lists are currently open for ordering.
   <% if @upcoming_order_list %>
     Ordering opens again on <%= @upcoming_order_list.order_start.strftime("%A, %b %e %l:%M%p") %>. 
@@ -26,5 +24,7 @@
     The next ordering day has not yet been scheduled.
   <% end %>
   </p>
+  </div>
 <% end %>
+</div>
 

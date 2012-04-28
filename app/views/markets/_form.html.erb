@@ -1,6 +1,6 @@
-<%= form_for(@market) do |f| %>
+<%= form_for(@market, :html => {:class => "form-horizontal"}) do |f| %>
   <% if @market.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@market.errors.count, "error") %> prohibited this market from being saved:</h2>
 
       <ul>
@@ -11,79 +11,159 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <div class="control-label" for="name">
+    <%= f.label :name %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :name, :id => "name" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => 10, :cols => 40 %>
+  <div class="control-group">
+    <div class="control-label" for="description">
+    <%= f.label :description %>
+    </div>
+    <div class="controls">
+    <%= f.text_area :description, :rows => 10, :cols => 40, :id => "description" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :contact_email %><br />
-    <%= f.text_field :contact_email %>
+  <div class="control-group">
+    <div class="control-label" for="contact_email">
+    <%= f.label :contact_email %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :contact_email, :id => "contact_email" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :logo_url %><br />
-    <%= f.text_field :logo_url %>
+  <div class="control-group">
+    <div class="control-label" for="logo_url">
+    <%= f.label :logo_url %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :logo_url, :id => "logo_url" %>
+    </div>
   </div>
-  <div class="field">
+  <div class="control-group">
+    <div class="control-label" for="address_1">
     <%= f.label :address_1 %>
-    <%= f.text_field :address_1 %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :address_1, :id => "address_1" %>
+    </div>
   </div>
-  <div class="field">
+  <div class="control-group">
+    <div class="control-label" for="address_2">
     <%= f.label :address_2 %>
-    <%= f.text_field :address_2 %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :address_2, :id => "address_2" %>
+    </div>
   </div>
-  <div class="field">
+  <div class="control-group">
+    <div class="control-label" for="city">
     <%= f.label :city %>
-    <%= f.text_field :city %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :city, :id => "city" %>
+    </div>
   </div>
-  <div class="field">
+  <div class="control-group">
+    <div class="control-label" for="state">
     <%= f.label :state %>
-    <%= f.text_field :state %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :state, :id => "state" %>
+    </div>
   </div>
-  <div class="field">
+  <div class="control-group">
+    <div class="control-label" for="zipcode">
     <%= f.label :zipcode %>
-    <%= f.text_field :zipcode %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :zipcode, :id => "zipcode" %>
+    </div>
   </div>
-  <div class="phone">
+  <div class="control-group">
+    <div class="control-label" for="phone">
     <%= f.label :phone %>
-    <%= f.text_field :phone %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :phone, :id => "phone" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :start_day_of_week %> (this will set a default value when you create a new order list)<br />
-    <%= select(:market, :start_day_of_week, [['',nil],['Sunday', 0], ['Monday', 1], ['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]]) %>
+  <div class="control-group">
+    <div class="control-label" for="start_day_of_week">
+    <%= f.label :start_day_of_week %>
+    </div>
+    <div class="controls">
+    <%= select(:market, :start_day_of_week, [['',nil],['Sunday', 0], ['Monday', 1], ['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]], :id => "start_day_of_week") %>
+    <p>(this will set a default value when you create a new order list)</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :order_start_hour %> (this will set a default value when you create a new order list)<br />
-    <%= f.text_field :order_start_hour, :size => 3 %>
+  <div class="control-group">
+    <div class="control-label" for="order-start_hour">
+    <%= f.label :order_start_hour %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :order_start_hour, :class => "input-small", :id => "order_start_hour" %>
+    <p>(this will set a default value when you create a new order list)</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :ordering_period %> (the number of days to keep ordering open)<br />
-    <%= f.text_field :ordering_period, :size => 3 %>
+  <div class="control-group">
+    <div class="control-label" for="ordering_period">
+    <%= f.label :ordering_period %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :ordering_period, :class => "input-small", :id => "ordering_period" %>
+    <p>(the number of days to keep ordering open)</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :due_date_day_of_week %> (this will set a default value when you create a new order list)<br />
-    <%= select(:market, :due_date_day_of_week, [['',nil],['Sunday', 0], ['Monday', 1], ['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]]) %>
+  <div class="control-group">
+    <div class="control-label" for="due_date_day_of_week">
+    <%= f.label :due_date_day_of_week %>
+    </div>
+    <div class="controls">
+    <%= select(:market, :due_date_day_of_week, [['',nil],['Sunday', 0], ['Monday', 1], ['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]], :id => "due_date_day_of_week") %>
+    <p>(this will set a default value when you create a new order list)</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :due_date_hour %> (hour of the day that delivery opens -- use a 24 hour clock)<br />
-    <%= f.text_field :due_date_hour, :size => 3 %>
+  <div class="control-group">
+    <div class="control-label" for="due_date_hour">
+    <%= f.label :due_date_hour %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :due_date_hour, :class => "input-small", :id => "due_date_hour" %>
+    <p>(hour of the day that delivery opens -- use a 24 hour clock)</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :due_date_period %> (the number of hours that the delivery window is open)<br />
-    <%= f.text_field :due_date_period, :size => 3 %>
+  <div class="control-group">
+    <div class="control-label" for="due_date_period">
+    <%= f.label :due_date_period %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :due_date_period, :class => "input-small", :id => "due_date_period" %>
+    <p>(the number of hours that the delivery window is open)</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :delivery_info %> (the information displayed to users on their invoice about how to delivery their goods)
-    <%= f.text_area :delivery_info %>
+  <div class="control-group">
+    <div class="control-label" for="delivery_info">
+    <%= f.label :delivery_info %> 
+    </div>
+    <div class="controls">
+    <%= f.text_area :delivery_info, :id => "delivery_info" %>
+    <p>(the information displayed to users on their invoice about how to delivery their goods)</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :order_list_email_intro %> (the text displayed at the top of the email to producers when you send out the order list -- HTML ok)
-    <%= f.text_area :order_list_email_intro %>
+  <div class="control-group">
+    <div class="control-label" for="order_list_email_intro">
+    <%= f.label :order_list_email_intro %> 
+    </div>
+    <div class="controls">
+    <%= f.text_area :order_list_email_intro, :id => "order_list_email_intro" %>
+    <p>(the text displayed at the top of the email to producers when you send out the order list -- HTML ok)</p>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit :class => "btn btn-primary"%>
   </div>
 <% end %>

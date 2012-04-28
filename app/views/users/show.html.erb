@@ -1,34 +1,33 @@
 <% if current_user.admin? %>
   <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Users', users_path], @user.name] %>
 <% end %>
-<table class="profile" summary="Profile information">
-  <tr>
-    <td class="main">
+<div class="row">
+  <div class="span7">
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
         <%= "(admin)" if @user.admin? %>
       </h1>
+      
       <%= render :partial => 'info', :object => @user %>
       
       <br />
       <h3>Invoices</h3>
       <ul>
         <% @user.ordered_invoices.each do |invoice| %>
-          <li><%= link_to "Invoice for #{invoice.order_list.delivery_start.strftime('%x')}", user_invoice_path(@user,invoice) %></li>
+          <li><%= link_to "#{invoice.order_list.delivery_start.strftime('%x')}", user_invoice_path(@user,invoice) %></li>
         <% end %>
       </ul>
-    </td>
-    <td class="sidebar round">
+</div>
+<div class="span4 well">
+    <ul class="unstyled">
       <% if signed_in? and (current_user?(@user) or current_user.admin?) %>
-        <strong><%= link_to "Edit Account", edit_user_path(@user) %></strong><br />
-        <strong><%= link_to "Request Organic Status", request_organic_user_path(@user) %></strong><br />
-        <strong><%= link_to "View My Invoices", user_invoices_path(@user) %></strong><br />
-        <strong><%= link_to "Manage My Product Families", user_user_family_blocks_path(@user) %></strong>
+        <li><strong><%= link_to "Edit Account", edit_user_path(@user) %></strong></li>
+        <li><strong><%= link_to "Request Organic Status", request_organic_user_path(@user) %></strong></li>
+        <li><strong><%= link_to "Manage My Product Families", user_user_family_blocks_path(@user) %></strong></li>
       <% end %>
-    </td>
-  </tr>
-</table>
-<br />
+    </ul>
+</div>
+</div>
 
 

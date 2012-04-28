@@ -1,6 +1,6 @@
-<%= form_for(@product) do |f| %>
+<%= form_for(@product, :html => {:class => "form-horizontal"}) do |f| %>
   <% if @product.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
       <ul>
@@ -11,23 +11,41 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :product_family %><br />
-    <%= f.collection_select :product_family_id, @product_families, :id, :name %> or <%= link_to 'add a new product family', new_product_family_path %>
+  <fieldset>
+    <div class="control-group">
+      <div class="control-label" for="product_family">
+        <%= f.label :product_family %>
+      </div>
+      <div class="controls">
+        <%= f.collection_select :product_family_id, @product_families, :id, :name, :id => "product_family" %> or <%= link_to 'add a new product family', new_product_family_path, :class => "btn btn-primary" %>
+      </div>
+    </div>
+  <div class="control-group">
+    <div class="control-label" for="name">
+    <%= f.label :name %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :name, :id => "name" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <div class="control-label" for="description">
+    <%= f.label :description %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :description, :id => "description" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="package_size">
+  <div class="control-group">
+    <div class="control-label" for="package_size">
     <%= f.label :package_size %>
-    <%= f.text_field :package_size %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :package_size, :id => "package_size" %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit :class => "btn btn-primary" %>
   </div>
+  </fieldset>
 <% end %>

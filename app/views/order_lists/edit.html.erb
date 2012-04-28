@@ -1,19 +1,30 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], "Edit Order List"] %>
 
-<h3>Editing Order List</h3>
+<h2>Edit Order List</h2><br />
 
 <%= render 'form' %>
 
-<h3>Add or Edit Order Listings by Product Family</h3>
+<h3>Add or Edit Order Listings by Product Family</h3><br/>
 
-<ul>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr><th>Product Family</th><th>Number of Products</th><th>Current Listings</th></tr>
+  </thead>
+  <tbody>
   <% @product_families.each do |product_family| %>
-    <li><%= link_to product_family.name, order_list_product_family_order_listings_path(@order_list,product_family) %> (<%= product_family.products.size %>)
+    <tr>
+    <td><%= link_to product_family.name, order_list_product_family_order_listings_path(@order_list,product_family) %></td>
+    <td><span class="badge badge-info"><%= product_family.products.size %></span></td>
+    <td>
       <ul>
         <% @order_list.order_listings_for_family(product_family).each do |listing| %>
           <li><%= listing.quantity %> <%= listing.display_name(:include_family => false) %></li>
         <% end %>
       </ul>
-    </li>
+    </td>
+    </tr>
   <% end %>
-</ul>
+  </tbody>
+</table>
+
+<p><%= link_to 'Add a new product family', new_product_family_path, :class => "btn btn-primary" %></p>

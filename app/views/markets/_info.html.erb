@@ -1,8 +1,10 @@
 <% market = info %>
-<p><%= market.name %><br />
+<address>
+<%= market.name %><br />
 <%= market.address_1 %><br />
 <% if !market.address_2.blank? %>
   <%= market.address_2 %><br />
 <% end %>
 <%= market.city %> <%= market.state %>, <%= market.zipcode %><br />
-<%= market.phone %> - <%= market.contact_email %></p>
+<%= market.phone %> - <%= market.contact_email %>
+</address>

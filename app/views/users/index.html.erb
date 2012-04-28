@@ -1,11 +1,15 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], 'All Users'] %>
 
+<div class="row">
 <%= will_paginate %>
-
-<ul class="users">
+</div>
+<div class="row">
+<ul class="unstyled">
   <% @users.each do |user| %>
     <%= render user %>
   <% end %>
 </ul>
-
+</div>
+<div class="row">
 <%= will_paginate %>
+</div>
