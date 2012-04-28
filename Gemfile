@@ -17,6 +17,7 @@ gem 'less-rails-bootstrap'
 gem 'therubyracer'
 gem 'jquery-rails'
 gem 'bootstrap-will_paginate'
+gem 'pg'
 
 # Use unicorn as the web server
 # gem 'unicorn'
