@@ -1,6 +1,6 @@
 <%= render :partial => 'common/breadcrumbs', :object => [['Administer Site', admin_path], ['All Order Lists', order_lists_path], "Claimed Listings for Delivery on #{@order_list.delivery_start.strftime('%A, %b %e')}"] %>
 
-<h3>Claimed Listings for Delivery on <%= @order_list.delivery_start.strftime("%A, %b %e") %></h3>
+<div class="page-header"><h2>Claimed Listings for Delivery on <%= @order_list.delivery_start.strftime("%A, %b %e") %></h2></div>
 
       <table class="table table-striped table-bordered">
 <% @order_list.order_listings.group_by(&:product_family).each do |family,listings| %> 

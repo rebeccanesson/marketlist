@@ -2,18 +2,30 @@
 <% @commitment = Commitment.new %>
 <tr id="commitment_form_<%=@order_listing.id%>">
  <td><%= @order_listing.total_commitments_available %></td>
+    <td width="70%"><table class="table table-condensed table-bordered">
+      <thead>
+        <tr><th>Cases I Will Provide</th>
+        <th>Product</th>
+        <th>Package Size</th>
+        <th>Price</th>
+        <th>Commit</th></tr>
+        </thead>
+        <tbody>
      <% if @order_listing.total_commitments_available > 0 %>
        <% @order_listing.orderables.each do |orderable| %>
+          <tr> 
          <%= form_for([@order_listing.order_list,@order_listing.product_family,@order_listing,@commitment], :remote => true, :html => {:id => "new_commitment_#{@order_listing.id}"}) do |f| %>
              <%= hidden_field_tag 'commitment[user_id]', current_user.id %>
              <td><%= f.text_field :quantity, :class => "input-small", :value => 0 %></td>
-             <td><%= link_to orderable.name_for_user(current_user), orderable.product %></td>
+             <td><div class="button-popover" href="#" data-content="<%= orderable.product.description %>">
+             <%= link_to orderable.name_for_user(current_user), orderable.product %></div></td>
              <td><%= orderable.product.package_size %></td>
              <td><%= number_to_currency(orderable.price_for_user(current_user)) %></td>
              <%= hidden_field_tag 'commitment[orderable_id]', orderable.id %>
              <td><%= f.submit 'commit', :class => 'btn' %></td>
          <% end %>
        <% end %>
+       </tr>
      <% else %>
        <% @order_listing.orderables.each do |orderable| %>
              <td><span class="label label-warning">Sold Out</span></td>
@@ -23,7 +35,10 @@
              <td></td>
        <% end %>
      <% end %>
-  <td>
+     </tbody>
+     </table>
+     </td>
+  <td width="22%">
     <% current_user.commitments_for_order_listing(@order_listing).each do |c| %>
       <%= c.quantity %> <%= c.orderable.name %> <%= link_to 'x', order_list_product_family_order_listing_commitment_path(@order_listing.order_list,@order_listing.product_family,@order_listing,c), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-small btn-danger' %><br />
     <% end %>
