@@ -4,11 +4,11 @@
 <%= will_paginate %>
 </div>
 <div class="row">
-<ul class="unstyled">
+<table class="table table-striped table-bordered">
   <% @users.each do |user| %>
     <%= render user %>
   <% end %>
-</ul>
+</table>
 </div>
 <div class="row">
 <%= will_paginate %>
