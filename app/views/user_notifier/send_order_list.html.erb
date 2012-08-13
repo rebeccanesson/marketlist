@@ -10,7 +10,7 @@ For delivery between <%= @order_list.delivery_start.strftime("%A, %b %e at %l:%M
 
 <br />
 <% @order_list.order_listings_for_user(@user).group_by(&:product_family).each do |family,listings| %>        
-  <br /><%= family.name.upcase %><br/>
+  <br /><%= family.name ? family.name.upcase : "Unknown" %><br/>
   <% listings.each do |order_listing| %>
     * <%= order_listing.total_commitments_available %> <%= order_listing.orderables.collect { |o| o.name_for_user(@user) + " (" + number_to_currency(o.price_for_user(@user)) + " per #{o.product.package_size ? o.product.package_size : 'unknown pack size'})" }.join(" OR ") %></br>
   <% end %>
