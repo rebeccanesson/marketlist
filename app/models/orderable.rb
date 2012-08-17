@@ -40,7 +40,11 @@ class Orderable < ActiveRecord::Base
   end
   
   def price_for_user(user)
-    (user.organic ? organic_price : conventional_price)
+      if user.organic
+          (organic_price ? organic_price : conventional_price)
+      else 
+          (conventional_price ? conventional_price : organic_price)
+      end
   end
   
   def name_for_user(user, options={})
