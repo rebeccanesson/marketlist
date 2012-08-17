@@ -59,6 +59,7 @@ class Commitment < ActiveRecord::Base
   end
   
   def price_for_user(user)
+      puts "user #{user} orderable #{self.orderable} price #{self.orderable.price_for_user} quantity #{self.quantity}"
     self.orderable.price_for_user(user) * self.quantity
   end
      
